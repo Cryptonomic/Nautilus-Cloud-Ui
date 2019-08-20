@@ -1,5 +1,6 @@
 import React from 'react';
 import styled, { css } from 'styled-components';
+import { copyTxt } from '../../utils/general';
 
 import cloneSvg from '../../assets/img/util-clone_icon.svg';
 import refreshSvg from '../../assets/img/util-refresh_icon.svg';
@@ -90,7 +91,7 @@ const ContentContainer = styled.div`
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 0 15px 0 18px;
+  padding: 0 10px 0 10px;
 `;
 
 const KeyTxt = styled.p`
@@ -98,6 +99,11 @@ const KeyTxt = styled.p`
   font-size: 16px;
   font-weight: 500;
   line-height: 19px;
+  margin: 0;
+  max-width: 90%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 `;
 
 const RefrehIcon = styled.img`
@@ -106,36 +112,49 @@ const RefrehIcon = styled.img`
   cursor: pointer;
 `;
 
+const urls = {
+  prod: {
+    conseil: 'https://conseil-prod.cryptonomic-infra.tech/',
+    tezos: 'https://tezos-prod.cryptonomic-infra.tech/'
+  },
+  dev: {
+    conseil: 'https://conseil-dev.cryptonomic-infra.tech/',
+    tezos: 'https://tezos-dev.cryptonomic-infra.tech/'
+  },
+};
+
 
 interface Props {
   env: string;
+  apiKey: string;
+  onRefresh: () => void;
 }
 
 const KeyContent: React.FC<Props> = (props) => {
-  const { env } = props;
-  const networkName = env === 'production' ? 'Mainnet' : 'Alphanet';
+  const { env, apiKey, onRefresh } = props;
+  const networkName = env === 'prod' ? 'Mainnet' : 'Alphanet';
   return (
     <Container>
       <TitleTxt>{env}</TitleTxt>
       <RowContainer>
         <CircleDiv />
         <NetworkTitle>Conseil {networkName} Node</NetworkTitle>
-        <CopyImg1 src={cloneSvg} />
+        <CopyImg1 src={cloneSvg} onClick={() => copyTxt(urls[env].conseil)} />
       </RowContainer>
-      <UrlTxt>https://conseil-prod.cryptonomic-infra.tech/</UrlTxt>
+      <UrlTxt>{urls[env].conseil}</UrlTxt>
       <RowContainer>
         <CircleDiv />
         <NetworkTitle>Tezos {networkName} Node</NetworkTitle>
-        <CopyImg1 src={cloneSvg} />
+        <CopyImg1 src={cloneSvg} onClick={() => copyTxt(urls[env].tezos)} />
       </RowContainer>
-      <UrlTxt>https://tezos-prod.cryptonomic-infra.tech/</UrlTxt>
+      <UrlTxt>{urls[env].tezos}</UrlTxt>
       <KeyContainer>
         <KeyTitleTxt>API Key</KeyTitleTxt>
         <ContentContainer>
-          <KeyTxt>6aAf#94UAK!gX3jT$h9qjP</KeyTxt>
-          <CopyImg2 src={cloneSvg} />
+          <KeyTxt>{apiKey}</KeyTxt>
+          <CopyImg2 src={cloneSvg} onClick={() => copyTxt(apiKey)} />
         </ContentContainer>
-        <RefrehIcon src={refreshSvg} />
+        <RefrehIcon src={refreshSvg} onClick={onRefresh} />
       </KeyContainer>
     </Container>
   );

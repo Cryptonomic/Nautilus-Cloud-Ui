@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { RouteComponentProps, withRouter } from 'react-router-dom';
 import axios from 'axios';
 import Header from '../../components/Header';
 import KeyContent from '../../components/KeyContent';
@@ -12,7 +13,7 @@ import {
   ResContainer, ResTxt, ResColum, ResContent, ResTitle, ResDesTxt, LearnMore,
   ChevIcon
 } from './style';
-
+import config from '../../config';
 import { User } from '../../types';
 
 import keysvg from '../../assets/img/seq-key_icon.svg';
@@ -34,32 +35,47 @@ const stepList = [
 
 
 
-const Home: React.FC<{}> = () => {
+const Home: React.FC<RouteComponentProps> = (props) => {
+  const { history } = props;
   const [selectedTab, setSelectedTab] = useState('web');
   const [completedStep, setCompletedStep] = useState(2);
+  const [apiKeys, setApiKeys] = useState([]);
   const userStringInfo = localStorage.getItem('userInfo');
-  let userInfo: User = {};
+  let userInfo: User = {userEmail: ''};
   if (userStringInfo) {
     userInfo = JSON.parse(userStringInfo);
-    console.log('userInfo', userInfo);
-  } else {
+  }
 
+  async function getKeys() {
+    try {
+      const response = await axios.get(`${config.url}/users/me/apiKeys`, {withCredentials: true});
+      setApiKeys(response.data);
+    } catch (error) {
+      console.error('errr', error);
+    }
+  }
+
+  async function refreshKeys(env) {
+    try {
+      await axios.post(`${config.url}/users/me/apiKeys/${env}/refresh`, {}, {withCredentials: true});
+      getKeys();
+    } catch (error) {
+      console.error('errr', error);
+    }
   }
 
   useEffect(() => {
-    async function getKeys() {
-      try {
-        const response = await axios.get('https://nc-dev1.cryptonomic-infra.tech/users/me/apiKeys');
-        console.log(response.data);
-      } catch (error) {
-        console.error('errr', error);
-      }
-    }
     getKeys();
   }, [userInfo.userId]);
+
+  function onLogout() {
+    localStorage.removeItem('userInfo');
+    history.push('/');
+  }
+
   return (
     <Container>
-      <Header />
+      <Header user={userInfo} onLogout={onLogout} />
       <KeyContainer>
         <HeaderOval1 />
         <HeaderOval2 />
@@ -67,8 +83,7 @@ const Home: React.FC<{}> = () => {
         <KeyMainContainer>
           <ApiTxt>API Keys</ApiTxt>
           <EnvRowContainer>
-            <KeyContent env='production' />
-            <KeyContent env='development' />
+            {apiKeys.map(item => <KeyContent key={item.keyId} env={item.environment} apiKey={item.key} onRefresh={() => refreshKeys(item.environment)} />)}
           </EnvRowContainer>
         </KeyMainContainer>
       </KeyContainer>
@@ -117,4 +132,4 @@ const Home: React.FC<{}> = () => {
   );
 };
 
-export default Home;
+export default withRouter(Home);

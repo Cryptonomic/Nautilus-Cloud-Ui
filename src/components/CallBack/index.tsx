@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from 'react';
-import { RouteComponentProps } from 'react-router-dom';
+import { RouteComponentProps, withRouter } from 'react-router-dom';
 import axios from 'axios';
 import styled, { css } from 'styled-components';
 import logosvg from '../../assets/img/logo-dark.svg';
+import config from '../../config';
 
 const Container = styled.div`
   width: 100%;
@@ -142,12 +143,14 @@ const CallBack: React.FC<RouteComponentProps> = (props) => {
   useEffect(() => {
     async function getUser() {
       try {
-        const response = await axios.post('https://nc-dev1.cryptonomic-infra.tech/users/github-init', {code});
-        // localStorage.setItem('userInfo', JSON.stringify(response.data));
-        console.log(response.data);
+        const response = await axios.post(`${config.url}/users/github-init`,
+          {code},
+          {withCredentials: true}
+        );
+        localStorage.setItem('userInfo', JSON.stringify(response.data));
       } catch (error) {
         console.error('errr', error);
-        // history.push('/');
+        history.push('/');
       }
     }
     getUser();
@@ -157,11 +160,12 @@ const CallBack: React.FC<RouteComponentProps> = (props) => {
   }
 
   function onDecline() {
-    console.log('decline');
+    localStorage.removeItem('userInfo');
+    history.push('/');
   }
 
   function onAccept() {
-    console.log('onAccept');
+    history.push('/home');
   }
 
   return (
@@ -193,4 +197,4 @@ const CallBack: React.FC<RouteComponentProps> = (props) => {
   );
 };
 
-export default CallBack;
+export default withRouter(CallBack);

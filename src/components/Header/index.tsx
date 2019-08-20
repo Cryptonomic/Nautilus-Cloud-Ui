@@ -1,5 +1,9 @@
 import React from 'react';
-import styled, { css } from 'styled-components';
+import styled from 'styled-components';
+import Button from '@material-ui/core/Button';
+import Menu from '@material-ui/core/Menu';
+import MenuItem from '@material-ui/core/MenuItem';
+import { User } from '../../types';
 
 import logosvg from '../../assets/img/logo-dark.svg';
 
@@ -36,14 +40,57 @@ export const HeaderTitle = styled.p`
   }
 `;
 
+interface Props {
+  user: User;
+  onLogout: () => void;
+}
 
-const Header: React.FC<{}> = () => {
+const Header: React.FC<Props> = (props) => {
+  const { user, onLogout } = props;
+  const [anchorEl, setAnchorEl] = React.useState(null);
+
+  function handleClick(event) {
+    setAnchorEl(event.currentTarget);
+  }
+
+  function handleClose() {
+    setAnchorEl(null);
+  }
+
+  function logout() {
+    onLogout();
+    setAnchorEl(null);
+  }
   return (
     <Container>
       <TitleContainer>
         <LogoImg src={logosvg} />
         <HeaderTitle>Nautilus <span>Cloud</span></HeaderTitle>
       </TitleContainer>
+      <div>
+        <Button aria-controls='header-menu' aria-haspopup='true' onClick={handleClick}>
+          {user.userEmail}
+        </Button>
+        <Menu
+          id='header-menu'
+          anchorEl={anchorEl}
+          keepMounted
+          elevation={0}
+          getContentAnchorEl={null}
+          anchorOrigin={{
+            vertical: 'bottom',
+            horizontal: 'right',
+          }}
+          transformOrigin={{
+            vertical: 'top',
+            horizontal: 'right',
+          }}
+          open={Boolean(anchorEl)}
+          onClose={handleClose}
+        >
+          <MenuItem onClick={logout}>Logout</MenuItem>
+        </Menu>
+      </div>
     </Container>
   );
 };
