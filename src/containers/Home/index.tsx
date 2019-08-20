@@ -1,4 +1,5 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import axios from 'axios';
 import Header from '../../components/Header';
 import KeyContent from '../../components/KeyContent';
 import Footer from '../../components/Footer';
@@ -11,6 +12,8 @@ import {
   ResContainer, ResTxt, ResColum, ResContent, ResTitle, ResDesTxt, LearnMore,
   ChevIcon
 } from './style';
+
+import { User } from '../../types';
 
 import keysvg from '../../assets/img/seq-key_icon.svg';
 import installsvg from '../../assets/img/seq-install_icon.svg';
@@ -29,9 +32,31 @@ const stepList = [
   { name: 'Checkout Tutorials', icon: tutorialsvg }
 ];
 
+
+
 const Home: React.FC<{}> = () => {
   const [selectedTab, setSelectedTab] = useState('web');
   const [completedStep, setCompletedStep] = useState(2);
+  const userStringInfo = localStorage.getItem('userInfo');
+  let userInfo: User = {};
+  if (userStringInfo) {
+    userInfo = JSON.parse(userStringInfo);
+    console.log('userInfo', userInfo);
+  } else {
+
+  }
+
+  useEffect(() => {
+    async function getKeys() {
+      try {
+        const response = await axios.get('https://nc-dev1.cryptonomic-infra.tech/users/me/apiKeys');
+        console.log(response.data);
+      } catch (error) {
+        console.error('errr', error);
+      }
+    }
+    getKeys();
+  }, [userInfo.userId]);
   return (
     <Container>
       <Header />
@@ -55,10 +80,10 @@ const Home: React.FC<{}> = () => {
           </TabContainer>
           <TabContent>
             {stepList.map((item, index) => (
-                <>
+                <React.Fragment key={index}>
                   <Step key={index} item={item} index={index} isActive={index < completedStep} />
                   {index !== 3 && <TabLine />}
-                </>
+                </React.Fragment>
               )
             )}
           </TabContent>

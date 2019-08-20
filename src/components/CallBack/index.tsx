@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { RouteComponentProps } from 'react-router-dom';
 import axios from 'axios';
 import styled, { css } from 'styled-components';
@@ -111,7 +111,6 @@ const BtnCss = css`
   height: 30px;
   border-radius: 3px;
   outline: none;
-  cursor: pointer;
 `;
 
 export const DeclineBtn = styled.button`
@@ -119,18 +118,22 @@ export const DeclineBtn = styled.button`
   width: 138px;
   border: 1px solid rgb(216, 218, 222);
   color: #1F2329;
+  cursor: pointer;
 `;
 
-export const AcceptBtn = styled.button`
+export const AcceptBtn = styled.button<{disabled: boolean}>`
   ${BtnCss};
   width: 98px;
   background-color: #50A75E;
   margin-left: 8px;
   color: white;
+  cursor: ${({ disabled }) => (disabled ? 'default' : 'pointer')};
+  opacity: ${({ disabled }) => (disabled ? 0.8 : 1)};
 `;
 
 const CallBack: React.FC<RouteComponentProps> = (props) => {
   const {location, history } = props;
+  const [isChecked, setIsChecked] = useState(false);
   const params = new URLSearchParams(location.search);
   const code = params.get('code');
   if (!code) {
@@ -139,15 +142,27 @@ const CallBack: React.FC<RouteComponentProps> = (props) => {
   useEffect(() => {
     async function getUser() {
       try {
-        const response = await axios.post('http://localhost:1234/users/github-init', {code});
-        console.log(response);
+        const response = await axios.post('https://nc-dev1.cryptonomic-infra.tech/users/github-init', {code});
+        // localStorage.setItem('userInfo', JSON.stringify(response.data));
+        console.log(response.data);
       } catch (error) {
-        console.error(error);
+        console.error('errr', error);
+        // history.push('/');
       }
     }
     getUser();
   }, [code]);
-  console.log('code', code);
+  function handleChangeChk() {
+    setIsChecked(!isChecked);
+  }
+
+  function onDecline() {
+    console.log('decline');
+  }
+
+  function onAccept() {
+    console.log('onAccept');
+  }
 
   return (
     <Container>
@@ -163,14 +178,14 @@ const CallBack: React.FC<RouteComponentProps> = (props) => {
             I agree to the <LinkTxt>Terms of Service</LinkTxt> and <LinkTxt>Privacy Policy</LinkTxt>
           </TermsCotent>
           <CheckContent>
-            <CheckBox type='checkbox' />
+            <CheckBox type='checkbox' checked={isChecked} onChange={handleChangeChk} />
             <SendMeTxt>
               Send me Cryptonomic newsletter
             </SendMeTxt>
           </CheckContent>
           <BottomContent>
-            <DeclineBtn>Decline and Sign out</DeclineBtn>
-            <AcceptBtn>Accept terms</AcceptBtn>
+            <DeclineBtn onClick={onDecline}>Decline and Sign out</DeclineBtn>
+            <AcceptBtn disabled={!isChecked} onClick={onAccept}>Accept terms</AcceptBtn>
           </BottomContent>
         </ContentContainer>
       </MainContainer>
