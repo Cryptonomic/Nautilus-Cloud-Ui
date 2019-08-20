@@ -65,10 +65,11 @@ interface Props {
   item: StepType;
   isActive: boolean;
   index: number;
+  onOpenUrl: () => void;
 }
 
 const StepItem: React.FC<Props> = (props) => {
-  const { index,  isActive, item } = props;
+  const { index,  isActive, item, onOpenUrl } = props;
   return (
     <Container>
       <TopContainer>
@@ -81,7 +82,7 @@ const StepItem: React.FC<Props> = (props) => {
       </TopContainer>
       <BottomContainer>
         <Title>{item.name}</Title>
-        {!isActive && <OpenIcon src={opensvg} />}
+        {!isActive && <OpenIcon src={opensvg} onClick={onOpenUrl}  />}
       </BottomContainer>
     </Container>
   );

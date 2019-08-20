@@ -24,21 +24,24 @@ import arronaxpng from '../../assets/img/img-arronax_graphic.png';
 import galleonpng from '../../assets/img/img-galleon_graphic.png';
 import chevGrSvg from '../../assets/img/chev-green-icon.svg';
 
-const tabsList = ['web', 'java'];
+const tabsList = ['web'];
 
 const stepList = [
   { name: 'Get API Key', icon: keysvg },
   { name: 'Create Node.js Project', icon: cubesvg },
-  { name: 'Install Conseil.js', icon: installsvg },
-  { name: 'Checkout Tutorials', icon: tutorialsvg }
+  { name: 'Install ConseilJS', icon: installsvg, link: 'https://www.npmjs.com/package/conseiljs' },
+  { name: 'Checkout Tutorials', icon: tutorialsvg, link: 'https://cryptonomic.github.io/ConseilJS/#/' }
 ];
 
-
+const urls = {
+  arronax: 'https://arronax-beta.cryptonomic.tech',
+  galleon: 'https://galleon-wallet.tech'
+};
 
 const Home: React.FC<RouteComponentProps> = (props) => {
   const { history } = props;
   const [selectedTab, setSelectedTab] = useState('web');
-  const [completedStep, setCompletedStep] = useState(2);
+  const [completedStep, setCompletedStep] = useState(0);
   const [apiKeys, setApiKeys] = useState([]);
   const userStringInfo = localStorage.getItem('userInfo');
   let userInfo: User = {userEmail: ''};
@@ -73,6 +76,10 @@ const Home: React.FC<RouteComponentProps> = (props) => {
     history.push('/');
   }
 
+  function openUrl(url) {
+    if (url) window.open(url, '_blank');
+  }
+
   return (
     <Container>
       <Header user={userInfo} onLogout={onLogout} />
@@ -96,7 +103,7 @@ const Home: React.FC<RouteComponentProps> = (props) => {
           <TabContent>
             {stepList.map((item, index) => (
                 <React.Fragment key={index}>
-                  <Step key={index} item={item} index={index} isActive={index < completedStep} />
+                  <Step key={index} item={item} index={index} isActive={index < completedStep} onOpenUrl={() => openUrl(item.link)} />
                   {index !== 3 && <TabLine />}
                 </React.Fragment>
               )
@@ -109,7 +116,7 @@ const Home: React.FC<RouteComponentProps> = (props) => {
               <ResContent>
                 <ResTitle>Arronax Blockchain Analytics</ResTitle>
                 <ResDesTxt>Simple way to make sequal-like queries of the Tezos blockchain.</ResDesTxt>
-                <LearnMore>Learn More <ChevIcon src={chevGrSvg} /></LearnMore>
+                <LearnMore onClick={() => openUrl(urls.arronax)}>Learn More <ChevIcon src={chevGrSvg} /></LearnMore>
               </ResContent>
             </ResColum>
             <ResColum>
@@ -117,7 +124,7 @@ const Home: React.FC<RouteComponentProps> = (props) => {
               <ResContent>
                 <ResTitle>Galleon Wallet</ResTitle>
                 <ResDesTxt>Easy and secure transactions, delegation, and smart contracts deployment.</ResDesTxt>
-                <LearnMore>Learn More <ChevIcon src={chevGrSvg} /></LearnMore>
+                <LearnMore onClick={() => openUrl(urls.galleon)}>Learn More <ChevIcon src={chevGrSvg} /></LearnMore>
               </ResContent>
             </ResColum>
           </ResContainer>

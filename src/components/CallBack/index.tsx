@@ -112,6 +112,7 @@ const BtnCss = css`
   height: 30px;
   border-radius: 3px;
   outline: none;
+  cursor: pointer;
 `;
 
 export const DeclineBtn = styled.button`
@@ -119,17 +120,14 @@ export const DeclineBtn = styled.button`
   width: 138px;
   border: 1px solid rgb(216, 218, 222);
   color: #1F2329;
-  cursor: pointer;
 `;
 
-export const AcceptBtn = styled.button<{disabled: boolean}>`
+export const AcceptBtn = styled.button`
   ${BtnCss};
   width: 98px;
   background-color: #50A75E;
   margin-left: 8px;
   color: white;
-  cursor: ${({ disabled }) => (disabled ? 'default' : 'pointer')};
-  opacity: ${({ disabled }) => (disabled ? 0.8 : 1)};
 `;
 
 const CallBack: React.FC<RouteComponentProps> = (props) => {
@@ -189,7 +187,7 @@ const CallBack: React.FC<RouteComponentProps> = (props) => {
           </CheckContent>
           <BottomContent>
             <DeclineBtn onClick={onDecline}>Decline and Sign out</DeclineBtn>
-            <AcceptBtn disabled={!isChecked} onClick={onAccept}>Accept terms</AcceptBtn>
+            <AcceptBtn onClick={onAccept}>Accept terms</AcceptBtn>
           </BottomContent>
         </ContentContainer>
       </MainContainer>

@@ -104,7 +104,7 @@ export const TabContent = styled.div`
 `;
 
 export const TabLine = styled.div`
-  width: 115px;
+  width: 114px;
   height: 3px;
   background: rgb(237, 240, 247);
   margin-top: 52px;
