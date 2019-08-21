@@ -59,6 +59,7 @@ const Title = styled.span`
 interface StepType {
   name: string;
   icon: string;
+  link?: string;
 }
 
 interface Props {
@@ -82,7 +83,7 @@ const StepItem: React.FC<Props> = (props) => {
       </TopContainer>
       <BottomContainer>
         <Title>{item.name}</Title>
-        {!isActive && <OpenIcon src={opensvg} onClick={onOpenUrl}  />}
+        {!isActive && item.link && <OpenIcon src={opensvg} onClick={onOpenUrl}  />}
       </BottomContainer>
     </Container>
   );
