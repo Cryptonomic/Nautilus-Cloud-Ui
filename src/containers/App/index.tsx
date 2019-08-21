@@ -20,7 +20,7 @@ import chevGrSvg from '../../assets/img/chev-green-icon.svg';
 
 
 const REDIRECT_URI = `${window.location.origin}/github-callback`;
-const gitAuthUrl = `https://github.com/login/oauth/authorize?client_id=${config.clientId}&scope=user&redirect_uri=${REDIRECT_URI}`;
+const gitAuthUrl = `https://github.com/login/oauth/authorize?client_id=${config.clientId}&scope=user:email&redirect_uri=${REDIRECT_URI}`;
 
 const App: React.FC<{}> = () => {
   function onGitLogin() {
