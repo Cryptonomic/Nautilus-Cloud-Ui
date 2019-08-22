@@ -52,7 +52,7 @@ const Home: React.FC<RouteComponentProps> = (props) => {
   async function getKeys() {
     try {
       const response = await axios.get(`${config.url}/users/me/apiKeys`, {withCredentials: true});
-      setApiKeys(response.data);
+      setApiKeys(response.data.slice().sort((a, b) => (a.env > b.env) ? 1 : -1));
     } catch (error) {
       console.error('errr', error);
     }

@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { RouteComponentProps, withRouter } from 'react-router-dom';
 import axios from 'axios';
 import styled, { css } from 'styled-components';
+import Checkbox from '@material-ui/core/Checkbox';
 import logosvg from '../../assets/img/logo-dark.svg';
 import config from '../../config';
 
@@ -87,11 +88,6 @@ export const CheckContent = styled.div`
   border-bottom: 1px solid rgb(216, 218, 222);
 `;
 
-export const CheckBox = styled.input`
-  width: 22px;
-  height: 22px;
-`;
-
 export const SendMeTxt = styled.div`
   line-height: 21px;
   color: rgb(18, 50, 98);
@@ -117,14 +113,15 @@ const BtnCss = css`
 
 export const DeclineBtn = styled.button`
   ${BtnCss};
-  width: 138px;
+  width: 145px;
   border: 1px solid rgb(216, 218, 222);
   color: #1F2329;
+  background-color: #FFFFFF;
 `;
 
 export const AcceptBtn = styled.button`
   ${BtnCss};
-  width: 98px;
+  width: 103px;
   background-color: #50A75E;
   margin-left: 8px;
   color: white;
@@ -180,7 +177,14 @@ const CallBack: React.FC<RouteComponentProps> = (props) => {
             I agree to the <LinkTxt>Terms of Service</LinkTxt> and <LinkTxt>Privacy Policy</LinkTxt>
           </TermsCotent>
           <CheckContent>
-            <CheckBox type='checkbox' checked={isChecked} onChange={handleChangeChk} />
+            <Checkbox
+              checked={isChecked}
+              onChange={() => handleChangeChk()}
+              color='primary'
+              inputProps={{
+                'aria-label': 'secondary checkbox',
+              }}
+            />
             <SendMeTxt>
               Send me Cryptonomic newsletter
             </SendMeTxt>
