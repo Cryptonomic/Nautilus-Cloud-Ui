@@ -58,10 +58,11 @@ const Home: React.FC<RouteComponentProps> = (props) => {
     }
   }
 
-  async function refreshKeys(env) {
+  async function refreshKeys(env, index) {
     try {
-      await axios.post(`${config.url}/users/me/apiKeys/${env}/refresh`, {}, {withCredentials: true});
-      getKeys();
+      const newKey = await axios.post(`${config.url}/users/me/apiKeys/${env}/refresh`, {}, {withCredentials: true});
+      apiKeys[index] = newKey;
+      setApiKeys(apiKeys);
     } catch (error) {
       console.error('errr', error);
     }
@@ -90,7 +91,7 @@ const Home: React.FC<RouteComponentProps> = (props) => {
         <KeyMainContainer>
           <ApiTxt>API Keys</ApiTxt>
           <EnvRowContainer>
-            {apiKeys.map(item => <KeyContent key={item.keyId} env={item.environment} apiKey={item.key} onRefresh={() => refreshKeys(item.environment)} />)}
+            {apiKeys.map((item, index) => <KeyContent key={item.keyId} env={item.environment} apiKey={item.key} onRefresh={() => refreshKeys(item.environment, index)} />)}
           </EnvRowContainer>
         </KeyMainContainer>
       </KeyContainer>
