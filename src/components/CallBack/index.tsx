@@ -113,7 +113,7 @@ const BtnCss = css`
 
 export const DeclineBtn = styled.button`
   ${BtnCss};
-  width: 150px;
+  width: 155px;
   border: 1px solid rgb(216, 218, 222);
   color: #1F2329;
   background-color: #FFFFFF;
