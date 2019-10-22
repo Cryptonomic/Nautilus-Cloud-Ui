@@ -113,7 +113,7 @@ const BtnCss = css`
 
 export const DeclineBtn = styled.button`
   ${BtnCss};
-  width: 145px;
+  width: 150px;
   border: 1px solid rgb(216, 218, 222);
   color: #1F2329;
   background-color: #FFFFFF;
@@ -121,11 +121,14 @@ export const DeclineBtn = styled.button`
 
 export const AcceptBtn = styled.button`
   ${BtnCss};
-  width: 103px;
+  width: 110px;
   background-color: #50A75E;
   margin-left: 8px;
   color: white;
 `;
+
+const TOurl = 'https://github.com/Cryptonomic/Deployments/raw/master/Terms_of_Service.pdf';
+const PPurl = 'https://github.com/Cryptonomic/Deployments/raw/master/Privacy_Policy.pdf';
 
 const CallBack: React.FC<RouteComponentProps> = (props) => {
   const {location, history } = props;
@@ -163,6 +166,10 @@ const CallBack: React.FC<RouteComponentProps> = (props) => {
     history.push('/home');
   }
 
+  function openUrl(url) {
+    if (url) window.open(url, '_blank');
+  }
+
   return (
     <Container>
       <Header>Please accept the terms of service to continue</Header>
@@ -174,7 +181,7 @@ const CallBack: React.FC<RouteComponentProps> = (props) => {
         <ContentContainer>
           <TermsCotent>
             By registering for and using NautilusCloud services, <br />
-            I agree to the <LinkTxt>Terms of Service</LinkTxt> and <LinkTxt>Privacy Policy</LinkTxt>
+            I agree to the <LinkTxt onClick={() => openUrl(TOurl)}>Terms of Service</LinkTxt> and <LinkTxt onClick={() => openUrl(PPurl)}>Privacy Policy</LinkTxt>
           </TermsCotent>
           <CheckContent>
             <Checkbox
