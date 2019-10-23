@@ -36,8 +36,8 @@ const App: React.FC<{}> = () => {
         <HeaderCover />
         <HeaderMain>
           <LogoImg src={logosvg} />
-          <HeaderTitle>Nautilus <span>Cloud</span></HeaderTitle>
-          <HeaderDescription>Full suite of tools to develop and deploy decentralized applications on Tezos</HeaderDescription>
+          <HeaderTitle>Nautilus <span>Cloud Beta</span></HeaderTitle>
+          <HeaderDescription>A full suite of tools to develop and deploy Tezos applications</HeaderDescription>
         </HeaderMain>
       </HeaderContainer>
       <MainContainer>
@@ -63,14 +63,14 @@ const App: React.FC<{}> = () => {
             <MainImg2 src={tezosdataGraphic} />
             <ContentTitleTxt>Tezos data at your fingertips</ContentTitleTxt>
             <ContentDesTxt>
-              Explore Tezos data with <ContentDesHighlight>Arronax</ContentDesHighlight><br /> blockchain analytics tool
+              Explore Tezos data with the <ContentDesHighlight>Arronax</ContentDesHighlight><br /> blockchain analytics tool
             </ContentDesTxt>
           </MainContentCol>
           <MainContentCol>
             <MainImg3 src={hostingGraphic} />
             <ContentTitleTxt>Cloud or self-hosted, you decide</ContentTitleTxt>
             <ContentDesTxt>
-              Develop on cloud with us now,<br /> <ContentDesHighlight>deploy on dedicated instances</ContentDesHighlight> for production
+              Develop on the cloud with us now,<br /> <ContentDesHighlight>decentralize</ContentDesHighlight> in production
             </ContentDesTxt>
           </MainContentCol>
         </MainContent>
@@ -78,8 +78,8 @@ const App: React.FC<{}> = () => {
       <MediumContainer>
         <MediumContent>
           <MediumTxtContainer>
-            <MediumContentTxt>We have provided reliable Tezos infrastructure<br />from the launch of the network in 2018</MediumContentTxt>
-            <ExploreTxt>Explore products build on Nautilus Cloud <ChevGrImg src={chevGrSvg} /></ExploreTxt>
+            <MediumContentTxt>Cryptonomic has provided reliable Tezos <br />infrastructure since the Tezos launch</MediumContentTxt>
+            <ExploreTxt>Explore products built on Nautilus Cloud <ChevGrImg src={chevGrSvg} /></ExploreTxt>
           </MediumTxtContainer>
           <AppImg src={appSvg} />
         </MediumContent>
