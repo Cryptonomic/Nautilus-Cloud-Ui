@@ -127,9 +127,6 @@ export const AcceptBtn = styled.button`
   color: white;
 `;
 
-const TOurl = 'https://github.com/Cryptonomic/Deployments/raw/master/Terms_of_Service.pdf';
-const PPurl = 'https://github.com/Cryptonomic/Deployments/raw/master/Privacy_Policy.pdf';
-
 const CallBack: React.FC<RouteComponentProps> = (props) => {
   const {location, history } = props;
   const [isChecked, setIsChecked] = useState(false);
@@ -181,7 +178,7 @@ const CallBack: React.FC<RouteComponentProps> = (props) => {
         <ContentContainer>
           <TermsCotent>
             By registering for and using NautilusCloud services, <br />
-            I agree to the <LinkTxt onClick={() => openUrl(TOurl)}>Terms of Service</LinkTxt> and <LinkTxt onClick={() => openUrl(PPurl)}>Privacy Policy</LinkTxt>
+            I agree to the <LinkTxt onClick={() => openUrl(config.toUrl)}>Terms of Service</LinkTxt> and <LinkTxt onClick={() => openUrl(config.ppUrl)}>Privacy Policy</LinkTxt>
           </TermsCotent>
           <CheckContent>
             <Checkbox
@@ -193,7 +190,7 @@ const CallBack: React.FC<RouteComponentProps> = (props) => {
               }}
             />
             <SendMeTxt>
-              Send me Cryptonomic newsletter
+              I permit Cryptonomic to send me periodic emails about service updates and policy changes.
             </SendMeTxt>
           </CheckContent>
           <BottomContent>

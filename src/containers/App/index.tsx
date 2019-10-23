@@ -89,7 +89,7 @@ const App: React.FC<{}> = () => {
         <HeaderOval2 />
         <BottomMainContainer>
           <BottomAccessContainer>
-            <AccessTxt>Start developing on Tezos</AccessTxt>
+            <AccessTxt>Access Tezos network now</AccessTxt>
               <GithubBtn onClick={onGitLogin}>
                 <GithubImg src={githubSvg} />
                 Login with Github
