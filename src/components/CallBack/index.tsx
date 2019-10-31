@@ -3,6 +3,7 @@ import { RouteComponentProps, withRouter } from 'react-router-dom';
 import axios from 'axios';
 import styled, { css } from 'styled-components';
 import Checkbox from '@material-ui/core/Checkbox';
+import Loader from '../Loader';
 import logosvg from '../../assets/img/logo-dark.svg';
 import config from '../../config';
 
@@ -130,6 +131,8 @@ export const AcceptBtn = styled.button`
 const CallBack: React.FC<RouteComponentProps> = (props) => {
   const {location, history } = props;
   const [isChecked, setIsChecked] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
+  const [attemptId, setAttemptId] = useState('');
   const params = new URLSearchParams(location.search);
   const code = params.get('code');
   if (!code) {
@@ -142,7 +145,16 @@ const CallBack: React.FC<RouteComponentProps> = (props) => {
           {code},
           {withCredentials: true}
         );
-        localStorage.setItem('userInfo', JSON.stringify(response.data));
+        const { header, payload } = response.data;
+        if (header.payloadType === 'REGISTERED') {
+          localStorage.setItem('userInfo', JSON.stringify(payload));
+          history.push('/home');
+        } else if (header.payloadType === 'REGISTRATION') {
+          setIsLoading(false);
+          setAttemptId(payload.registrationAttemptId);
+        } else {
+          history.push('/');
+        }
       } catch (error) {
         console.error('errr', error);
         history.push('/');
@@ -159,8 +171,28 @@ const CallBack: React.FC<RouteComponentProps> = (props) => {
     history.push('/');
   }
 
-  function onAccept() {
-    history.push('/home');
+  async function onAccept() {
+    try {
+      const body = {
+        registrationAttemptId: attemptId,
+        tosAccepted: true,
+        newsletterAccepted: true
+      };
+      const response = await axios.post(`${config.url}/users/register`,
+        body,
+        {withCredentials: true}
+      );
+      const { header, payload } = response.data;
+      if (header.payloadType === 'REGISTERED') {
+        localStorage.setItem('userInfo', JSON.stringify(payload));
+        history.push('/home');
+      } else {
+        history.push('/');
+      }
+    } catch (error) {
+      console.error('errr', error);
+      history.push('/');
+    }
   }
 
   function openUrl(url) {
@@ -199,6 +231,7 @@ const CallBack: React.FC<RouteComponentProps> = (props) => {
           </BottomContent>
         </ContentContainer>
       </MainContainer>
+      {isLoading && <Loader />}
     </Container>
   );
 };
