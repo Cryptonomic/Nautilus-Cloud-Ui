@@ -176,7 +176,7 @@ const CallBack: React.FC<RouteComponentProps> = (props) => {
       const body = {
         registrationAttemptId: attemptId,
         tosAccepted: true,
-        newsletterAccepted: true
+        newsletterAccepted: isChecked
       };
       const response = await axios.post(`${config.url}/users/register`,
         body,
