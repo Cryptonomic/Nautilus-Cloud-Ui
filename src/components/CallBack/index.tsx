@@ -66,7 +66,7 @@ export const ContentContainer = styled.div`
   display: flex;
   flex-direction: column;
 `;
-export const TermsCotent = styled.div`
+export const TermsContent = styled.div`
   height: 107px;
   padding: 39px 44px 0 29px;
   line-height: 21px;
@@ -210,10 +210,10 @@ const CallBack: React.FC<RouteComponentProps> = (props) => {
               <HeaderTitle>Nautilus <span>Cloud</span></HeaderTitle>
             </TitleContainer>
             <ContentContainer>
-              <TermsCotent>
+              <TermsContent>
                 By registering for and using NautilusCloud services, <br />
                 I agree to the <LinkTxt onClick={() => openUrl(config.toUrl)}>Terms of Service</LinkTxt> and <LinkTxt onClick={() => openUrl(config.ppUrl)}>Privacy Policy</LinkTxt>
-              </TermsCotent>
+              </TermsContent>
               <CheckContent>
                 <Checkbox
                   checked={isChecked}
