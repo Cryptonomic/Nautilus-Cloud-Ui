@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { Fragment, useEffect, useState } from 'react';
 import { RouteComponentProps, withRouter } from 'react-router-dom';
 import axios from 'axios';
 import styled, { css } from 'styled-components';
@@ -66,7 +66,7 @@ export const ContentContainer = styled.div`
   display: flex;
   flex-direction: column;
 `;
-export const TermsCotent = styled.div`
+export const TermsContent = styled.div`
   height: 107px;
   padding: 39px 44px 0 29px;
   line-height: 21px;
@@ -201,37 +201,40 @@ const CallBack: React.FC<RouteComponentProps> = (props) => {
 
   return (
     <Container>
-      <Header>Please accept the terms of service to continue</Header>
-      <MainContainer>
-        <TitleContainer>
-          <LogoImg src={logosvg} />
-          <HeaderTitle>Nautilus <span>Cloud</span></HeaderTitle>
-        </TitleContainer>
-        <ContentContainer>
-          <TermsCotent>
-            By registering for and using NautilusCloud services, <br />
-            I agree to the <LinkTxt onClick={() => openUrl(config.toUrl)}>Terms of Service</LinkTxt> and <LinkTxt onClick={() => openUrl(config.ppUrl)}>Privacy Policy</LinkTxt>
-          </TermsCotent>
-          <CheckContent>
-            <Checkbox
-              checked={isChecked}
-              onChange={() => handleChangeChk()}
-              color='primary'
-              inputProps={{
-                'aria-label': 'secondary checkbox',
-              }}
-            />
-            <SendMeTxt>
-              I permit Cryptonomic to send me periodic emails about service updates and policy changes.
-            </SendMeTxt>
-          </CheckContent>
-          <BottomContent>
-            <DeclineBtn onClick={onDecline}>Decline and Sign out</DeclineBtn>
-            <AcceptBtn onClick={onAccept}>Accept terms</AcceptBtn>
-          </BottomContent>
-        </ContentContainer>
-      </MainContainer>
-      {isLoading && <Loader />}
+      {isLoading ? <Loader /> : (
+        <Fragment>
+          <Header>Please accept the terms of service to continue</Header>
+          <MainContainer>
+            <TitleContainer>
+              <LogoImg src={logosvg} />
+              <HeaderTitle>Nautilus <span>Cloud</span></HeaderTitle>
+            </TitleContainer>
+            <ContentContainer>
+              <TermsContent>
+                By registering for and using NautilusCloud services, <br />
+                I agree to the <LinkTxt onClick={() => openUrl(config.toUrl)}>Terms of Service</LinkTxt> and <LinkTxt onClick={() => openUrl(config.ppUrl)}>Privacy Policy</LinkTxt>
+              </TermsContent>
+              <CheckContent>
+                <Checkbox
+                  checked={isChecked}
+                  onChange={() => handleChangeChk()}
+                  color='primary'
+                  inputProps={{
+                    'aria-label': 'secondary checkbox',
+                  }}
+                />
+                <SendMeTxt>
+                  I permit Cryptonomic to send me periodic emails about service updates and policy changes.
+                </SendMeTxt>
+              </CheckContent>
+              <BottomContent>
+                <DeclineBtn onClick={onDecline}>Decline and Sign out</DeclineBtn>
+                <AcceptBtn onClick={onAccept}>Accept terms</AcceptBtn>
+              </BottomContent>
+            </ContentContainer>
+          </MainContainer>
+        </Fragment>
+      )}
     </Container>
   );
 };
