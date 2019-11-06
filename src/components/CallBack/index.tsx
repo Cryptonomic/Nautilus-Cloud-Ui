@@ -1,8 +1,9 @@
-import React, { useEffect, useState } from 'react';
+import React, { Fragment, useEffect, useState } from 'react';
 import { RouteComponentProps, withRouter } from 'react-router-dom';
 import axios from 'axios';
 import styled, { css } from 'styled-components';
 import Checkbox from '@material-ui/core/Checkbox';
+import Loader from '../Loader';
 import logosvg from '../../assets/img/logo-dark.svg';
 import config from '../../config';
 
@@ -65,7 +66,7 @@ export const ContentContainer = styled.div`
   display: flex;
   flex-direction: column;
 `;
-export const TermsCotent = styled.div`
+export const TermsContent = styled.div`
   height: 107px;
   padding: 39px 44px 0 29px;
   line-height: 21px;
@@ -113,7 +114,7 @@ const BtnCss = css`
 
 export const DeclineBtn = styled.button`
   ${BtnCss};
-  width: 145px;
+  width: 155px;
   border: 1px solid rgb(216, 218, 222);
   color: #1F2329;
   background-color: #FFFFFF;
@@ -121,7 +122,7 @@ export const DeclineBtn = styled.button`
 
 export const AcceptBtn = styled.button`
   ${BtnCss};
-  width: 103px;
+  width: 110px;
   background-color: #50A75E;
   margin-left: 8px;
   color: white;
@@ -130,6 +131,8 @@ export const AcceptBtn = styled.button`
 const CallBack: React.FC<RouteComponentProps> = (props) => {
   const {location, history } = props;
   const [isChecked, setIsChecked] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
+  const [attemptId, setAttemptId] = useState('');
   const params = new URLSearchParams(location.search);
   const code = params.get('code');
   if (!code) {
@@ -142,7 +145,16 @@ const CallBack: React.FC<RouteComponentProps> = (props) => {
           {code},
           {withCredentials: true}
         );
-        localStorage.setItem('userInfo', JSON.stringify(response.data));
+        const { header, payload } = response.data;
+        if (header.payloadType === 'REGISTERED') {
+          localStorage.setItem('userInfo', JSON.stringify(payload));
+          history.push('/home');
+        } else if (header.payloadType === 'REGISTRATION') {
+          setIsLoading(false);
+          setAttemptId(payload.registrationAttemptId);
+        } else {
+          history.push('/');
+        }
       } catch (error) {
         console.error('errr', error);
         history.push('/');
@@ -159,42 +171,70 @@ const CallBack: React.FC<RouteComponentProps> = (props) => {
     history.push('/');
   }
 
-  function onAccept() {
-    history.push('/home');
+  async function onAccept() {
+    try {
+      const body = {
+        registrationAttemptId: attemptId,
+        tosAccepted: true,
+        newsletterAccepted: isChecked
+      };
+      const response = await axios.post(`${config.url}/users/register`,
+        body,
+        {withCredentials: true}
+      );
+      const { header, payload } = response.data;
+      if (header.payloadType === 'REGISTERED') {
+        localStorage.setItem('userInfo', JSON.stringify(payload));
+        history.push('/home');
+      } else {
+        history.push('/');
+      }
+    } catch (error) {
+      console.error('errr', error);
+      history.push('/');
+    }
+  }
+
+  function openUrl(url) {
+    if (url) window.open(url, '_blank');
   }
 
   return (
     <Container>
-      <Header>Please accept the terms of service to continue</Header>
-      <MainContainer>
-        <TitleContainer>
-          <LogoImg src={logosvg} />
-          <HeaderTitle>Nautilus <span>Cloud</span></HeaderTitle>
-        </TitleContainer>
-        <ContentContainer>
-          <TermsCotent>
-            By registering for and using NautilusCloud services, <br />
-            I agree to the <LinkTxt>Terms of Service</LinkTxt> and <LinkTxt>Privacy Policy</LinkTxt>
-          </TermsCotent>
-          <CheckContent>
-            <Checkbox
-              checked={isChecked}
-              onChange={() => handleChangeChk()}
-              color='primary'
-              inputProps={{
-                'aria-label': 'secondary checkbox',
-              }}
-            />
-            <SendMeTxt>
-              Send me Cryptonomic newsletter
-            </SendMeTxt>
-          </CheckContent>
-          <BottomContent>
-            <DeclineBtn onClick={onDecline}>Decline and Sign out</DeclineBtn>
-            <AcceptBtn onClick={onAccept}>Accept terms</AcceptBtn>
-          </BottomContent>
-        </ContentContainer>
-      </MainContainer>
+      {isLoading ? <Loader /> : (
+        <Fragment>
+          <Header>Please accept the terms of service to continue</Header>
+          <MainContainer>
+            <TitleContainer>
+              <LogoImg src={logosvg} />
+              <HeaderTitle>Nautilus <span>Cloud</span></HeaderTitle>
+            </TitleContainer>
+            <ContentContainer>
+              <TermsContent>
+                By registering for and using NautilusCloud services, <br />
+                I agree to the <LinkTxt onClick={() => openUrl(config.toUrl)}>Terms of Service</LinkTxt> and <LinkTxt onClick={() => openUrl(config.ppUrl)}>Privacy Policy</LinkTxt>
+              </TermsContent>
+              <CheckContent>
+                <Checkbox
+                  checked={isChecked}
+                  onChange={() => handleChangeChk()}
+                  color='primary'
+                  inputProps={{
+                    'aria-label': 'secondary checkbox',
+                  }}
+                />
+                <SendMeTxt>
+                  I permit Cryptonomic to send me periodic emails about service updates and policy changes.
+                </SendMeTxt>
+              </CheckContent>
+              <BottomContent>
+                <DeclineBtn onClick={onDecline}>Decline and Sign out</DeclineBtn>
+                <AcceptBtn onClick={onAccept}>Accept terms</AcceptBtn>
+              </BottomContent>
+            </ContentContainer>
+          </MainContainer>
+        </Fragment>
+      )}
     </Container>
   );
 };

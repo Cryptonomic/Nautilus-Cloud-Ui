@@ -24,7 +24,7 @@ import arronaxpng from '../../assets/img/img-arronax_graphic.png';
 import galleonpng from '../../assets/img/img-galleon_graphic.png';
 import chevGrSvg from '../../assets/img/chev-green-icon.svg';
 
-const tabsList = ['web'];
+const tabsList = ['node'];
 
 const stepList = [
   { name: 'Get API Key', icon: keysvg },
@@ -61,8 +61,9 @@ const Home: React.FC<RouteComponentProps> = (props) => {
   async function refreshKeys(env, index) {
     try {
       const newKey = await axios.post(`${config.url}/users/me/apiKeys/${env}/refresh`, {}, {withCredentials: true});
-      apiKeys[index] = newKey;
-      setApiKeys(apiKeys);
+      apiKeys[index] = newKey.data;
+      setApiKeys([...apiKeys]);
+
     } catch (error) {
       console.error('errr', error);
     }
@@ -91,7 +92,7 @@ const Home: React.FC<RouteComponentProps> = (props) => {
         <KeyMainContainer>
           <ApiTxt>API Keys</ApiTxt>
           <EnvRowContainer>
-            {apiKeys.map((item, index) => <KeyContent key={item.keyId} env={item.environment} apiKey={item.key} onRefresh={() => refreshKeys(item.environment, index)} />)}
+            {apiKeys.map((item, index) => <KeyContent key={index} env={item.environment} apiKey={item.key} onRefresh={() => refreshKeys(item.environment, index)} />)}
           </EnvRowContainer>
         </KeyMainContainer>
       </KeyContainer>
@@ -116,7 +117,7 @@ const Home: React.FC<RouteComponentProps> = (props) => {
               <img src={arronaxpng} />
               <ResContent>
                 <ResTitle>Arronax Blockchain Analytics</ResTitle>
-                <ResDesTxt>Simple way to make sequal-like queries of the Tezos blockchain.</ResDesTxt>
+                <ResDesTxt>Make sophisticated queries against the Tezos blockchain.</ResDesTxt>
                 <LearnMore onClick={() => openUrl(urls.arronax)}>Learn More <ChevIcon src={chevGrSvg} /></LearnMore>
               </ResContent>
             </ResColum>
@@ -124,7 +125,7 @@ const Home: React.FC<RouteComponentProps> = (props) => {
               <img src={galleonpng} />
               <ResContent>
                 <ResTitle>Galleon Wallet</ResTitle>
-                <ResDesTxt>Easy and secure transactions, delegation, and smart contracts deployment.</ResDesTxt>
+                <ResDesTxt>Easy and secure wallet for Tezos with smart contract support.</ResDesTxt>
                 <LearnMore onClick={() => openUrl(urls.galleon)}>Learn More <ChevIcon src={chevGrSvg} /></LearnMore>
               </ResContent>
             </ResColum>
