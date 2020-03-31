@@ -132,7 +132,7 @@ interface Props {
 
 const KeyContent: React.FC<Props> = (props) => {
   const { env, apiKey, onRefresh } = props;
-  const networkName = env === 'prod' ? 'Mainnet' : 'Bablylonnet';
+  const networkName = env === 'prod' ? 'Mainnet' : 'Carthagenet';
   return (
     <Container>
       <TitleTxt>{env}</TitleTxt>
