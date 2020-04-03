@@ -23,6 +23,7 @@ import tutorialsvg from '../../assets/img/seq-tutorials_icon.svg';
 import arronaxpng from '../../assets/img/img-arronax_graphic.png';
 import galleonpng from '../../assets/img/img-galleon_graphic.png';
 import chevGrSvg from '../../assets/img/chev-green-icon.svg';
+import WarningIcon from '@material-ui/icons/Warning';
 
 const tabsList = ['node'];
 
@@ -40,6 +41,8 @@ const urls = {
 
 const Home: React.FC<RouteComponentProps> = (props) => {
   const { history } = props;
+  const [logoutTimer, setLogoutTimer] = useState(10);
+  const [displayBrowserWarning, setDisplayBrowserWarning] = useState(true);
   const [selectedTab, setSelectedTab] = useState('web');
   const [completedStep, setCompletedStep] = useState(0);
   const [apiKeys, setApiKeys] = useState([]);
@@ -55,7 +58,7 @@ const Home: React.FC<RouteComponentProps> = (props) => {
       if (!!response.data && response.data.length > 1) {
         setApiKeys(response.data.slice().sort((a, b) => (a.env > b.env) ? 1 : -1));
       } else {
-        onLogout();
+        setDisplayBrowserWarning(true);
       }
     } catch (error) {
       console.error('errr', error);
@@ -78,6 +81,19 @@ const Home: React.FC<RouteComponentProps> = (props) => {
     getKeys();
   }, [userInfo.userId]);
 
+  useEffect(() => {
+    if (displayBrowserWarning) {
+      if (logoutTimer <= 10 && logoutTimer > 0) {
+        setTimeout(() => {
+          setLogoutTimer((currLogoutTimer) => currLogoutTimer - 1);
+        }, 1000);
+        return;
+      }
+      setDisplayBrowserWarning(false);
+      onLogout();
+    }
+  }, [displayBrowserWarning, logoutTimer])
+
   function onLogout() {
     localStorage.removeItem('userInfo');
     history.push('/');
@@ -87,9 +103,15 @@ const Home: React.FC<RouteComponentProps> = (props) => {
     if (url) window.open(url, '_blank');
   }
 
-  return (
-    <Container>
+  return ( 
+    <Container> 
       <Header user={userInfo} onLogout={onLogout} />
+      {displayBrowserWarning && (
+        <div style={{ backgroundColor: '#fcf8e3', display: 'flex', alignItems: 'center'}}>
+          <WarningIcon style={{ margin: '0 10px' }}/>
+      <p>We are currently working on solving compatibility issues with some browsers. If you are unable to see your API keys, please try to log in using <a href="https://www.mozilla.org/firefox/download" target="_blank" style={{ color: 'black' }}>Firefox</a>. Logout in {logoutTimer} sec.</p>
+        </div>
+      )} 
       <KeyContainer>
         <HeaderOval1 />
         <HeaderOval2 />
