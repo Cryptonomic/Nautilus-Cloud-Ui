@@ -42,7 +42,7 @@ const urls = {
 const Home: React.FC<RouteComponentProps> = (props) => {
   const { history } = props;
   const [logoutTimer, setLogoutTimer] = useState(10);
-  const [displayBrowserWarning, setDisplayBrowserWarning] = useState(true);
+  const [displayBrowserWarning, setDisplayBrowserWarning] = useState(false);
   const [selectedTab, setSelectedTab] = useState('web');
   const [completedStep, setCompletedStep] = useState(0);
   const [apiKeys, setApiKeys] = useState([]);
