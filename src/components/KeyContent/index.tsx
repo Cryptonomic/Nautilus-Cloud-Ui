@@ -114,12 +114,12 @@ const RefrehIcon = styled.img`
 
 const urls = {
   prod: {
-    conseil: 'https://conseil-prod.cryptonomic-infra.tech/',
-    tezos: 'https://tezos-prod.cryptonomic-infra.tech/'
+    conseil: 'https://conseil-prod.cryptonomic-infra.tech:443/',
+    tezos: 'https://tezos-prod.cryptonomic-infra.tech:443/'
   },
   dev: {
-    conseil: 'https://conseil-dev.cryptonomic-infra.tech/',
-    tezos: 'https://tezos-dev.cryptonomic-infra.tech/'
+    conseil: 'https://conseil-dev.cryptonomic-infra.tech:443/',
+    tezos: 'https://tezos-dev.cryptonomic-infra.tech:443/'
   },
 };
 
