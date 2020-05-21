@@ -1,8 +1,9 @@
 
 export default {
     root: {
+        flex: '',
         padding: 0,
-        flex: ''
+        minWidth: '40px'
     },
     label: {
         fontFamily: 'Montserrat',

@@ -29,7 +29,7 @@ const MenuButton = ({ label, items }) => {
                 }}
             >
               {items.map(({ name }) => (
-                <MenuItem onClick={onClose}>
+                <MenuItem key={name} onClick={onClose}>
                   <Typography variant="inherit">{name}</Typography>
                   <MenuListItemIcon><OpenInNewIcon fontSize="small"/></MenuListItemIcon>
                 </MenuItem>

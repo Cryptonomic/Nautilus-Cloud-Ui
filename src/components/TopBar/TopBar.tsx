@@ -1,18 +1,9 @@
 import React from 'react';
 import AppBar from '@material-ui/core/AppBar';
-import Toolbar from '@material-ui/core/Toolbar';
 import Grid from '@material-ui/core/Grid';
-import Typography from '@material-ui/core/Typography';
-import SvgIcon from '@material-ui/core/SvgIcon';
-import Icon from '@material-ui/core/Icon';
-import BottomNavigationAction from '@material-ui/core/BottomNavigationAction';
-import RestoreIcon from '@material-ui/icons/Restore';
-import { styled, withStyles, makeStyles } from '@material-ui/core/styles';
-import ButtonBase from '@material-ui/core/ButtonBase';
 
 import MenuButton from '../MenuButton';
-
-import { LogoButton, LogoIcon, LogoImg } from './style';
+import { LogoButton, LogoIcon, LogoImg, LoginButton, ToolbarWrapper } from './style';
 import logo from '../../assets/img/new/logo.svg';
 
 const TopBar = () => {
@@ -29,7 +20,7 @@ const TopBar = () => {
 
     return (
         <AppBar>
-            <Toolbar>
+            <ToolbarWrapper>
                 <Grid container direction="row" justify="space-between" alignItems="center">
                     <Grid item xs={6}>
                         <Grid container></Grid>
@@ -47,11 +38,11 @@ const TopBar = () => {
                         <Grid container direction="row" justify="space-between" alignItems="center">
                             <MenuButton label="Resources" items={resourcesItems}/>
                             <MenuButton label="Docs" items={docsItems}/>
-                            <div>Log-in</div>
+                            <LoginButton>Log-in</LoginButton>
                         </Grid>
                     </Grid>
                 </Grid>
-            </Toolbar>
+            </ToolbarWrapper>
         </AppBar>
     );
 };
