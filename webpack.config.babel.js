@@ -77,6 +77,17 @@ module.exports = {
             mimetype: 'image/svg+xml'
           }
         }
+      },
+      // WOFF Font
+      {
+        test: /\.woff(2)?(\?v=\d+\.\d+\.\d+)?$/,
+        use: {
+          loader: 'url-loader',
+          options: {
+            limit: 10000,
+            mimetype: 'application/font-woff'
+          }
+        }
       }
     ],
   },
