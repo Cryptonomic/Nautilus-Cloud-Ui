@@ -5,7 +5,6 @@ import Icon from '@material-ui/core/Icon';
 export const LogoButton = withStyles({
     root: {
         maxWidth: '220px',
-        color: '#fff',
     },
     wrapper: {
         display: 'flex',

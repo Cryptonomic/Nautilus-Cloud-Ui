@@ -10,10 +10,23 @@ import RestoreIcon from '@material-ui/icons/Restore';
 import { styled, withStyles, makeStyles } from '@material-ui/core/styles';
 import ButtonBase from '@material-ui/core/ButtonBase';
 
+import MenuButton from '../MenuButton';
+
 import { LogoButton, LogoIcon, LogoImg } from './style';
 import logo from '../../assets/img/new/logo.svg';
 
 const TopBar = () => {
+
+    const resourcesItems = [
+      { name: 'Tezos Developer Handbook', link: '' },
+      { name: 'Support', link: '' }
+    ];
+
+    const docsItems = [
+      { name: 'Conseil', link: '' },
+      { name: 'Conseil.JS', link: '' }
+    ]
+
     return (
         <AppBar>
             <Toolbar>
@@ -32,8 +45,8 @@ const TopBar = () => {
                     </Grid>
                     <Grid item xs={6}>
                         <Grid container direction="row" justify="space-between" alignItems="center">
-                            <div>Resources</div>
-                            <div>Docs</div>
+                            <MenuButton label="Resources" items={resourcesItems}/>
+                            <MenuButton label="Docs" items={docsItems}/>
                             <div>Log-in</div>
                         </Grid>
                     </Grid>
