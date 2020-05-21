@@ -19,6 +19,9 @@ import appSvg from '../../assets/img/tezos-app.svg';
 import chevGrSvg from '../../assets/img/chev-green-icon.svg';
 
 
+import TopBar from '../../components/TopBar';
+
+
 const REDIRECT_URI = `${window.location.origin}/github-callback`;
 const gitAuthUrl = `https://github.com/login/oauth/authorize?client_id=${config.clientId}&scope=user:email&redirect_uri=${REDIRECT_URI}`;
 
@@ -29,7 +32,8 @@ const App: React.FC<{}> = () => {
 
   return (
     <Container>
-      <HeaderContainer>
+      <TopBar />
+      {/* <HeaderContainer>
         <HeaderOval1 />
         <HeaderOval2 />
         <HeaderOval3 />
@@ -39,8 +43,8 @@ const App: React.FC<{}> = () => {
           <HeaderTitle>Nautilus <span>Cloud Beta</span></HeaderTitle>
           <HeaderDescription>A full suite of tools to develop and deploy Tezos applications</HeaderDescription>
         </HeaderMain>
-      </HeaderContainer>
-      <MainContainer>
+      </HeaderContainer> */}
+      {/* <MainContainer>
         <AccessContainer>
           <AccessMainContainer>
             <AccessTxt>Access Tezos network now</AccessTxt>
@@ -99,7 +103,7 @@ const App: React.FC<{}> = () => {
           <SpLine />
           <Footer />
         </BottomMainContainer>
-      </BottomContainer>
+      </BottomContainer> */}
     </Container>
   );
 };

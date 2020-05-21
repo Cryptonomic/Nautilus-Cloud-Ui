@@ -6,7 +6,7 @@ export const Container = styled.div`
   min-height: 100vh;
   display: flex;
   flex-direction: column;
-  background: #ecf0f8;
+  background: #2a292e;
 `;
 
 export const HeaderContainer = styled.div`
