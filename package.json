@@ -63,6 +63,7 @@
     "reselect": "^4.0.0",
     "styled-components": "^4.3.2",
     "typeface-montserrat": "0.0.75",
+    "typeface-pt-sans": "0.0.72",
     "typeface-roboto": "0.0.75",
     "url-loader": "^2.0.1"
   }

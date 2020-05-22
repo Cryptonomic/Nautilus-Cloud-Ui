@@ -1,12 +1,15 @@
 import React from 'react';
 import Footer from '../../components/Footer';
+import Typography from '@material-ui/core/Typography';
 import {
-  Container, HeaderContainer, MainContainer, MediumContainer, BottomContainer,
-  HeaderOval1, HeaderOval2, HeaderOval3, HeaderCover, HeaderMain, LogoImg,
-  HeaderTitle, HeaderDescription, AccessContainer, AccessTxt, GithubBtn, GithubImg,
-  ChevImg, AccessMainContainer, MainContent, MainContentCol, ContentTitleTxt, ContentDesTxt,
-  ContentDesHighlight, MainImg1, MainImg2, MainImg3, MediumContent, AppImg, MediumTxtContainer,
-  MediumContentTxt, ExploreTxt, ChevGrImg, BottomAccessContainer, BottomMainContainer, SpLine
+    Container,
+    WelcomeContainer,
+    LogoItem,
+    TitleItem,
+    DescriptonItem,
+    LoginGithubButtonItem,
+    GithubButton,
+    FooterItem
 } from './style';
 import config from '../../config';
 import logosvg from '../../assets/img/logo-light.svg';
@@ -18,22 +21,55 @@ import tezosdataGraphic from '../../assets/img/tezosdata_graphic.png';
 import appSvg from '../../assets/img/tezos-app.svg';
 import chevGrSvg from '../../assets/img/chev-green-icon.svg';
 
-
 import TopBar from '../../components/TopBar';
-
+import CustomIcon from '../../components/CustomIcon';
+import logo from '../../assets/img/new/logo.svg';
+import logoCryptonomic from '../../assets/img/new/cryptonomic-logo.png'
+import Waves1x from '../../assets/img/new/waves-background.png';
+import Waves2x from '../../assets/img/new/waves-background@2x.png';
+import Waves3x from '../../assets/img/new/waves-background@3x.png';
+import { Button, Grid } from '@material-ui/core';
 
 const REDIRECT_URI = `${window.location.origin}/github-callback`;
 const gitAuthUrl = `https://github.com/login/oauth/authorize?client_id=${config.clientId}&scope=user:email&redirect_uri=${REDIRECT_URI}`;
 
 const App: React.FC<{}> = () => {
-  function onGitLogin() {
-    window.open(gitAuthUrl, '_self');
-  }
+    function onGitLogin() {
+        window.open(gitAuthUrl, '_self');
+    }
 
-  return (
-    <Container>
-      <TopBar />
-      {/* <HeaderContainer>
+    return (
+        <>
+            <Container>
+                <TopBar />
+                <WelcomeContainer container direction="column" alignItems="center" wrap="nowrap">
+                    <LogoItem item zeroMinWidth>
+                        <CustomIcon src={logo} size="4rem" name="welcome-logo" />
+                    </LogoItem>
+                    <TitleItem item>
+                        <Typography variant="h1">Nautilus Cloud Beta</Typography>
+                    </TitleItem>
+                    <DescriptonItem item>
+                        <Typography variant="h2">
+                            A full suite of tools to develop and deploy blockchain applications
+                        </Typography>
+                    </DescriptonItem>
+                    <LoginGithubButtonItem item>
+                        <GithubButton>Log-in with Github</GithubButton>
+                    </LoginGithubButtonItem>
+                    <FooterItem item>
+                      <Grid container alignContent="space-between" alignItems="center" spacing={4}>
+                        <Grid item><Typography variant="caption">Brought to you by</Typography></Grid>
+                        <Grid item><CustomIcon src={logoCryptonomic} name="logo-cryptonomic" /></Grid>
+                      </Grid>
+                    </FooterItem>
+                </WelcomeContainer>
+            </Container>
+            {/* <picture>
+        <img srcSet={`${Waves1x} 1x, ${Waves2x} 2x, ${Waves3x} 3x`} alt="test" />
+    </picture> */}
+            {/* <Container> */}
+            {/* <HeaderContainer>
         <HeaderOval1 />
         <HeaderOval2 />
         <HeaderOval3 />
@@ -44,7 +80,7 @@ const App: React.FC<{}> = () => {
           <HeaderDescription>A full suite of tools to develop and deploy Tezos applications</HeaderDescription>
         </HeaderMain>
       </HeaderContainer> */}
-      {/* <MainContainer>
+            {/* <MainContainer>
         <AccessContainer>
           <AccessMainContainer>
             <AccessTxt>Access Tezos network now</AccessTxt>
@@ -104,8 +140,9 @@ const App: React.FC<{}> = () => {
           <Footer />
         </BottomMainContainer>
       </BottomContainer> */}
-    </Container>
-  );
+            {/* </Container> */}
+        </>
+    );
 };
 
 export default App;

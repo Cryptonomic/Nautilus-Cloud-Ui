@@ -28,15 +28,10 @@ export const LoginButton = withStyles({
         width: '80px',
         height: '40px',
         lineHeight: 0.75,
-        textTransform: 'none',
-        backgroundColor: '#7dc0de',
-        borderRadius: '3px',
         padding: '12px 8px'
     },
     label: {
-        fontFamily: 'Montserrat',
         fontSize: '0.875rem',
-        fontWeight: 600
     }
 })(Button);
 

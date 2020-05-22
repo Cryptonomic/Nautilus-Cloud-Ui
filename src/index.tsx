@@ -13,6 +13,7 @@ import theme from './theme';
 
 import 'typeface-montserrat';
 import 'typeface-roboto';
+import 'typeface-pt-sans';
 
 const rootEl = document.getElementById('root');
 
