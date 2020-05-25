@@ -20,7 +20,7 @@ export const Container = styled('div')({
 export const WelcomeContainer = styled(Grid)({
   width: '100%',
   height: 'calc(100vh - 85px)',
-  marginTop: '85px',
+  marginTop: '85px'
 });
 
 export const LogoItem = styled(Grid)({
@@ -54,6 +54,30 @@ export const GithubButton = withStyles({
       fontSize: '1.375rem',
   }
 })(Button);
+
+export const CreateApiButton = withStyles({
+  root: {
+    width: '273px',
+    height: '48px',
+    lineHeight: 1.5,
+    padding: '12px 8px'
+  },
+  label: {
+      fontSize: '1rem',
+  }
+})(Button);
+
+export const DevelopmentContainer = styled(Grid)({
+  marginTop: '45px'
+});
+
+export const ToolsContainer = styled(Grid)({
+  marginTop: '45px'
+});
+
+export const FooterContainer = styled(Grid)({
+  marginTop: '45px'
+});
 
 // export const Container = styled.div`
 //   width: 100%;

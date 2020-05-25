@@ -7,7 +7,8 @@ export const IconWrapper = styled(Icon)(({ size }: { size?: string }) => ({
     height: !size ? '100%' : '',
     display: 'flex',
     justifyItems: 'center',
-    alignItems: 'center'
+    alignItems: 'center',
+    margin: 'auto'
 }));
 
 export const IconImg = styled('img')({
