@@ -9,7 +9,7 @@ import Waves2x from '../../assets/img/new/waves-background@2x.png';
 import Waves3x from '../../assets/img/new/waves-background@3x.png';
 import Path from '../../assets/img/new/path-3.png'
 
-import CustomIcon from '../../components/CustomIcon';
+import CustomIcon from '../../components/CustomImg';
 import { Z_BLOCK } from 'zlib';
 
 export const Container = styled('div')({
@@ -21,6 +21,22 @@ export const WelcomeContainer = styled(Grid)({
   width: '100%',
   height: 'calc(100vh - 85px)',
   marginTop: '85px'
+});
+
+export const WelcomeBg = styled('div')({
+  position: 'absolute',
+  top: 0,
+  left: 0,
+  width: '100%',
+  height: '100%',
+  marginTop: '85px',
+  zIndex: 10
+});
+
+export const WelcomeWrapper = styled(Grid)({
+  zIndex: 20,
+  width: 'inherit',
+  height: 'inherit',
 });
 
 export const LogoItem = styled(Grid)({
@@ -52,6 +68,7 @@ export const GithubButton = withStyles({
   },
   label: {
       fontSize: '1.375rem',
+      textTransform: 'none'
   }
 })(Button);
 
@@ -64,6 +81,7 @@ export const CreateApiButton = withStyles({
   },
   label: {
       fontSize: '1rem',
+      textTransform: 'none'
   }
 })(Button);
 

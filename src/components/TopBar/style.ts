@@ -4,12 +4,6 @@ import Icon from '@material-ui/core/Icon';
 import Button from '@material-ui/core/Button';
 import Toolbar from '@material-ui/core/Toolbar';
 
-export const LogoIcon = styled(Icon)({
-    fontSize: '1.75rem',
-});
-
-export const LogoImg = styled('img')({});
-
 export const LogoButton = withStyles({
     root: {
         maxWidth: '220px',
@@ -28,19 +22,18 @@ export const LoginButton = withStyles({
         width: '80px',
         height: '40px',
         lineHeight: 0.75,
-        padding: '12px 8px'
+        padding: '12px 8px',
     },
     label: {
         fontSize: '0.875rem',
-    }
+        textTransform: 'none',
+    },
 })(Button);
 
-export const ToolbarWrapper = withStyles(theme => ({
+export const ToolbarWrapper = withStyles((theme) => ({
     root: {
         [theme.breakpoints.up('md')]: {
-            height: '85px'
-        }
-    }
+            height: '85px',
+        },
+    },
 }))(Toolbar);
-
-

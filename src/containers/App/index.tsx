@@ -14,6 +14,8 @@ import {
     CreateApiButton,
     ToolsContainer,
     FooterContainer,
+    WelcomeBg,
+    WelcomeWrapper
 } from './style';
 import config from '../../config';
 import logosvg from '../../assets/img/logo-light.svg';
@@ -26,7 +28,7 @@ import appSvg from '../../assets/img/tezos-app.svg';
 import chevGrSvg from '../../assets/img/chev-green-icon.svg';
 
 import TopBar from '../../components/TopBar';
-import CustomIcon from '../../components/CustomIcon';
+import CustomImg from '../../components/CustomImg';
 import logo from '../../assets/img/new/logo.svg';
 import dataIcon from '../../assets/img/new/data-icon.svg';
 import apiIcon from '../../assets/img/new/api-icon.svg';
@@ -36,11 +38,17 @@ import apiMasteringIcon from '../../assets/img/new/api-metering-icon.svg';
 import conseilJsPicture from '../../assets/img/new/conseil-js-graphic.png';
 import userToolArronaxImg from '../../assets/img/new/user-tools-arronax.png';
 import userToolGalleonImg from '../../assets/img/new/user-tools-galleon.png';
-import logoCryptonomic from '../../assets/img/new/cryptonomic-logo.png';
+import logoCryptonomic1 from '../../assets/img/new/cryptonomic-logo.png';
+import logoCryptonomic2 from '../../assets/img/new/cryptonomic-logo@2x.png';
+import logoCryptonomic3 from '../../assets/img/new/cryptonomic-logo@3x.png';
 import Waves1x from '../../assets/img/new/waves-background.png';
 import Waves2x from '../../assets/img/new/waves-background@2x.png';
 import Waves3x from '../../assets/img/new/waves-background@3x.png';
+import BgPath1 from '../../assets/img/new/path-3.png'
+import BgPath2 from '../../assets/img/new/path-3@2x.png'
+import BgPath3 from '../../assets/img/new/path-3@3x.png'
 import { Button, Grid } from '@material-ui/core';
+import CustomIcon from 'components/CustomImg/CustomImg';
 
 const REDIRECT_URI = `${window.location.origin}/github-callback`;
 const gitAuthUrl = `https://github.com/login/oauth/authorize?client_id=${config.clientId}&scope=user:email&redirect_uri=${REDIRECT_URI}`;
@@ -55,35 +63,49 @@ const App: React.FC<{}> = () => {
             <Container>
                 <TopBar />
                 <WelcomeContainer container direction="column" alignItems="center" wrap="nowrap">
-                    <LogoItem item zeroMinWidth>
-                        <CustomIcon src={logo} size="4rem" name="welcome-logo" />
-                    </LogoItem>
-                    <TitleItem item>
-                        <Typography variant="h1">Nautilus Cloud Beta</Typography>
-                    </TitleItem>
-                    <DescriptonItem item>
-                        <Typography variant="h2">
-                            A full suite of tools to develop and deploy blockchain applications
-                        </Typography>
-                    </DescriptonItem>
-                    <LoginGithubButtonItem item>
-                        <GithubButton>Log-in with Github</GithubButton>
-                    </LoginGithubButtonItem>
-                    <FooterItem item>
-                        <Grid
-                            container
-                            alignContent="space-between"
-                            alignItems="center"
-                            spacing={4}
-                        >
-                            <Grid item>
-                                <Typography variant="caption">Brought to you by</Typography>
+                    <WelcomeBg>
+                        <CustomImg src={[Waves1x, Waves2x, Waves3x]} name="background-bottom"/>
+                    </WelcomeBg>
+                    <WelcomeBg>
+                        <CustomImg src={[BgPath1, BgPath2, BgPath3]} name="background-top"/>
+                    </WelcomeBg>
+                    {/* <WelcomeBg>
+                        <CustomImg src={[Waves1x, Waves2x, Waves3x]} name="background-bottom"/>
+                    </WelcomeBg> */}
+                    <WelcomeWrapper container direction="column" alignItems="center" wrap="nowrap">
+                        <LogoItem item>
+                            <CustomImg src={logo} size="4rem" name="welcome-logo" />
+                        </LogoItem>
+                        <TitleItem item>
+                            <Typography variant="h1">Nautilus Cloud Beta</Typography>
+                        </TitleItem>
+                        <DescriptonItem item>
+                            <Typography variant="h2">
+                                A full suite of tools to develop and deploy blockchain applications
+                            </Typography>
+                        </DescriptonItem>
+                        <LoginGithubButtonItem item>
+                            <GithubButton>Log-in with Github</GithubButton>
+                        </LoginGithubButtonItem>
+                        <FooterItem item>
+                            <Grid
+                                container
+                                alignContent="space-between"
+                                alignItems="center"
+                                spacing={4}
+                            >
+                                <Grid item>
+                                    <Typography variant="caption">Brought to you by</Typography>
+                                </Grid>
+                                <Grid item>
+                                    <CustomImg
+                                        src={[logoCryptonomic1, logoCryptonomic2, logoCryptonomic3]}
+                                        name="logo-cryptonomic"
+                                    />
+                                </Grid>
                             </Grid>
-                            <Grid item>
-                                <CustomIcon src={logoCryptonomic} name="logo-cryptonomic" />
-                            </Grid>
-                        </Grid>
-                    </FooterItem>
+                        </FooterItem>
+                    </WelcomeWrapper>
                 </WelcomeContainer>
                 <DevelopmentContainer
                     container
@@ -93,7 +115,7 @@ const App: React.FC<{}> = () => {
                     alignContent="center"
                 >
                     <Grid item xs={12}>
-                        <CustomIcon src={dataIcon} size="7.5rem" name="data-icon" />
+                        <CustomImg src={dataIcon} size="7.5rem" name="data-icon" />
                     </Grid>
                     <Grid item xs={12}>
                         <Typography variant="h2" component="div" align="center">
@@ -109,7 +131,7 @@ const App: React.FC<{}> = () => {
                     <Grid item xs={6}>
                         <Grid container direction="column" wrap="nowrap">
                             <Grid item>
-                                <CustomIcon src={apiIcon} size="6.25rem" name="api-icon" />
+                                <CustomImg src={apiIcon} size="6.25rem" name="api-icon" />
                             </Grid>
                             <Grid item>
                                 <Typography variant="h2">Conseil API</Typography>
@@ -129,14 +151,14 @@ const App: React.FC<{}> = () => {
                         </Grid>
                     </Grid>
                     <Grid item xs={6}>
-                        <CustomIcon src={conseilApiIcon} size="34.375rem" name="conseil-api-icon" />
+                        <CustomImg src={conseilApiIcon} size="34.375rem" name="conseil-api-icon" />
                     </Grid>
                     <Grid item xs={6}>
-                        <CustomIcon src={conseilJsPicture} name="conseil-js-picture" />
+                        <CustomImg src={conseilJsPicture} name="conseil-js-picture" />
                     </Grid>
                     <Grid item xs={6}>
                         <Grid item>
-                            <CustomIcon src={frontendIcon} size="5.9375rem" name="frontend-icon" />
+                            <CustomImg src={frontendIcon} size="5.9375rem" name="frontend-icon" />
                         </Grid>
                         <Grid item>
                             <Typography variant="h2">Conseil.JS </Typography>
@@ -156,7 +178,7 @@ const App: React.FC<{}> = () => {
                         </Grid>
                     </Grid>
                     <Grid item xs={12}>
-                        <CustomIcon src={apiMasteringIcon} size="5.3125rem" name="data-icon" />
+                        <CustomImg src={apiMasteringIcon} size="5.3125rem" name="data-icon" />
                     </Grid>
                     <Grid item xs={12}>
                         <Typography variant="h2" component="div" align="center">
@@ -179,7 +201,7 @@ const App: React.FC<{}> = () => {
                     </Grid>
                     <Grid container xs={6} direction="column" wrap="nowrap">
                         <Grid item xs={12}>
-                            <CustomIcon src={userToolArronaxImg} name="user-tool-arronax" />
+                            <CustomImg src={userToolArronaxImg} name="user-tool-arronax" />
                         </Grid>
                         <Grid item xs={12}>
                             <Typography variant="h4" align="center">
@@ -194,7 +216,7 @@ const App: React.FC<{}> = () => {
                     </Grid>
                     <Grid container xs={6} direction="column" wrap="nowrap">
                         <Grid item xs={12}>
-                            <CustomIcon src={userToolGalleonImg} name="user-tool-galleon" />
+                            <CustomImg src={userToolGalleonImg} name="user-tool-galleon" />
                         </Grid>
                         <Grid item xs={12}>
                             <Typography variant="h4" align="center" component="div">
@@ -222,12 +244,27 @@ const App: React.FC<{}> = () => {
                         production infrastructure. All back-end components for running our services
                         are open source and thoroughly documented.
                     </Typography>
-                    <div style={{ width: '100%', height: "1px", backgroundColor: 'red', margin: '0 0 45px 0' }}></div>
-                    <Grid container direction='row'>
-                      <Grid item xs={3}>© 2020 Nautilus Cloud</Grid>
-                      <Grid item xs={3}>icons</Grid>
-                      <Grid item xs={3}>Terms of Service</Grid>
-                      <Grid item xs={3}>Privacy Policy</Grid>
+                    <div
+                        style={{
+                            width: '100%',
+                            height: '1px',
+                            backgroundColor: 'red',
+                            margin: '0 0 45px 0',
+                        }}
+                    ></div>
+                    <Grid container direction="row">
+                        <Grid item xs={3}>
+                            © 2020 Nautilus Cloud
+                        </Grid>
+                        <Grid item xs={3}>
+                            icons
+                        </Grid>
+                        <Grid item xs={3}>
+                            Terms of Service
+                        </Grid>
+                        <Grid item xs={3}>
+                            Privacy Policy
+                        </Grid>
                     </Grid>
                 </FooterContainer>
             </Container>

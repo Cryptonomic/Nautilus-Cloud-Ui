@@ -3,7 +3,8 @@ import AppBar from '@material-ui/core/AppBar';
 import Grid from '@material-ui/core/Grid';
 
 import MenuButton from '../MenuButton';
-import { LogoButton, LogoIcon, LogoImg, LoginButton, ToolbarWrapper } from './style';
+import CustomImg from '../CustomImg';
+import { LogoButton, LoginButton, ToolbarWrapper } from './style';
 import logo from '../../assets/img/new/logo.svg';
 
 const TopBar = () => {
@@ -27,11 +28,7 @@ const TopBar = () => {
                         <LogoButton
                             showLabel
                             label="Nautilus Cloud"
-                            icon={
-                                <LogoIcon>
-                                    <LogoImg src={logo} alt="logo" />
-                                </LogoIcon>
-                            }
+                            icon={<CustomImg src={logo} size="1.75rem" name="logo" />}
                         />
                     </Grid>
                     <Grid item xs={6}>
