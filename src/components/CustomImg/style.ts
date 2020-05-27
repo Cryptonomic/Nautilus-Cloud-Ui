@@ -1,9 +1,10 @@
 import { styled, Theme } from '@material-ui/core/styles';
 
-export const Wrapper = styled('span')(({ size }: { size?: string }) => ({
+export const Wrapper = styled('span')(({ size, maxwidth }: { size?: string, maxwidth?: string }) => ({
     fontSize: size || 'inherit',
     width: !size ? '100%' : size,
-    height: !size ? '100%' : size,
+    height: maxwidth ? 'auto' : (!size ? '100%' : size),
+    maxWidth: maxwidth || '',
     display: 'flex',
     flexShrink: 0,
     justifyItems: 'center',

@@ -46,9 +46,11 @@ import CustomImg from '../../components/CustomImg';
 import logo from '../../assets/img/new/logo.svg';
 import dataIcon from '../../assets/img/new/data-icon.svg';
 import apiIcon from '../../assets/img/new/api-icon.svg';
-import conseilApiPicture from '../../assets/img/new/conseil-api-graphic.svg';
 import frontendIcon from '../../assets/img/new/frontend-icon.svg';
 import apiMasteringIcon from '../../assets/img/new/api-metering-icon.svg';
+import conseilApiPicture1 from '../../assets/img/new/conseil-api-graphic.png';
+import conseilApiPicture2 from '../../assets/img/new/conseil-api-graphic@2x.png';
+import conseilApiPicture3 from '../../assets/img/new/conseil-api-graphic@3x.png';
 import conseilJsPicture1 from '../../assets/img/new/conseil-js-graphic.png';
 import conseilJsPicture2 from '../../assets/img/new/conseil-js-graphic@2x.png';
 import conseilJsPicture3 from '../../assets/img/new/conseil-js-graphic@3x.png';
@@ -179,8 +181,8 @@ const App: React.FC<{}> = () => {
                             <DevelopmentSectionItem item xs={6}>
                                 <Grid container direction="column">
                                     <CustomImg
-                                        src={conseilApiPicture}
-                                        size="34.375rem"
+                                        src={[conseilApiPicture1, conseilApiPicture2, conseilApiPicture3]}
+                                        maxwidth="550px"
                                         name="conseil-api-icon"
                                     />
                                 </Grid>
@@ -188,6 +190,7 @@ const App: React.FC<{}> = () => {
                             <DevelopmentSectionItem item xs={6}>
                                 <CustomImg
                                     src={[conseilJsPicture1, conseilJsPicture2, conseilJsPicture3]}
+                                    maxwidth="516px"
                                     name="conseil-js-picture"
                                 />
                             </DevelopmentSectionItem>
@@ -242,14 +245,17 @@ const App: React.FC<{}> = () => {
                         </Typography>
                     </ToolsTitle>
                     <Grid item xs={6}>
+                        <Grid container alignItems="center">
                         <CustomImg
                             src={[
                                 userToolArronaxPicture1,
                                 userToolArronaxPicture2,
                                 userToolArronaxPicture3,
                             ]}
+                            maxwidth="351px"
                             name="user-tool-arronax"
                         />
+                        </Grid>
                     </Grid>
                     <Grid item xs={6}>
                         <CustomImg
@@ -258,6 +264,7 @@ const App: React.FC<{}> = () => {
                                 userToolGalleonPicture2,
                                 userToolGalleonPicture3,
                             ]}
+                            maxwidth="354px"
                             name="user-tool-galleon"
                         />
                     </Grid>
