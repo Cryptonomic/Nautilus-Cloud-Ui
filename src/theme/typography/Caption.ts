@@ -1,3 +1,3 @@
 export default {
-    fontFamily: 'PTSans, sans-serif'
+    fontFamily: 'PTSans, sans-serif',
 };
