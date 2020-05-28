@@ -68,7 +68,7 @@ import TwitterIcon from '../../assets/img/new/sm_twitter_icon.svg';
 import MediumIcon from '../../assets/img/new/sm_medium_icon.svg';
 
 const urls = {
-    docs: 'https://cryptonomic.github.io/ConseilJS/#/',
+    terms: 'https://github.com/Cryptonomic/deployments',
     twitter: 'https://twitter.com/cryptonomictech',
     gitHub: 'https://github.com/Cryptonomic',
     riot:
@@ -347,7 +347,7 @@ const App = () => {
                         <Typography
                             variant="subtitle2"
                             align="right"
-                            onClick={() => openUrl(urls.docs)}
+                            onClick={() => openUrl(urls.terms)}
                         >
                             Terms of Service
                         </Typography>
@@ -356,7 +356,7 @@ const App = () => {
                         <Typography
                             variant="subtitle2"
                             align="right"
-                            onClick={() => openUrl(urls.docs)}
+                            onClick={() => openUrl(urls.terms)}
                         >
                             Privacy Policy
                         </Typography>
