@@ -89,6 +89,11 @@ export const BottomContent = styled('div')({
     justifyContent: 'flex-end',
     paddingRight: '32px',
     backgroundColor: 'rgba(197, 210, 222, 0.2)',
+    '& button': {
+        fontFamily: 'Roboto, sans-serif',
+        fontSize: '0.75rem',
+        fontWeight: 500,
+    }
 });
 
 export const DeclineBtn = styled('button')({
@@ -100,8 +105,6 @@ export const DeclineBtn = styled('button')({
     border: 'none',
     color: '#2d2c31',
     backgroundColor: 'rgba(224, 224, 224, 1)',
-    fontSize: '0.75rem',
-    fontWeight: 500,
 });
 
 export const AcceptBtn = styled('button')({
@@ -114,6 +117,4 @@ export const AcceptBtn = styled('button')({
     backgroundColor: 'rgba(20, 170, 85, 1)',
     marginLeft: '8px',
     color: 'white',
-    fontSize: '0.75rem',
-    fontWeight: 500,
 });
