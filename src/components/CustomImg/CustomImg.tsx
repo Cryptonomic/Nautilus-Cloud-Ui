@@ -6,12 +6,14 @@ const CustomIcon = ({
     src,
     name,
     size,
-    maxwidth
+    maxwidth,
+    onClick,
 }: {
     src: string[] | string;
     name: string;
     size?: string;
     maxwidth?: string;
+    onClick?: () => void;
 }) => {
     let srcSet = null;
 
@@ -20,7 +22,7 @@ const CustomIcon = ({
     }
 
     return (
-        <Wrapper size={size} maxwidth={maxwidth}>
+        <Wrapper size={size} maxwidth={maxwidth} onClick={onClick}>
             <Img srcSet={srcSet || src} alt={name} />
         </Wrapper>
     );
