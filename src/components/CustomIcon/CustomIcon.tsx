@@ -15,7 +15,7 @@ const CustomIcon = ({ Component, size, color1 = '', color2 = '' }) => {
         props = { ...props, fill: color1, stroke: color2 };
     }
 
-    return <Component {...props} />
+    return <Component {...props} />;
 };
 
 export default CustomIcon;

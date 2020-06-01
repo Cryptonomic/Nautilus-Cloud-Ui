@@ -93,7 +93,7 @@ export const BottomContent = styled('div')({
         fontFamily: 'Roboto, sans-serif',
         fontSize: '0.75rem',
         fontWeight: 500,
-    }
+    },
 });
 
 export const DeclineBtn = styled('button')({

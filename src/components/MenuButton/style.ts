@@ -6,6 +6,6 @@ export const MenuListItemIcon = withStyles({
         flex: 1,
         justifyContent: 'flex-end',
         color: '#fff',
-        opacity: 0.5
-    }
+        opacity: 0.5,
+    },
 })(ListItemIcon);

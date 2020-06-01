@@ -1,9 +1,8 @@
-import { styled, makeStyles, createStyles, Theme, withStyles } from '@material-ui/core/styles';
+import { styled, makeStyles, createStyles, Theme } from '@material-ui/core/styles';
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
-import Drawer from '@material-ui/core/Drawer';
 
 export const ListItemLarge = styled(ListItem)({
     flexDirection: 'column',
