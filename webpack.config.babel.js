@@ -70,13 +70,13 @@ module.exports = {
       // SVG Font
       {
         test: /\.svg(\?v=\d+\.\d+\.\d+)?$/,
-        use: {
+        use: ['@svgr/webpack', {
           loader: 'url-loader',
           options: {
             limit: 10000,
             mimetype: 'image/svg+xml'
           }
-        }
+        }]
       },
       // WOFF Font
       {
