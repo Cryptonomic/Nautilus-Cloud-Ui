@@ -86,6 +86,10 @@ export const DevelopmentSectionTitleItem = styled(Grid)({
     alignSelf: 'flex-start',
 });
 
+export const DevelopmentSectionIconWrapper = styled(Grid)({
+    margin: '15px 0px',
+});
+
 export const DevelopmentSectionDescriptionItem = styled(Grid)({
     maxWidth: '471px',
 });
@@ -118,6 +122,12 @@ export const CreateApiButton = withStyles({
 export const LinkItem = styled(Typography)({
     textTransform: 'none',
     textDecoration: 'underline',
+    cursor: 'pointer',
+});
+
+export const FooterLink = styled('span')({
+    cursor: 'pointer',
+    margin: '0 2px',
 });
 
 export const ToolsContainer = styled(Grid)({

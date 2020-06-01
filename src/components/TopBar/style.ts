@@ -1,8 +1,8 @@
-import { styled, withStyles, makeStyles } from '@material-ui/core/styles';
+import { withStyles } from '@material-ui/core/styles';
 import BottomNavigationAction from '@material-ui/core/BottomNavigationAction';
-import Icon from '@material-ui/core/Icon';
 import Button from '@material-ui/core/Button';
 import Toolbar from '@material-ui/core/Toolbar';
+import AppBar from '@material-ui/core/AppBar';
 
 export const LogoButton = withStyles({
     root: {
@@ -37,3 +37,9 @@ export const ToolbarWrapper = withStyles((theme) => ({
         },
     },
 }))(Toolbar);
+
+export const AppBarWrapper: any = withStyles({
+    root: {
+        width: ({ drawer }: any) => `calc(100% - ${drawer ? drawer : 0}px)`,
+    },
+})(AppBar);

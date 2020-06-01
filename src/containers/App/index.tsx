@@ -17,6 +17,7 @@ import {
     DevelopmentLogoItem,
     DevelopmentTitleItem,
     DevelopmentSectionItem,
+    DevelopmentSectionIconWrapper,
     DevelopmentSectionTitleItem,
     DevelopmentSectionDescriptionItem,
     DevelopmentSectionLinkItem,
@@ -31,16 +32,17 @@ import {
     FooterTitle,
     FooterLine,
     FooterList,
+    FooterLink,
 } from './style';
-import config from '../../config';
 
 import TopBar from '../../components/TopBar';
 import CustomImg from '../../components/CustomImg';
-import logo from '../../assets/img/new/logo.svg';
-import dataIcon from '../../assets/img/new/data-icon.svg';
-import apiIcon from '../../assets/img/new/api-icon.svg';
-import frontendIcon from '../../assets/img/new/frontend-icon.svg';
-import apiMasteringIcon from '../../assets/img/new/api-metering-icon.svg';
+import CustomIcon from '../../components/CustomIcon';
+import { ReactComponent as Logo } from '../../assets/img/new/logo.svg';
+import { ReactComponent as DataIcon } from '../../assets/img/new/data-icon.svg';
+import { ReactComponent as ApiIcon } from '../../assets/img/new/api-icon.svg';
+import { ReactComponent as FrontendIcon } from '../../assets/img/new/frontend-icon.svg';
+import { ReactComponent as ApiMasteringIcon } from '../../assets/img/new/api-metering-icon.svg';
 import conseilApiPicture1 from '../../assets/img/new/conseil-api-graphic.png';
 import conseilApiPicture2 from '../../assets/img/new/conseil-api-graphic@2x.png';
 import conseilApiPicture3 from '../../assets/img/new/conseil-api-graphic@3x.png';
@@ -67,14 +69,8 @@ import RiotIcon from '../../assets/img/new/sm_riot_icon.svg';
 import TwitterIcon from '../../assets/img/new/sm_twitter_icon.svg';
 import MediumIcon from '../../assets/img/new/sm_medium_icon.svg';
 
-const urls = {
-    terms: 'https://github.com/Cryptonomic/deployments',
-    twitter: 'https://twitter.com/cryptonomictech',
-    gitHub: 'https://github.com/Cryptonomic',
-    riot:
-        'https://matrix.to/#/!rUwpbdwWhWgKINPyOD:cryptonomic.tech?via=cryptonomic.tech&via=matrix.org&via=ostez.com',
-    medium: 'https://medium.com/the-cryptonomic-aperiodical',
-};
+import config from '../../config';
+const { terms, twitter, gitHub, riot, medium, conseil, conseiljs, userTools } = config;
 
 const REDIRECT_URI = `${window.location.origin}/github-callback`;
 const gitAuthUrl = `https://github.com/login/oauth/authorize?client_id=${config.clientId}&scope=user:email&redirect_uri=${REDIRECT_URI}`;
@@ -85,7 +81,7 @@ const App = () => {
 
     return (
         <Container>
-            <TopBar />
+            <TopBar onLogin={onGitLogin} />
             {/* Welcome section */}
             <WelcomeContainer container direction="column" alignItems="center" wrap="nowrap">
                 <WelcomeBg>
@@ -96,7 +92,7 @@ const App = () => {
                 </WelcomeBg>
                 <WelcomeWrapper container direction="column" alignItems="center" wrap="nowrap">
                     <WelcomeLogoItem item>
-                        <CustomImg src={logo} size="4rem" name="welcome-logo" />
+                        <CustomIcon Component={Logo} size="4rem" />
                     </WelcomeLogoItem>
                     <WelcomeTitleItem item>
                         <Typography variant="h1" align="center">
@@ -142,7 +138,9 @@ const App = () => {
                 alignContent="center"
             >
                 <DevelopmentLogoItem item xs={12}>
-                    <CustomImg src={dataIcon} size="7.5rem" name="data-icon" />
+                    <Grid container justify="center" alignItems="center">
+                        <CustomIcon Component={DataIcon} size="7.5rem" />
+                    </Grid>
                 </DevelopmentLogoItem>
                 <DevelopmentTitleItem item xs={12}>
                     <Typography variant="h3" component="div" align="center">
@@ -160,7 +158,13 @@ const App = () => {
                         <DevelopmentSectionItem item xs={6}>
                             <Grid container direction="column" wrap="nowrap">
                                 <DevelopmentSectionTitleItem item>
-                                    <CustomImg src={apiIcon} size="6.25rem" name="api-icon" />
+                                    <DevelopmentSectionIconWrapper
+                                        container
+                                        justify="center"
+                                        alignItems="center"
+                                    >
+                                        <CustomIcon Component={ApiIcon} size="6.25rem" />
+                                    </DevelopmentSectionIconWrapper>
                                     <Typography variant="h3">Conseil API</Typography>
                                 </DevelopmentSectionTitleItem>
                                 <DevelopmentSectionDescriptionItem item>
@@ -172,7 +176,11 @@ const App = () => {
                                     </Typography>
                                 </DevelopmentSectionDescriptionItem>
                                 <DevelopmentSectionLinkItem item>
-                                    <LinkItem variant="overline" align="left">
+                                    <LinkItem
+                                        variant="overline"
+                                        align="left"
+                                        onClick={() => openUrl(conseil)}
+                                    >
                                         View Documentation
                                     </LinkItem>
                                 </DevelopmentSectionLinkItem>
@@ -201,11 +209,13 @@ const App = () => {
                         <DevelopmentSectionItem item xs={6}>
                             <Grid container direction="column" wrap="nowrap">
                                 <DevelopmentSectionTitleItem item>
-                                    <CustomImg
-                                        src={frontendIcon}
-                                        size="5.9375rem"
-                                        name="frontend-icon"
-                                    />
+                                    <DevelopmentSectionIconWrapper
+                                        container
+                                        justify="center"
+                                        alignItems="center"
+                                    >
+                                        <CustomIcon Component={FrontendIcon} size="5.9375rem" />
+                                    </DevelopmentSectionIconWrapper>
                                     <Typography variant="h3">Conseil.JS </Typography>
                                 </DevelopmentSectionTitleItem>
                                 <DevelopmentSectionDescriptionItem item>
@@ -217,7 +227,11 @@ const App = () => {
                                     </Typography>
                                 </DevelopmentSectionDescriptionItem>
                                 <DevelopmentSectionLinkItem item>
-                                    <LinkItem variant="overline" align="left">
+                                    <LinkItem
+                                        variant="overline"
+                                        align="left"
+                                        onClick={() => openUrl(conseiljs)}
+                                    >
                                         View Documentation
                                     </LinkItem>
                                 </DevelopmentSectionLinkItem>
@@ -226,7 +240,9 @@ const App = () => {
                     </Grid>
                 </Grid>
                 <DevelopmentSectionItem item xs={12}>
-                    <CustomImg src={apiMasteringIcon} size="5.3125rem" name="data-icon" />
+                    <DevelopmentSectionIconWrapper container justify="center" alignItems="center">
+                        <CustomIcon Component={ApiMasteringIcon} size="5.3125rem" />
+                    </DevelopmentSectionIconWrapper>
                     <Typography variant="h3" component="div" align="center">
                         API Metering
                     </Typography>
@@ -292,7 +308,7 @@ const App = () => {
                     </Typography>
                 </Grid>
                 <ToolsLink container justify="center">
-                    <LinkItem variant="overline" align="center">
+                    <LinkItem variant="overline" align="center" onClick={() => openUrl(userTools)}>
                         Explore all User Tools
                     </LinkItem>
                 </ToolsLink>
@@ -317,48 +333,32 @@ const App = () => {
                     </Grid>
                     <Grid item xs={1}>
                         <Grid container>
-                            <CustomImg
-                                src={TwitterIcon}
-                                size="1rem"
-                                name="twitter-icon"
-                                onClick={() => openUrl(urls.twitter)}
-                            />
-                            <CustomImg
-                                src={GithubIcon}
-                                size="1rem"
-                                name="github-icon"
-                                onClick={() => openUrl(urls.gitHub)}
-                            />
-                            <CustomImg
-                                src={RiotIcon}
-                                size="1rem"
-                                name="riot-icon"
-                                onClick={() => openUrl(urls.riot)}
-                            />
-                            <CustomImg
-                                src={MediumIcon}
-                                size="1rem"
-                                name="medium-icon"
-                                onClick={() => openUrl(urls.medium)}
-                            />
+                            <FooterLink onClick={() => openUrl(twitter)}>
+                                <CustomImg src={TwitterIcon} size="1rem" name="twitter-icon" />
+                            </FooterLink>
+                            <FooterLink onClick={() => openUrl(gitHub)}>
+                                <CustomImg src={GithubIcon} size="1rem" name="github-icon" />
+                            </FooterLink>
+                            <FooterLink onClick={() => openUrl(riot)}>
+                                <CustomImg src={RiotIcon} size="1rem" name="riot-icon" />
+                            </FooterLink>
+                            <FooterLink onClick={() => openUrl(medium)}>
+                                <CustomImg src={MediumIcon} size="1rem" name="medium-icon" />
+                            </FooterLink>
                         </Grid>
                     </Grid>
                     <Grid item xs={7}>
-                        <Typography
-                            variant="subtitle2"
-                            align="right"
-                            onClick={() => openUrl(urls.terms)}
-                        >
-                            Terms of Service
+                        <Typography variant="subtitle2" align="right">
+                            <FooterLink onClick={() => openUrl(terms)}>Terms of Service</FooterLink>
                         </Typography>
                     </Grid>
                     <Grid item xs={2}>
                         <Typography
                             variant="subtitle2"
                             align="right"
-                            onClick={() => openUrl(urls.terms)}
+                            onClick={() => openUrl(terms)}
                         >
-                            Privacy Policy
+                            <FooterLink onClick={() => openUrl(terms)}>Privacy Policy</FooterLink>
                         </Typography>
                     </Grid>
                 </FooterList>
