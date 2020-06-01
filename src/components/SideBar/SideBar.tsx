@@ -11,16 +11,16 @@ import {
 
 import CustomImg from '../../components/CustomImg';
 import CustomIcon from '../../components/CustomIcon';
-import logo from '../../assets/img/new/logo.svg';
+import logo from '../../assets/img/logo.svg';
 import Drawer from '@material-ui/core/Drawer';
 import List from '@material-ui/core/List';
 import Divider from '@material-ui/core/Divider';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
-import GithubIcon from '../../assets/img/new/sm_github_icon.svg';
-import RiotIcon from '../../assets/img/new/sm_riot_icon.svg';
-import TwitterIcon from '../../assets/img/new/sm_twitter_icon.svg';
-import MediumIcon from '../../assets/img/new/sm_medium_icon.svg';
-import { ReactComponent as GearIcon } from '../../assets/img/new/gear-icon.svg';
+import GithubIcon from '../../assets/img/sm_github_icon.svg';
+import RiotIcon from '../../assets/img/sm_riot_icon.svg';
+import TwitterIcon from '../../assets/img/sm_twitter_icon.svg';
+import MediumIcon from '../../assets/img/sm_medium_icon.svg';
+import { ReactComponent as GearIcon } from '../../assets/img/gear-icon.svg';
 
 import config from '../../config';
 const { handbook, conseil, conseiljs, twitter, gitHub, riot, medium, terms } = config;

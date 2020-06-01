@@ -26,11 +26,11 @@ import CustomImg from '../../components/CustomImg';
 import Typography from '@material-ui/core/Typography';
 import Grid from '@material-ui/core/Grid';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
-import bookIcon from '../../assets/img/new/book-icon.svg';
-import programmingIcon from '../../assets/img/new/js-programming.svg';
-import scriptIcon from '../../assets/img/new/script-code-coding.svg';
-import copyIcon from '../../assets/img/new/copy-icon.svg';
-import refreshIcon from '../../assets/img/new/refresh.svg';
+import bookIcon from '../../assets/img/book-icon.svg';
+import programmingIcon from '../../assets/img/js-programming.svg';
+import scriptIcon from '../../assets/img/script-code-coding.svg';
+import copyIcon from '../../assets/img/copy-icon.svg';
+import refreshIcon from '../../assets/img/refresh.svg';
 
 import SideBar from '../../components/SideBar';
 import { copyTxt } from '../../utils/general';
@@ -114,7 +114,7 @@ const Home: React.FC<RouteComponentProps> = (props) => {
 
     return (
         <Container>
-            <TopBar drawer={drawerWidth} userEmail={userInfo.userEmail}/>
+            <TopBar drawer={drawerWidth} userEmail={userInfo.userEmail} />
             <SideBar width={drawerWidth} />
             <Main container justify="center" direction="column">
                 <Title item>

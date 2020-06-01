@@ -1,39 +1,13 @@
 import { styled, withStyles } from '@material-ui/core/styles';
-import TopBar from '../../components/TopBar';
-import CustomImg from '../../components/CustomImg';
-import CustomIcon from '../../components/CustomIcon';
-import logo from '../../assets/img/new/logo.svg';
-import Drawer from '@material-ui/core/Drawer';
-import CssBaseline from '@material-ui/core/CssBaseline';
-import AppBar from '@material-ui/core/AppBar';
-import Toolbar from '@material-ui/core/Toolbar';
 import List from '@material-ui/core/List';
 import Typography from '@material-ui/core/Typography';
-import Divider from '@material-ui/core/Divider';
-import Grid from '@material-ui/core/Grid';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
-import InboxIcon from '@material-ui/icons/MoveToInbox';
-import MailIcon from '@material-ui/icons/Mail';
-import SettingsIcon from '@material-ui/icons/Settings';
-import statIcon from '../../assets/img/new/api-metering-icon.svg';
-import SvgIcon from '@material-ui/core/SvgIcon';
-import GithubIcon from '../../assets/img/new/sm_github_icon.svg';
-import RiotIcon from '../../assets/img/new/sm_riot_icon.svg';
-import TwitterIcon from '../../assets/img/new/sm_twitter_icon.svg';
-import MediumIcon from '../../assets/img/new/sm_medium_icon.svg';
 import Paper from '@material-ui/core/Paper';
-import Select from '@material-ui/core/Select';
+import Grid from '@material-ui/core/Grid';
 import NativeSelect from '@material-ui/core/NativeSelect';
 import InputBase from '@material-ui/core/InputBase';
-import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
-import bookIcon from '../../assets/img/new/book-icon.svg';
-import programmingIcon from '../../assets/img/new/js-programming.svg';
-import scriptIcon from '../../assets/img/new/script-code-coding.svg';
-import copyIcon from '../../assets/img/new/copy-icon.svg';
-import refreshIcon from '../../assets/img/new/refresh.svg';
-import { ReactComponent as GearIcon } from '../../assets/img/new/gear-icon.svg';
 
 export const Container = styled('div')(({ theme }) => ({
     width: '100%',

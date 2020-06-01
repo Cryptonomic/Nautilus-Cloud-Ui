@@ -5,8 +5,8 @@ import MenuButton from '../MenuButton';
 import CustomImg from '../CustomImg';
 import CustomIcon from '../CustomIcon';
 import { LogoButton, LoginButton, ToolbarWrapper, AppBarWrapper, UserName } from './style';
-import logo from '../../assets/img/new/logo.svg';
-import { ReactComponent as GitHubIcon } from '../../assets/img/new/github.svg';
+import logo from '../../assets/img/logo.svg';
+import { ReactComponent as GitHubIcon } from '../../assets/img/github.svg';
 
 import config from '../../config';
 const { handbook, support, conseil, conseiljs } = config;

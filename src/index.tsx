@@ -8,7 +8,7 @@ import CssBaseline from '@material-ui/core/CssBaseline';
 import { store } from './store';
 import RouterCheck from './RouterCheck';
 import * as serviceWorker from './serviceWorker';
-import './assets/scss/App.scss';
+
 import theme from './theme';
 
 import 'typeface-montserrat';

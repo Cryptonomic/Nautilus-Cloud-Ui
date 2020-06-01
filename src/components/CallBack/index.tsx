@@ -6,7 +6,7 @@ import Typography from '@material-ui/core/Typography';
 
 import Loader from '../Loader';
 import CustomImg from '../CustomImg';
-import logo from '../../assets/img/new/logo.svg';
+import logo from '../../assets/img/logo.svg';
 import config from '../../config';
 
 import {
