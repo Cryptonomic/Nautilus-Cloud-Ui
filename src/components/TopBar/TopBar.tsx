@@ -1,5 +1,6 @@
 import React from 'react';
 import Grid from '@material-ui/core/Grid';
+import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 
 import MenuButton from '../MenuButton';
 import CustomImg from '../CustomImg';
@@ -15,10 +16,12 @@ const TopBar = ({
     drawer = '',
     userEmail,
     onLogin,
+    onLogout,
 }: {
     drawer?: number | string;
     userEmail?: string;
     onLogin?: () => void;
+    onLogout?: () => void;
 }) => {
     const resourcesItems = [
         { name: 'Tezos Developer Handbook', link: handbook },
@@ -53,16 +56,33 @@ const TopBar = ({
                             <MenuButton label="Docs" items={docsItems} />
                             {!userEmail && <LoginButton onClick={onLogin}>Log-in</LoginButton>}
                             {userEmail && (
-                                <Grid item>
-                                    <Grid container alignItems="center">
-                                        <CustomIcon
-                                            Component={GitHubIcon}
-                                            size="33px"
-                                            color1="#c5d2de"
-                                        />
-                                        <UserName>{userEmail.split('@')[0]}</UserName>
-                                    </Grid>
-                                </Grid>
+                                <MenuButton
+                                    label={
+                                        <Grid
+                                            container
+                                            alignItems="center"
+                                            justify="space-between"
+                                            wrap="nowrap"
+                                        >
+                                            <CustomIcon
+                                                Component={GitHubIcon}
+                                                size="33px"
+                                                color1="#c5d2de"
+                                            />
+                                            <UserName>{userEmail.split('@')[0]}</UserName>
+                                            <ExpandMoreIcon />
+                                        </Grid>
+                                    }
+                                    items={[
+                                        {
+                                            name: 'Logout',
+                                            link: '',
+                                            offIcon: true,
+                                            action: onLogout,
+                                        },
+                                    ]}
+                                    posRight
+                                />
                             )}
                         </Grid>
                     </Grid>

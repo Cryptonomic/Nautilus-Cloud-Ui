@@ -126,7 +126,7 @@ const Home: React.FC<RouteComponentProps> = (props) => {
 
     return (
         <Container>
-            <TopBar drawer={drawerWidth} userEmail={userInfo.userEmail} />
+            <TopBar drawer={drawerWidth} userEmail={userInfo.userEmail} onLogout={onLogout} />
             <SideBar width={drawerWidth} />
             <Main container justify="center" direction="column">
                 <Title item>

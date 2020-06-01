@@ -7,7 +7,7 @@ import Typography from '@material-ui/core/Typography';
 
 import { MenuListItemIcon } from './style';
 
-const MenuButton = ({ label, items }) => {
+const MenuButton = ({ label, items, posRight = false }) => {
     const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
 
     const onClick = (event: React.MouseEvent<HTMLButtonElement>) =>
@@ -30,15 +30,17 @@ const MenuButton = ({ label, items }) => {
                 getContentAnchorEl={null}
                 anchorOrigin={{
                     vertical: 'bottom',
-                    horizontal: 'left',
+                    horizontal: posRight ? 'right' : 'left',
                 }}
             >
-                {items.map(({ name, link }) => (
-                    <MenuItem key={name} onClick={() => onClickItem(link)}>
+                {items.map(({ name, link, action, offIcon }) => (
+                    <MenuItem key={name} onClick={action || (() => onClickItem(link))}>
                         <Typography variant="inherit">{name}</Typography>
-                        <MenuListItemIcon>
-                            <OpenInNewIcon fontSize="small" />
-                        </MenuListItemIcon>
+                        {!offIcon && (
+                            <MenuListItemIcon>
+                                <OpenInNewIcon fontSize="small" />
+                            </MenuListItemIcon>
+                        )}
                     </MenuItem>
                 ))}
             </Menu>
