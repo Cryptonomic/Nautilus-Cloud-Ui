@@ -8,6 +8,12 @@ import Paper from '@material-ui/core/Paper';
 import Grid from '@material-ui/core/Grid';
 import NativeSelect from '@material-ui/core/NativeSelect';
 import InputBase from '@material-ui/core/InputBase';
+import Dialog from '@material-ui/core/Dialog';
+import DialogTitle from '@material-ui/core/DialogTitle';
+import DialogContent from '@material-ui/core/DialogContent';
+import DialogActions from '@material-ui/core/DialogActions';
+import Divider from '@material-ui/core/Divider';
+import Button from '@material-ui/core/Button';
 
 export const Container = styled('div')(({ theme }) => ({
     width: '100%',
@@ -147,3 +153,71 @@ export const ResourcesLinks = styled(Typography)({
 export const ResourcesLinkItem = styled(Grid)({
     cursor: 'pointer',
 });
+
+export const Modal = withStyles({
+    paper: {
+        width: '540px',
+        backgroundColor: '#57565a',
+    },
+})(Dialog);
+
+export const ModalDivider = styled(Divider)({
+    backgroundColor: '#FFFFFF',
+});
+
+export const ModalTitle = styled(DialogTitle)({
+    fontFamily: 'Montserrat, sans-serif',
+    fontSize: '1.25rem',
+    fontWeight: 600,
+    letterSpacing: '3.03px',
+    padding: '23px 22px 5px',
+});
+
+export const ModalContent = styled(DialogContent)({
+    padding: '18px 22px 45px',
+});
+
+export const ModalAskText = styled(Typography)({
+    fontWeight: 500,
+    lineHeight: 1.33,
+    color: '#7dc0de',
+});
+
+export const ModalInfoText = styled(Typography)({
+    lineHeight: 'normal',
+    letterSpacing: 'normal',
+    marginTop: '20px',
+});
+
+export const ModalActionsWrapper = styled(DialogActions)({
+    padding: '0px 22px 15px',
+});
+
+export const ModalButtonAccept = withStyles({
+    root: {
+        width: '116px',
+        height: '48px',
+    },
+    label: {
+        textTransform: 'none',
+        fontWeight: 500,
+        lineHeight: 1.5,
+    },
+})(Button);
+
+export const ModalButtonCancel = withStyles({
+    root: {
+        width: '116px',
+        height: '48px',
+        backgroundColor: 'transparent',
+        border: '1px solid #fff',
+        '&:hover': {
+            backgroundColor: '#4A494D',
+        },
+    },
+    label: {
+        textTransform: 'none',
+        fontWeight: 500,
+        lineHeight: 1.5,
+    },
+})(Button);

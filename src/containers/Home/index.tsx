@@ -1,5 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import { RouteComponentProps, withRouter } from 'react-router-dom';
+import Typography from '@material-ui/core/Typography';
+import Grid from '@material-ui/core/Grid';
+import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
+import Divider from '@material-ui/core/Divider';
 import axios from 'axios';
 import {
     Container,
@@ -17,21 +21,26 @@ import {
     ResourcesLinksContainer,
     ResourcesLinks,
     ResourcesLinkItem,
+    Modal,
+    ModalDivider,
+    ModalTitle,
+    ModalContent,
+    ModalAskText,
+    ModalInfoText,
+    ModalActionsWrapper,
+    ModalButtonAccept,
+    ModalButtonCancel,
 } from './style';
 import config from '../../config';
 import { User } from '../../types';
 
 import TopBar from '../../components/TopBar';
 import CustomImg from '../../components/CustomImg';
-import Typography from '@material-ui/core/Typography';
-import Grid from '@material-ui/core/Grid';
-import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import bookIcon from '../../assets/img/book-icon.svg';
 import programmingIcon from '../../assets/img/js-programming.svg';
 import scriptIcon from '../../assets/img/script-code-coding.svg';
 import copyIcon from '../../assets/img/copy-icon.svg';
 import refreshIcon from '../../assets/img/refresh.svg';
-
 import SideBar from '../../components/SideBar';
 import { copyTxt } from '../../utils/general';
 
@@ -53,13 +62,12 @@ const Home: React.FC<RouteComponentProps> = (props) => {
     const { history } = props;
     const [apiKeys, setApiKeys] = useState([]);
     const [selectedKey, setSelectedKey] = useState(0);
+    const [open, setOpen] = useState(false);
     const userStringInfo = localStorage.getItem('userInfo');
     let userInfo: User = { userEmail: '' };
     if (userStringInfo) {
         userInfo = JSON.parse(userStringInfo);
     }
-
-    // console.log('USER', userInfo)
 
     async function getKeys() {
         try {
@@ -78,6 +86,7 @@ const Home: React.FC<RouteComponentProps> = (props) => {
     }
 
     async function refreshKeys(env, index) {
+        setOpen(false);
         try {
             const newKey = await axios.post(
                 `${config.url}/users/me/apiKeys/${env}/refresh`,
@@ -112,6 +121,10 @@ const Home: React.FC<RouteComponentProps> = (props) => {
         setSelectedKey(event.target.value);
     }
 
+    function onClose() {
+        setOpen(false);
+    }
+
     return (
         <Container>
             <TopBar drawer={drawerWidth} userEmail={userInfo.userEmail} />
@@ -120,7 +133,7 @@ const Home: React.FC<RouteComponentProps> = (props) => {
                 <Title item>
                     <TitleText variant="h5">Tezos</TitleText>
                 </Title>
-                {apiKeys.length && (
+                {apiKeys.length > 0 && (
                     <Details item>
                         <DetailsBg>
                             <Grid container direction="column" justify="center" spacing={3}>
@@ -216,12 +229,7 @@ const Home: React.FC<RouteComponentProps> = (props) => {
                                             size="0.9375rem"
                                             margin="0 0 0 auto"
                                             name="refresh-icon"
-                                            onClick={() =>
-                                                refreshKeys(
-                                                    apiKeys[selectedKey].environment,
-                                                    selectedKey
-                                                )
-                                            }
+                                            onClick={() => setOpen(true)}
                                         />
                                     </LinkBox>
                                 </Grid>
@@ -257,6 +265,30 @@ const Home: React.FC<RouteComponentProps> = (props) => {
                     </ResourcesLinksContainer>
                 </Resources>
             </Main>
+            {open && (
+                <Modal open={open} onClose={onClose}>
+                    <ModalTitle id="customized-dialog-title" disableTypography>
+                        Create New API Key
+                    </ModalTitle>
+                    <ModalDivider />
+                    <ModalContent>
+                        <ModalAskText>Are you sure you want to create a new API key?</ModalAskText>
+                        <ModalInfoText>{`Proceeding will immediately revoke access for your current key in the <${apiKeys[
+                            selectedKey
+                        ].environment.toUpperCase()}> environment. This cannot be undone.`}</ModalInfoText>
+                    </ModalContent>
+                    <ModalActionsWrapper>
+                        <ModalButtonCancel onClick={onClose}>Cancel</ModalButtonCancel>
+                        <ModalButtonAccept
+                            onClick={() =>
+                                refreshKeys(apiKeys[selectedKey].environment, selectedKey)
+                            }
+                        >
+                            Yes
+                        </ModalButtonAccept>
+                    </ModalActionsWrapper>
+                </Modal>
+            )}
         </Container>
     );
 };
