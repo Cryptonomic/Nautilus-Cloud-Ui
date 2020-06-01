@@ -17,8 +17,6 @@ import 'typeface-pt-sans';
 
 const rootEl = document.getElementById('root');
 
-console.log('theme', theme)
-
 render(
   <Provider store={store}>
     <ThemeProvider theme={theme}>

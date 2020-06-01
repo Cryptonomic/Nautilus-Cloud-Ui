@@ -1,4 +1,5 @@
 import body1 from './Body1';
+import subtitle1 from './Subtitle1';
 import subtitle2 from './Subtitle2';
 import h1 from './H1';
 import h2 from './H2';
@@ -13,6 +14,7 @@ import overline from './Overline';
 export default {
     fontSize: 18,
     body1,
+    subtitle1,
     subtitle2,
     h1,
     h2,

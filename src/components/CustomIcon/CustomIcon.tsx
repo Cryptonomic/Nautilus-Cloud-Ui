@@ -11,8 +11,8 @@ const CustomIcon = ({ Component, size, color1 = '', color2 = '' }) => {
         width: size,
     };
 
-    if (color1) {
-        props = { ...props, fill: color1, stroke: color2 || color1 };
+    if (color1 || color2) {
+        props = { ...props, fill: color1, stroke: color2 };
     }
 
     return <Component {...props} />
