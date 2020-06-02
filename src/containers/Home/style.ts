@@ -321,5 +321,9 @@ export const ChartLegendText = styled(Typography)({
 });
 
 export const ChartLineWrapper = styled('div')({
-    marginTop: '18px'
-})
+    marginTop: '18px',
+});
+
+export const BoxesContainer = styled('div')({
+    margin: '64px 160px 0px 135px',
+});

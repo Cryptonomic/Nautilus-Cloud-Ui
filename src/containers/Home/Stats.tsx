@@ -6,6 +6,8 @@ import Grid from '@material-ui/core/Grid';
 import { Line } from 'react-chartjs-2';
 import Chart from 'chart.js';
 
+import BoxTable from '../../components/BoxTable';
+
 import {
     Main,
     StatsTabs,
@@ -24,6 +26,7 @@ import {
     ChartLegendIcon,
     ChartLegendText,
     ChartLineWrapper,
+    BoxesContainer,
 } from './style';
 
 function transparentize(color, opacity?: number) {
@@ -100,6 +103,42 @@ const data = {
     ],
 };
 
+const tableBody1 = [
+    { first: '2020-03-17', second: '89.86 K', third: '127.21.01' },
+    { first: '2020-03-17', second: '89.86 K', third: '127.21.01' },
+    { first: '2020-03-17', second: '89.86 K', third: '127.21.01' },
+    { first: '2020-03-17', second: '89.86 K', third: '127.21.01' },
+    { first: '2020-03-17', second: '89.86 K', third: '127.21.01' },
+    { first: '2020-03-17', second: '89.86 K', third: '127.21.01' },
+];
+
+const tableBody2 = [
+    { first: '12:10:17', second: '89.86 K', third: '/nginx_status/tail' },
+    { first: '12:10:17', second: '89.86 K', third: '/nginx_status/tail' },
+    { first: '12:10:17', second: '89.86 K', third: '/nginx_status' },
+    { first: '12:10:17', second: '89.86 K', third: '/nginx_status/tail' },
+    { first: '12:10:17', second: '89.86 K', third: '/nginx_status' },
+    { first: '12:10:17', second: '89.86 K', third: '/nginx_status/tail' },
+];
+
+const tableBody3 = [
+    { first: '12:10:17', second: '89.86 K', third: 'API Header Key Missing' },
+    { first: '12:10:17', second: '89.86 K', third: 'ApiKey Header Missing' },
+    { first: '12:10:17', second: '89.86 K', third: 'ApiKey Header Missing' },
+    { first: '12:10:17', second: '89.86 K', third: 'ApiKey Header Missing' },
+    { first: '12:10:17', second: '89.86 K', third: 'Upstream stage is closed' },
+    { first: '12:10:17', second: '89.86 K', third: 'Upstream stage is closed' },
+];
+
+const tableBody4 = [
+    { first: '12:10:17', second: 'Yes', third: '44.86 K' },
+    { first: '12:10:17', second: 'No', third: '44.86 K' },
+    { first: '12:10:17', second: 'No', third: '44.86 K' },
+    { first: '12:10:17', second: 'No', third: '44.86 K' },
+    { first: '12:10:17', second: '0.00', third: '44.86 K' },
+    { first: '12:10:17', second: '0.00', third: '44.86 K' },
+];
+
 const times = ['Last 24 hours', 'Last 7 Days', 'Last 30 Days'];
 
 const Stats = () => {
@@ -174,6 +213,38 @@ const Stats = () => {
                     </ChartLineWrapper>
                 </ChartBg>
             </ChartContainer>
+            <BoxesContainer>
+                <Grid container spacing={6} justify="space-between">
+                    <Grid item xs={6}>
+                        <BoxTable
+                            title="Top 10 IP Hits"
+                            head={['Timestamp', 'Hits', 'IP']}
+                            body={tableBody1}
+                        />
+                    </Grid>
+                    <Grid item xs={6}>
+                        <BoxTable
+                            title="Top 10 Routes"
+                            head={['Timestamp', 'Hits', 'URI']}
+                            body={tableBody2}
+                        />
+                    </Grid>
+                    <Grid item xs={7}>
+                        <BoxTable
+                            title="Top 10 Access Outcomes"
+                            head={['Timestamp', 'Hits', 'Exception']}
+                            body={tableBody3}
+                        />
+                    </Grid>
+                    <Grid item xs={5}>
+                        <BoxTable
+                            title="PDP Count"
+                            head={['Timestamp', 'Decision', 'Sum']}
+                            body={tableBody4}
+                        />
+                    </Grid>
+                </Grid>
+            </BoxesContainer>
         </Main>
     );
 };
