@@ -14,7 +14,11 @@ import DialogContent from '@material-ui/core/DialogContent';
 import DialogActions from '@material-ui/core/DialogActions';
 import Divider from '@material-ui/core/Divider';
 import Button from '@material-ui/core/Button';
+import Tabs from '@material-ui/core/Tabs';
+import Tab from '@material-ui/core/Tab';
+import BottomNavigationAction from '@material-ui/core/BottomNavigationAction';
 
+// Keys styles
 export const Container = styled('div')(({ theme }) => ({
     width: '100%',
     minHeight: '100vh',
@@ -221,3 +225,101 @@ export const ModalButtonCancel = withStyles({
         lineHeight: 1.5,
     },
 })(Button);
+
+// Stats styles
+export const StatsTabs = withStyles({
+    root: {
+        margin: '50px 0px 0px 135px',
+    },
+    indicator: {
+        backgroundColor: '#499ce9',
+    },
+})(Tabs);
+
+export const StatsTab = withStyles({
+    root: {
+        minWidth: '50px',
+        padding: 0,
+        margin: '0px 33px',
+    },
+    wrapper: {
+        fontFamily: 'Montserrat, sans-serif',
+        fontWeight: 600,
+        fontSize: '1.25rem',
+        textTransform: 'none',
+    },
+})(Tab);
+
+export const TimeContainer = styled('div')({
+    margin: '43px 175px 0px 168px',
+});
+
+export const RefreshButton = withStyles({
+    root: {
+        maxWidth: '220px',
+    },
+    wrapper: {
+        display: 'flex',
+        flexDirection: 'row',
+    },
+    label: {
+        marginLeft: '5px',
+        textTransform: 'uppercase',
+        color: '#499ce9',
+        fontFamily: 'Roboto, sans-serif',
+        fontSize: '1rem',
+        fontWeight: 400,
+    },
+})(BottomNavigationAction);
+
+export const TimeTextWrapper = styled(Grid)({
+    marginTop: '40px',
+});
+
+export const TimeText = styled(Typography)({
+    fontSize: '1rem',
+    marginLeft: '10px',
+    lineHeight: 'normal',
+    letterSpacing: 'normal',
+});
+
+export const ChartContainer = styled('div')({
+    margin: '50px 160px 0px 135px',
+});
+
+export const ChartBg = styled(Paper)({
+    backgroundColor: '#232325',
+    boxShadow: '0 5px 5px 0 rgba(0, 0, 0, 0.5)',
+    borderRadius: '5px',
+    padding: '25px 30px 15px',
+});
+
+export const ChartTitleContainer = styled(Grid)({
+    marginLeft: '30px',
+});
+
+export const ChartTitle = styled(Typography)({
+    letterSpacing: 'normal',
+});
+
+export const ChartSubtitle = styled(Typography)({
+    fontSize: '1rem',
+    letterSpacing: 'normal',
+});
+
+export const ChartLegendIcon = styled('div')(({ color }: { color: string }) => ({
+    width: '12px',
+    height: '12px',
+    backgroundColor: color,
+    display: 'inline-block',
+}));
+
+export const ChartLegendText = styled(Typography)({
+    fontWeight: 500,
+    marginLeft: '15px',
+    display: 'inline-block',
+});
+
+export const ChartLineWrapper = styled('div')({
+    marginTop: '18px'
+})

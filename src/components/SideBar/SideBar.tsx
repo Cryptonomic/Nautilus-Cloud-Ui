@@ -1,5 +1,7 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import {
+    MainList,
     ListItemLarge,
     ListItemLargeText,
     ListItemSmallText,
@@ -7,6 +9,7 @@ import {
     IconLarge,
     SocialList,
     useSideBarStyles,
+    IconWrapper,
 } from './style';
 
 import CustomImg from '../../components/CustomImg';
@@ -21,17 +24,22 @@ import RiotIcon from '../../assets/img/sm_riot_icon.svg';
 import TwitterIcon from '../../assets/img/sm_twitter_icon.svg';
 import MediumIcon from '../../assets/img/sm_medium_icon.svg';
 import { ReactComponent as GearIcon } from '../../assets/img/gear-icon.svg';
+import { ReactComponent as StatIcon } from '../../assets/img/stat-icon.svg';
 
 import config from '../../config';
 const { handbook, conseil, conseiljs, twitter, gitHub, riot, medium, terms } = config;
 
-const SideBar = (width) => {
-    const classes = useSideBarStyles(width);
+const SideBar = ({ drawer, pathname }) => {
+    const classes = useSideBarStyles(drawer);
     const onClick = (url) => {
         if (url) {
             window.open(url, '_blank');
         }
     };
+
+    const isActiveKeys = pathname === '/home/keys' ? '#7dc0de' : '#ffffff';
+    const isAciveStats = pathname === '/home/stats' ? '#7dc0de' : '#ffffff';
+
     return (
         <Drawer
             className={classes.drawer}
@@ -45,20 +53,28 @@ const SideBar = (width) => {
                 <CustomImg src={logo} size="3.875rem" name="logo" />
             </div>
             <Divider />
-            <List>
-                <ListItemLarge button>
-                    <IconLarge>
-                        <CustomIcon Component={GearIcon} size="30px" color1="#7dc0de" />
-                    </IconLarge>
-                    <ListItemLargeText primary="API Key" disableTypography color="#7dc0de" />
-                </ListItemLarge>
-                {/* <ListItemLarge button>
+            <MainList>
+                <Link to="/home/keys">
+                    <ListItemLarge button>
+                        <IconLarge>
+                            <IconWrapper>
+                            <CustomIcon Component={GearIcon} size="30px" color1={isActiveKeys} />
+                            </IconWrapper>
+                        </IconLarge>
+                        <ListItemLargeText primary="API Key" disableTypography color={isActiveKeys} />
+                    </ListItemLarge>
+                </Link>
+                <Link to="/home/stats">
+                    <ListItemLarge button>
                         <ListItemIcon>
-                            <CustomImg src={statIcon} size="1.875rem" name="api-stat-icon" />
+                            <IconWrapper>
+                                <CustomIcon Component={StatIcon} size="30px" color1={isAciveStats} />
+                            </IconWrapper>
                         </ListItemIcon>
-                        <ListItemLargeText primary="API Stats" disableTypography />
-                    </ListItemLarge> */}
-            </List>
+                        <ListItemLargeText primary="API Stats" disableTypography color={isAciveStats} />
+                    </ListItemLarge>
+                </Link>
+            </MainList>
             <SocialList>
                 <ListItemSmall button onClick={() => onClick(twitter)}>
                     <ListItemIcon>

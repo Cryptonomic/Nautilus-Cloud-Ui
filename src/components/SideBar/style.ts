@@ -1,8 +1,34 @@
-import { styled, makeStyles, createStyles, Theme } from '@material-ui/core/styles';
+import { styled, makeStyles, createStyles, withStyles, Theme } from '@material-ui/core/styles';
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
+
+export const MainList = withStyles({
+    root: {
+        '& a': {
+            color: '',
+            textDecoration: 'none',
+            backgroundColor: 'transparent',
+            '&:link': {
+                color: 'transparent'
+            },
+            '&:visited': {
+                color: 'tansparent'
+            },
+            '&:hover': {
+                color: 'transparent'
+            },
+            '&:active': {
+                color: 'transparent'
+            }
+        }
+    }
+})(List)
+
+export const IconWrapper = styled('div')({
+    margin: '0 auto'
+})
 
 export const ListItemLarge = styled(ListItem)({
     flexDirection: 'column',
@@ -45,15 +71,15 @@ export const useSideBarStyles = makeStyles((theme: Theme) =>
             display: 'flex',
         },
         appBar: {
-            width: (props: any) => `calc(100% - ${props.width}px)`,
-            marginRight: (props: any) => props.width,
+            width: (drawer: number) => `calc(100% - ${drawer}px)`,
+            marginRight: (drawer: number) => drawer,
         },
         drawer: {
-            width: (props: any) => props.width,
+            width: (drawer: number) => drawer,
             flexShrink: 0,
         },
         drawerPaper: {
-            width: (props: any) => props.width,
+            width: (drawer: number) => drawer,
             border: 'none',
             backgroundColor: '#1e1e1e',
             '& hr': {
