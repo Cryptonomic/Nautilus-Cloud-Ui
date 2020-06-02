@@ -64,8 +64,8 @@ const SideBar = ({ drawer, pathname }) => {
                         <ListItemLargeText primary="API Key" disableTypography color={isActiveKeys} />
                     </ListItemLarge>
                 </Link>
-                <Link to="/home/stats">
-                    <ListItemLarge button>
+                <Link to="/home/keys">
+                    <ListItemLarge button disabled>
                         <ListItemIcon>
                             <IconWrapper>
                                 <CustomIcon Component={StatIcon} size="30px" color1={isAciveStats} />
