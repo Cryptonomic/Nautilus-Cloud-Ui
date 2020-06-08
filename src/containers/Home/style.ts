@@ -327,3 +327,7 @@ export const ChartLineWrapper = styled('div')({
 export const BoxesContainer = styled('div')({
     margin: '64px 160px 0px 135px',
 });
+
+export const EndopointsSelectContainer = styled(Grid)({
+    paddingLeft: '25px',
+});

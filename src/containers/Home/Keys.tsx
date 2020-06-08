@@ -15,6 +15,7 @@ import {
     LinkText,
     ApiKeyText,
     LinkBox,
+    EndopointsSelectContainer,
     ResourcesLinksContainer,
     ResourcesLinks,
     ResourcesLinkItem,
@@ -119,11 +120,11 @@ const Keys = (props) => {
                         <DetailsBg>
                             <Grid container direction="column" justify="center" spacing={3}>
                                 <Grid item>
-                                    <Grid container spacing={3} alignItems="center">
+                                    <Grid container alignItems="center">
                                         <Grid item>
                                             <Typography variant="subtitle1">Endpoints</Typography>
                                         </Grid>
-                                        <Grid item>
+                                        <EndopointsSelectContainer item>
                                             <CustomSelect
                                                 value={selectedKey}
                                                 onChange={onChangeEndpoints}
@@ -142,7 +143,7 @@ const Keys = (props) => {
                                                     </option>
                                                 ))}
                                             </CustomSelect>
-                                        </Grid>
+                                        </EndopointsSelectContainer>
                                     </Grid>
                                 </Grid>
                                 <Grid item>

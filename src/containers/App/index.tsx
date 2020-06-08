@@ -125,12 +125,11 @@ const App = (props) => {
                             container
                             alignContent="space-between"
                             alignItems="center"
-                            spacing={4}
                         >
-                            <Grid item>
+                            <Grid item xs={6}>
                                 <Typography variant="caption">Brought to you by</Typography>
                             </Grid>
-                            <Grid item>
+                            <Grid item xs={6}>
                                 <CustomImg
                                     src={[logoCryptonomic1, logoCryptonomic2, logoCryptonomic3]}
                                     name="logo-cryptonomic"
