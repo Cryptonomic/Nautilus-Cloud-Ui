@@ -1,6 +1,6 @@
 const config = {
-    clientId: 'e0534ea0ab6bf0787686',
-    url: 'http://localhost:1234',
+    clientId: '5ae9dfadad742331a2a0',
+    url: 'https://nc-dev1.cryptonomic-infra.tech',
     terms: 'https://github.com/Cryptonomic/deployments',
     twitter: 'https://twitter.com/cryptonomictech',
     gitHub: 'https://github.com/Cryptonomic/Nautilus-Cloud-Ui',
