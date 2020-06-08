@@ -69,19 +69,30 @@ import RiotIcon from '../../assets/img/sm_riot_icon.svg';
 import TwitterIcon from '../../assets/img/sm_twitter_icon.svg';
 import MediumIcon from '../../assets/img/sm_medium_icon.svg';
 
+import { User } from '../../types';
 import config from '../../config';
 const { terms, twitter, gitHub, riot, medium, conseil, conseiljs, userTools } = config;
 
 const REDIRECT_URI = `${window.location.origin}/github-callback`;
 const gitAuthUrl = `https://github.com/login/oauth/authorize?client_id=${config.clientId}&scope=user:email&redirect_uri=${REDIRECT_URI}`;
 
-const App = () => {
+const App = (props) => {
+    const { history } = props;
+    const userStringInfo = localStorage.getItem('userInfo');
+    let userInfo: User = { userEmail: '' };
+    if (userStringInfo) {
+        userInfo = JSON.parse(userStringInfo);
+    };
     const onGitLogin = () => window.open(gitAuthUrl, '_self');
     const openUrl = (url: string) => window.open(url, '_blank');
+    const onLogout = () => {
+        localStorage.removeItem('userInfo');
+        history.replace('/');
+    }
 
     return (
         <Container>
-            <TopBar onLogin={onGitLogin} />
+            <TopBar onLogin={onGitLogin} userEmail={userInfo.userEmail} onLogout={onLogout}/>
             {/* Welcome section */}
             <WelcomeContainer container direction="column" alignItems="center" wrap="nowrap">
                 <WelcomeBg>
@@ -254,7 +265,7 @@ const App = () => {
                     </Typography>
                 </DevelopmentApiMeteringDesctiprion>
                 <CreateApiButtonContainter container justify="center">
-                    <CreateApiButton>Create API keys</CreateApiButton>
+                    <CreateApiButton onClick={onGitLogin}>Create API keys</CreateApiButton>
                 </CreateApiButtonContainter>
             </DevelopmentContainer>
             {/* Tools section */}
