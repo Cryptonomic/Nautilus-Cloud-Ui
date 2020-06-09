@@ -25,8 +25,9 @@ const RouterCheck = () => {
         exact
         path='/'
         render={() => {
-          const userStringInfo = localStorage.getItem('userInfo');
-          return userStringInfo ? <Redirect to='/home' /> : <App />;
+          // const userStringInfo = localStorage.getItem('userInfo');
+          // return userStringInfo ? <Redirect to='/home' /> : <App />;
+          return <App />
         }}
       />
       <Redirect to='/' push />
