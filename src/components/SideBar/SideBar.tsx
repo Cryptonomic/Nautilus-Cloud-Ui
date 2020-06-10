@@ -19,6 +19,8 @@ import Drawer from '@material-ui/core/Drawer';
 import List from '@material-ui/core/List';
 import Divider from '@material-ui/core/Divider';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
+import Tooltip from '@material-ui/core/Tooltip';
+
 import GithubIcon from '../../assets/img/sm_github_icon.svg';
 import RiotIcon from '../../assets/img/sm_riot_icon.svg';
 import TwitterIcon from '../../assets/img/sm_twitter_icon.svg';
@@ -58,21 +60,42 @@ const SideBar = ({ drawer, pathname }) => {
                     <ListItemLarge button>
                         <IconLarge>
                             <IconWrapper>
-                            <CustomIcon Component={GearIcon} size="30px" color1={isActiveKeys} />
+                                <CustomIcon
+                                    Component={GearIcon}
+                                    size="30px"
+                                    color1={isActiveKeys}
+                                />
                             </IconWrapper>
                         </IconLarge>
-                        <ListItemLargeText primary="API Key" disableTypography color={isActiveKeys} />
+                        <ListItemLargeText
+                            primary="API Key"
+                            disableTypography
+                            color={isActiveKeys}
+                        />
                     </ListItemLarge>
                 </Link>
                 <Link to="/home/keys">
-                    <ListItemLarge button disabled>
-                        <ListItemIcon>
-                            <IconWrapper>
-                                <CustomIcon Component={StatIcon} size="30px" color1={isAciveStats} />
-                            </IconWrapper>
-                        </ListItemIcon>
-                        <ListItemLargeText primary="API Stats" disableTypography color={isAciveStats} />
-                    </ListItemLarge>
+                    <Tooltip
+                        PopperProps={{ disablePortal: true, placement: 'bottom' }}
+                        title="Coming Soon"
+                    >
+                        <ListItemLarge button disabled style={{ pointerEvents: 'auto' }}>
+                            <ListItemIcon>
+                                <IconWrapper>
+                                    <CustomIcon
+                                        Component={StatIcon}
+                                        size="30px"
+                                        color1={isAciveStats}
+                                    />
+                                </IconWrapper>
+                            </ListItemIcon>
+                            <ListItemLargeText
+                                primary="API Stats"
+                                disableTypography
+                                color={isAciveStats}
+                            />
+                        </ListItemLarge>
+                    </Tooltip>
                 </Link>
             </MainList>
             <SocialList>
