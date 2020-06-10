@@ -5,7 +5,7 @@ import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import MenuButton from '../MenuButton';
 import CustomImg from '../CustomImg';
 import CustomIcon from '../CustomIcon';
-import { LogoButton, LoginButton, ToolbarWrapper, AppBarWrapper, UserName } from './style';
+import { LogoButton, LoginButton, ToolbarWrapper, AppBarWrapper, UserName, LeftPanel } from './style';
 import logo from '../../assets/img/logo.svg';
 import { ReactComponent as GitHubIcon } from '../../assets/img/github.svg';
 
@@ -50,7 +50,7 @@ const TopBar = ({
                             }
                         />
                     </Grid>
-                    <Grid item xs={6}>
+                    <LeftPanel item xs={6}>
                         <Grid container direction="row" justify="space-between" alignItems="center">
                             <MenuButton label="Resources" items={resourcesItems} />
                             <MenuButton label="Docs" items={docsItems} />
@@ -85,7 +85,7 @@ const TopBar = ({
                                 />
                             )}
                         </Grid>
-                    </Grid>
+                    </LeftPanel>
                 </Grid>
             </ToolbarWrapper>
         </AppBarWrapper>

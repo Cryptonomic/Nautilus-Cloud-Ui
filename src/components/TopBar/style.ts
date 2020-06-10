@@ -4,6 +4,7 @@ import Button from '@material-ui/core/Button';
 import Toolbar from '@material-ui/core/Toolbar';
 import AppBar from '@material-ui/core/AppBar';
 import Typography from '@material-ui/core/Typography';
+import Grid from '@material-ui/core/Grid';
 
 export const LogoButton = withStyles({
     root: {
@@ -50,4 +51,8 @@ export const UserName = styled(Typography)({
     fontWeight: 500,
     letterSpacing: '1px',
     marginLeft: '5px',
-})
+});
+
+export const LeftPanel = styled(Grid)({
+    maxWidth: '650px',
+});
