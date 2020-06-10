@@ -40,7 +40,7 @@ import copyIcon from '../../assets/img/copy-icon.svg';
 import refreshIcon from '../../assets/img/refresh.svg';
 import { copyTxt } from '../../utils/general';
 
-const { handbook, conseil, conseiljs } = config;
+const { handbook, conseil, conseiljs, prodName, devName, devInfo } = config;
 
 const mainUrls = {
     prod: {
@@ -99,7 +99,7 @@ const Keys = (props) => {
     }
 
     function getItemName(name) {
-        return name === 'prod' ? 'Mainnet' : 'Carthagenet';
+        return name === 'prod' ? prodName : devName;
     }
 
     function onChangeEndpoints(event) {
@@ -109,6 +109,8 @@ const Keys = (props) => {
     function onClose() {
         setOpen(false);
     }
+
+    console.log('apikeys', apiKeys);
 
     return (
         <>
@@ -147,6 +149,13 @@ const Keys = (props) => {
                                         </EndopointsSelectContainer>
                                     </Grid>
                                 </Grid>
+                                {apiKeys[selectedKey].environment === 'dev' && (
+                                    <Grid item>
+                                        <Typography variant="subtitle2" color="textSecondary">
+                                            {devInfo}
+                                        </Typography>
+                                    </Grid>
+                                )}
                                 <Grid item>
                                     <Typography variant="subtitle1" component="div">
                                         {`Tezos ${getItemName(
@@ -236,9 +245,9 @@ const Keys = (props) => {
                     <ModalDivider />
                     <ModalContent>
                         <ModalAskText>Are you sure you want to create a new API key?</ModalAskText>
-                        <ModalInfoText>{`Proceeding will immediately revoke access for your current key in the <${apiKeys[
-                            selectedKey
-                        ].environment.toUpperCase()}> environment. This cannot be undone.`}</ModalInfoText>
+                        <ModalInfoText>{`Proceeding will immediately revoke access for your current key in the <${getItemName(
+                            apiKeys[selectedKey].environment
+                        ).toUpperCase()}> environment. This cannot be undone.`}</ModalInfoText>
                     </ModalContent>
                     <ModalActionsWrapper>
                         <ModalButtonCancel onClick={onClose}>Cancel</ModalButtonCancel>

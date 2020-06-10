@@ -12,6 +12,9 @@ const config = {
     conseil: 'https://github.com/Cryptonomic/Conseil/wiki',
     conseiljs: 'https://cryptonomic.github.io/ConseilJS/#/',
     userTools: 'https://cryptonomic.tech/usertools.html',
+    prodName: 'Mainnet',
+    devName: 'Testnet',
+    devInfo: 'The current Testnet version is Carthagenet.'
 };
 
 export default config;
