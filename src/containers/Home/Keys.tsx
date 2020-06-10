@@ -32,6 +32,7 @@ import {
 import config from '../../config';
 
 import CustomImg from '../../components/CustomImg';
+import CopyButton from '../../components/CopyButton';
 import bookIcon from '../../assets/img/book-icon.svg';
 import programmingIcon from '../../assets/img/js-programming.svg';
 import scriptIcon from '../../assets/img/script-code-coding.svg';
@@ -156,16 +157,8 @@ const Keys = (props) => {
                                         <LinkText>
                                             {mainUrls[apiKeys[selectedKey].environment].tezos}
                                         </LinkText>
-                                        <CustomImg
-                                            src={copyIcon}
-                                            size="0.9375rem"
-                                            margin="0 auto 0 10px"
-                                            name="copy-icon"
-                                            onClick={() =>
-                                                copyTxt(
-                                                    mainUrls[apiKeys[selectedKey].environment].tezos
-                                                )
-                                            }
+                                        <CopyButton
+                                            txt={mainUrls[apiKeys[selectedKey].environment].tezos}
                                         />
                                     </Grid>
                                 </Grid>
@@ -179,17 +172,8 @@ const Keys = (props) => {
                                         <LinkText>
                                             {mainUrls[apiKeys[selectedKey].environment].conseil}
                                         </LinkText>
-                                        <CustomImg
-                                            src={copyIcon}
-                                            size="0.9375rem"
-                                            margin="0 auto 0 10px"
-                                            name="copy-icon"
-                                            onClick={() =>
-                                                copyTxt(
-                                                    mainUrls[apiKeys[selectedKey].environment]
-                                                        .conseil
-                                                )
-                                            }
+                                        <CopyButton
+                                            txt={mainUrls[apiKeys[selectedKey].environment].conseil}
                                         />
                                     </Grid>
                                 </Grid>
@@ -199,12 +183,9 @@ const Keys = (props) => {
                                     </Typography>
                                     <LinkBox container alignItems="center">
                                         <ApiKeyText>{apiKeys[selectedKey].key}</ApiKeyText>
-                                        <CustomImg
-                                            src={copyIcon}
-                                            size="0.9375rem"
+                                        <CopyButton
+                                            txt={apiKeys[selectedKey].key}
                                             margin="0 0 0 auto"
-                                            name="copy-icon"
-                                            onClick={() => copyTxt(apiKeys[selectedKey].key)}
                                         />
                                         <CustomImg
                                             src={refreshIcon}
