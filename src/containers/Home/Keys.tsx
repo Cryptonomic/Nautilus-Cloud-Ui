@@ -40,16 +40,27 @@ import copyIcon from '../../assets/img/copy-icon.svg';
 import refreshIcon from '../../assets/img/refresh.svg';
 import { copyTxt } from '../../utils/general';
 
-const { handbook, conseil, conseiljs, prodName, devName, devInfo } = config;
+const {
+    handbook,
+    conseil,
+    conseiljs,
+    prodName,
+    devName,
+    devInfo,
+    prodConseil,
+    prodTezos,
+    devConseil,
+    devTezos,
+} = config;
 
 const mainUrls = {
     prod: {
-        conseil: 'https://conseil-prod.cryptonomic-infra.tech:443',
-        tezos: 'https://tezos-prod.cryptonomic-infra.tech:443',
+        conseil: prodConseil,
+        tezos: prodTezos,
     },
     dev: {
-        conseil: 'https://conseil-dev.cryptonomic-infra.tech:443',
-        tezos: 'https://tezos-dev.cryptonomic-infra.tech:443',
+        conseil: devConseil,
+        tezos: devTezos,
     },
 };
 

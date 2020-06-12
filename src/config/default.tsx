@@ -1,6 +1,4 @@
 export default {
-    clientId: "5ae9dfadad742331a2a0",
-    url: "https://nc-dev1.cryptonomic-infra.tech",
     terms: "https://github.com/Cryptonomic/deployments",
     twitter: "https://twitter.com/cryptonomictech",
     gitHub: "https://github.com/Cryptonomic/Nautilus-Cloud-Ui",
