@@ -32,6 +32,7 @@ import {
 import config from '../../config';
 
 import CustomImg from '../../components/CustomImg';
+import CopyButton from '../../components/CopyButton';
 import bookIcon from '../../assets/img/book-icon.svg';
 import programmingIcon from '../../assets/img/js-programming.svg';
 import scriptIcon from '../../assets/img/script-code-coding.svg';
@@ -39,16 +40,27 @@ import copyIcon from '../../assets/img/copy-icon.svg';
 import refreshIcon from '../../assets/img/refresh.svg';
 import { copyTxt } from '../../utils/general';
 
-const { handbook, conseil, conseiljs } = config;
+const {
+    handbook,
+    conseil,
+    conseiljs,
+    prodName,
+    devName,
+    devInfo,
+    prodConseil,
+    prodTezos,
+    devConseil,
+    devTezos,
+} = config;
 
 const mainUrls = {
     prod: {
-        conseil: 'https://conseil-prod.cryptonomic-infra.tech:443',
-        tezos: 'https://tezos-prod.cryptonomic-infra.tech:443',
+        conseil: prodConseil,
+        tezos: prodTezos,
     },
     dev: {
-        conseil: 'https://conseil-dev.cryptonomic-infra.tech:443',
-        tezos: 'https://tezos-dev.cryptonomic-infra.tech:443',
+        conseil: devConseil,
+        tezos: devTezos,
     },
 };
 
@@ -98,7 +110,7 @@ const Keys = (props) => {
     }
 
     function getItemName(name) {
-        return name === 'prod' ? 'Mainnet' : 'Carthagenet';
+        return name === 'prod' ? prodName : devName;
     }
 
     function onChangeEndpoints(event) {
@@ -108,6 +120,8 @@ const Keys = (props) => {
     function onClose() {
         setOpen(false);
     }
+
+    console.log('apikeys', apiKeys);
 
     return (
         <>
@@ -146,6 +160,13 @@ const Keys = (props) => {
                                         </EndopointsSelectContainer>
                                     </Grid>
                                 </Grid>
+                                {apiKeys[selectedKey].environment === 'dev' && (
+                                    <Grid item>
+                                        <Typography variant="subtitle2" color="textSecondary">
+                                            {devInfo}
+                                        </Typography>
+                                    </Grid>
+                                )}
                                 <Grid item>
                                     <Typography variant="subtitle1" component="div">
                                         {`Tezos ${getItemName(
@@ -156,16 +177,8 @@ const Keys = (props) => {
                                         <LinkText>
                                             {mainUrls[apiKeys[selectedKey].environment].tezos}
                                         </LinkText>
-                                        <CustomImg
-                                            src={copyIcon}
-                                            size="0.9375rem"
-                                            margin="0 auto 0 10px"
-                                            name="copy-icon"
-                                            onClick={() =>
-                                                copyTxt(
-                                                    mainUrls[apiKeys[selectedKey].environment].tezos
-                                                )
-                                            }
+                                        <CopyButton
+                                            txt={mainUrls[apiKeys[selectedKey].environment].tezos}
                                         />
                                     </Grid>
                                 </Grid>
@@ -179,17 +192,8 @@ const Keys = (props) => {
                                         <LinkText>
                                             {mainUrls[apiKeys[selectedKey].environment].conseil}
                                         </LinkText>
-                                        <CustomImg
-                                            src={copyIcon}
-                                            size="0.9375rem"
-                                            margin="0 auto 0 10px"
-                                            name="copy-icon"
-                                            onClick={() =>
-                                                copyTxt(
-                                                    mainUrls[apiKeys[selectedKey].environment]
-                                                        .conseil
-                                                )
-                                            }
+                                        <CopyButton
+                                            txt={mainUrls[apiKeys[selectedKey].environment].conseil}
                                         />
                                     </Grid>
                                 </Grid>
@@ -199,12 +203,9 @@ const Keys = (props) => {
                                     </Typography>
                                     <LinkBox container alignItems="center">
                                         <ApiKeyText>{apiKeys[selectedKey].key}</ApiKeyText>
-                                        <CustomImg
-                                            src={copyIcon}
-                                            size="0.9375rem"
+                                        <CopyButton
+                                            txt={apiKeys[selectedKey].key}
                                             margin="0 0 0 auto"
-                                            name="copy-icon"
-                                            onClick={() => copyTxt(apiKeys[selectedKey].key)}
                                         />
                                         <CustomImg
                                             src={refreshIcon}
@@ -255,9 +256,9 @@ const Keys = (props) => {
                     <ModalDivider />
                     <ModalContent>
                         <ModalAskText>Are you sure you want to create a new API key?</ModalAskText>
-                        <ModalInfoText>{`Proceeding will immediately revoke access for your current key in the <${apiKeys[
-                            selectedKey
-                        ].environment.toUpperCase()}> environment. This cannot be undone.`}</ModalInfoText>
+                        <ModalInfoText>{`Proceeding will immediately revoke access for your current key in the <${getItemName(
+                            apiKeys[selectedKey].environment
+                        ).toUpperCase()}> environment. This cannot be undone.`}</ModalInfoText>
                     </ModalContent>
                     <ModalActionsWrapper>
                         <ModalButtonCancel onClick={onClose}>Cancel</ModalButtonCancel>
