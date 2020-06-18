@@ -121,8 +121,6 @@ const Keys = (props) => {
         setOpen(false);
     }
 
-    console.log('apikeys', apiKeys);
-
     return (
         <>
             <Main container justify="center" direction="column">
