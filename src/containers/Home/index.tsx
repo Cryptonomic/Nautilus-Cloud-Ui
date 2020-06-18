@@ -1,5 +1,5 @@
 import React from 'react';
-import { withRouter } from 'react-router-dom';
+import { useHistory, useLocation } from 'react-router-dom';
 
 import { Container } from './style';
 import TopBar from '../../components/TopBar';
@@ -10,8 +10,9 @@ import Stats from './Stats';
 import { User } from '../../types';
 import { Route, Redirect, Switch } from 'react-router-dom';
 
-const Home = (props) => {
-    const { history, location } = props;
+const Home = () => {
+    const history = useHistory();
+    const location = useLocation();
     const userStringInfo = localStorage.getItem('userInfo');
     let userInfo: User = { userEmail: '' };
     if (userStringInfo) {
@@ -38,4 +39,4 @@ const Home = (props) => {
     )
 }
 
-export default withRouter(Home);
+export default Home;
