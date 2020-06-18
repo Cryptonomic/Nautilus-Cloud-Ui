@@ -1,5 +1,6 @@
 const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
+const CspHtmlWebpackPlugin = require('csp-html-webpack-plugin');
 const webpack = require('webpack');
 const TsConfigPathsPlugin = require('awesome-typescript-loader').TsConfigPathsPlugin;
 const CopyPlugin = require('copy-webpack-plugin');
@@ -105,6 +106,26 @@ module.exports = {
             template: 'index.html', //Name of template in ./src
             hash: true,
         }),
+        new CspHtmlWebpackPlugin(
+            {
+                'base-uri': "'self'",
+                'object-src': "'none'",
+                'script-src': ["'unsafe-inline'", "'self'", "'unsafe-eval'"],
+                'style-src': ["'unsafe-inline'", "'self'", "'unsafe-eval'"],
+            },
+            {
+                enabled: true,
+                hashingMethod: 'sha256',
+                hashEnabled: {
+                    'script-src': true,
+                    'style-src': true,
+                },
+                nonceEnabled: {
+                    'script-src': true,
+                    'style-src': true,
+                },
+            }
+        ),
         new webpack.NamedModulesPlugin(),
         new CopyPlugin({ patterns: [{ from: 'assets/favicon.ico', to: '' }] }),
     ],
