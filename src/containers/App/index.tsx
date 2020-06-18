@@ -340,7 +340,7 @@ const App = () => {
                 <FooterLine />
                 <FooterList container direction="row" alignItems="center">
                     <Grid item xs={2}>
-                        <Typography variant="subtitle2">© 2020 Nautilus Cloud</Typography>
+                        <Typography variant="subtitle2">© 2020 Cryptonomic Inc</Typography>
                     </Grid>
                     <Grid item xs={1}>
                         <Grid container>
