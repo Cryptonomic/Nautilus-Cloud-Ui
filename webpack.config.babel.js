@@ -110,8 +110,8 @@ module.exports = {
             {
                 'base-uri': "'self'",
                 'object-src': "'none'",
-                'script-src': ["'unsafe-inline'", "'self'", "'unsafe-eval'"],
-                'style-src': ["'unsafe-inline'", "'self'", "'unsafe-eval'"],
+                'script-src': ["'self'"],
+                'style-src': ["'self'"],
             },
             {
                 enabled: true,
