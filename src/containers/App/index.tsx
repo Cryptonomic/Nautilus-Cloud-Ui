@@ -1,7 +1,7 @@
 import React from 'react';
 import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
-import { useHistory } from 'react-router-dom'
+import { useHistory } from 'react-router-dom';
 
 import {
     Container,
@@ -27,6 +27,7 @@ import {
     CreateApiButtonContainter,
     CreateApiButton,
     ToolsContainer,
+    ToolsBoxes,
     ToolsTitle,
     ToolsLink,
     FooterContainer,
@@ -83,17 +84,17 @@ const App = () => {
     let userInfo: User = { userEmail: '' };
     if (userStringInfo) {
         userInfo = JSON.parse(userStringInfo);
-    };
+    }
     const onGitLogin = () => window.open(gitAuthUrl, '_self');
     const openUrl = (url: string) => window.open(url, '_blank');
     const onLogout = () => {
         localStorage.removeItem('userInfo');
         history.replace('/');
-    }
+    };
 
     return (
         <Container>
-            <TopBar onLogin={onGitLogin} userEmail={userInfo.userEmail} onLogout={onLogout}/>
+            <TopBar onLogin={onGitLogin} userEmail={userInfo.userEmail} onLogout={onLogout} />
             {/* Welcome section */}
             <WelcomeContainer container direction="column" alignItems="center" wrap="nowrap">
                 <WelcomeBg>
@@ -122,11 +123,7 @@ const App = () => {
                         </WelcomeGithubButton>
                     </WelcomeLoginGithubButtonItem>
                     <WelcomeFooterItem item>
-                        <Grid
-                            container
-                            alignContent="space-between"
-                            alignItems="center"
-                        >
+                        <Grid container alignContent="space-between" alignItems="center">
                             <Grid item xs={6}>
                                 <Typography variant="caption">Brought to you by</Typography>
                             </Grid>
@@ -269,55 +266,57 @@ const App = () => {
                 </CreateApiButtonContainter>
             </DevelopmentContainer>
             {/* Tools section */}
-            <ToolsContainer container direction="row" spacing={10}>
+            <ToolsContainer container direction="row">
                 <ToolsTitle item xs={12}>
                     <Typography variant="h3" component="div" align="center">
                         User Tools Built on Nautilus Cloud
                     </Typography>
                 </ToolsTitle>
-                <Grid item xs={6}>
-                    <Grid container alignItems="center">
+                <ToolsBoxes container spacing={10}>
+                    <Grid item xs={6}>
+                        <Grid container alignItems="center">
+                            <CustomImg
+                                src={[
+                                    userToolArronaxPicture1,
+                                    userToolArronaxPicture2,
+                                    userToolArronaxPicture3,
+                                ]}
+                                maxwidth="351px"
+                                name="user-tool-arronax"
+                            />
+                        </Grid>
+                    </Grid>
+                    <Grid item xs={6}>
                         <CustomImg
                             src={[
-                                userToolArronaxPicture1,
-                                userToolArronaxPicture2,
-                                userToolArronaxPicture3,
+                                userToolGalleonPicture1,
+                                userToolGalleonPicture2,
+                                userToolGalleonPicture3,
                             ]}
-                            maxwidth="351px"
-                            name="user-tool-arronax"
+                            maxwidth="354px"
+                            name="user-tool-galleon"
                         />
                     </Grid>
-                </Grid>
-                <Grid item xs={6}>
-                    <CustomImg
-                        src={[
-                            userToolGalleonPicture1,
-                            userToolGalleonPicture2,
-                            userToolGalleonPicture3,
-                        ]}
-                        maxwidth="354px"
-                        name="user-tool-galleon"
-                    />
-                </Grid>
-                <Grid item xs={6}>
-                    <Typography variant="h4" align="center">
-                        Arronax
-                    </Typography>
-                    <Typography variant="body1" align="center" component="div">
-                        Arronax is a blockchain analytics tool that uses Conseil as its data source.
-                        Run sophisticated queries and generate reports tailored to your specific
-                        needs.
-                    </Typography>
-                </Grid>
-                <Grid item xs={6}>
-                    <Typography variant="h4" align="center" component="div">
-                        Galleon
-                    </Typography>
-                    <Typography variant="body1" align="center" component="div">
-                        Galleon is our Tezos wallet. It provides a useful interface for developers
-                        to test the invocation and deployment of smart contracts.
-                    </Typography>
-                </Grid>
+                    <Grid item xs={6}>
+                        <Typography variant="h4" align="center">
+                            Arronax
+                        </Typography>
+                        <Typography variant="body1" align="center" component="div">
+                            Arronax is a blockchain analytics tool that uses Conseil as its data
+                            source. Run sophisticated queries and generate reports tailored to your
+                            specific needs.
+                        </Typography>
+                    </Grid>
+                    <Grid item xs={6}>
+                        <Typography variant="h4" align="center" component="div">
+                            Galleon
+                        </Typography>
+                        <Typography variant="body1" align="center" component="div">
+                            Galleon is our Tezos wallet. It provides a useful interface for
+                            developers to test the invocation and deployment of smart contracts.
+                        </Typography>
+                    </Grid>
+                </ToolsBoxes>
                 <ToolsLink container justify="center">
                     <LinkItem variant="overline" align="center" onClick={() => openUrl(userTools)}>
                         Explore all User Tools

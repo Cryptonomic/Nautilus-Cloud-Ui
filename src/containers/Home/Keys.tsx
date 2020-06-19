@@ -220,7 +220,7 @@ const Keys = (props) => {
                 )}
                 <Resources item>
                     <Typography variant="h5">Resources to get Started</Typography>
-                    <ResourcesLinksContainer container alignItems="center" spacing={3}>
+                    <ResourcesLinksContainer container alignItems="center">
                         <ResourcesLinkItem item onClick={() => openUrl(conseil)}>
                             <CustomImg src={bookIcon} size="4.5rem" name="book-icon" />
                             <ResourcesLinks variant="subtitle1">
