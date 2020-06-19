@@ -1,6 +1,7 @@
 import React from 'react';
 import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
+import { useHistory } from 'react-router-dom'
 
 import {
     Container,
@@ -76,8 +77,8 @@ const { terms, twitter, gitHub, riot, medium, conseil, conseiljs, userTools } = 
 const REDIRECT_URI = `${window.location.origin}/github-callback`;
 const gitAuthUrl = `https://github.com/login/oauth/authorize?client_id=${config.clientId}&scope=user:email&redirect_uri=${REDIRECT_URI}`;
 
-const App = (props) => {
-    const { history } = props;
+const App = () => {
+    const history = useHistory();
     const userStringInfo = localStorage.getItem('userInfo');
     let userInfo: User = { userEmail: '' };
     if (userStringInfo) {
@@ -339,7 +340,7 @@ const App = (props) => {
                 <FooterLine />
                 <FooterList container direction="row" alignItems="center">
                     <Grid item xs={2}>
-                        <Typography variant="subtitle2">© 2020 Nautilus Cloud</Typography>
+                        <Typography variant="subtitle2">© 2020 Cryptonomic Inc</Typography>
                     </Grid>
                     <Grid item xs={1}>
                         <Grid container>
