@@ -156,6 +156,7 @@ export const ResourcesLinks = styled(Typography)({
 
 export const ResourcesLinkItem = styled(Grid)({
     cursor: 'pointer',
+    padding: '25px',
 });
 
 export const Modal = withStyles({

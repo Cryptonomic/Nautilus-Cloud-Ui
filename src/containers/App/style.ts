@@ -136,6 +136,10 @@ export const ToolsContainer = styled(Grid)({
     padding: '0 160px',
 });
 
+export const ToolsBoxes = styled(Grid)({
+    margin: '80px 0'
+});
+
 export const ToolsTitle = styled(Grid)({
     margin: '80px 0 130px',
 });
