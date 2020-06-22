@@ -221,13 +221,13 @@ const Keys = (props) => {
                 <Resources item>
                     <Typography variant="h5">Resources to get Started</Typography>
                     <ResourcesLinksContainer container alignItems="center">
-                        <ResourcesLinkItem item onClick={() => openUrl(conseil)}>
+                        <ResourcesLinkItem item onClick={() => openUrl(handbook)}>
                             <CustomImg src={bookIcon} size="4.5rem" name="book-icon" />
                             <ResourcesLinks variant="subtitle1">
                                 Tezos Developers' Handbook
                             </ResourcesLinks>
                         </ResourcesLinkItem>
-                        <ResourcesLinkItem item onClick={() => openUrl(handbook)}>
+                        <ResourcesLinkItem item onClick={() => openUrl(conseil)}>
                             <CustomImg src={scriptIcon} size="4.5rem" name="script-icon" />
                             <ResourcesLinks variant="subtitle1">
                                 Conseil Documentation
