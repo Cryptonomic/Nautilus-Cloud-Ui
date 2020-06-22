@@ -128,15 +128,24 @@ export const CustomMenuProps = {
     },
 };
 
-export const CustomMenuItem = styled(MenuItem)({
-    fontFamily: 'Roboto-Medium, sans-serif',
-    fontWeight: 500,
-    letterSpacing: '0px',
-    fontSize: '1rem',
-    '&:hover': {
-        backgroundColor: 'rgba(255, 255, 255, 0.35)',
+export const CustomMenuItem = withStyles({
+    root: {
+        fontFamily: 'Roboto-Medium, sans-serif',
+        fontWeight: 500,
+        letterSpacing: '0px',
+        fontSize: '1rem',
+        '&:hover': {
+            backgroundColor: 'rgba(255, 255, 255, 0.35)',
+        },
+        "&$selected": {
+            backgroundColor: 'rgba(0, 0, 0, 0.2)',
+            '&:hover': {
+                backgroundColor: 'rgba(0, 0, 0, 0.2)',
+            }
+        }
     },
-});
+    selected: {},
+})(MenuItem);
 
 export const LinkText = styled(Typography)({
     fontFamily: 'Roboto-Light, sans-serif',
