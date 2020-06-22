@@ -10,5 +10,7 @@ export default {
     conseiljs: "https://cryptonomic.github.io/ConseilJS/#/",
     userTools: "https://cryptonomic.tech/usertools.html",
     termsOfService: "https://github.com/Cryptonomic/Deployments/blob/master/Terms_of_Service.pdf",
-    privacyPolicy: "https://github.com/Cryptonomic/Deployments/blob/master/Privacy_Policy.pdf"
+    privacyPolicy: "https://github.com/Cryptonomic/Deployments/blob/master/Privacy_Policy.pdf",
+    arronax: "https://arronax.io/",
+    galleon: "https://cryptonomic.tech/galleon.html"
 };

@@ -85,10 +85,10 @@ export const Resources = styled(Grid)({
 
 export const DetailsBg = styled(Paper)({
     backgroundColor: 'rgba(35, 35, 37, 0.78)',
-    boxShadow: '0 5px 5px 0 rgba(0, 0, 0, 0.5)',
     borderRadius: '3px',
     padding: '34px 22px 49px',
     maxWidth: '740px',
+    border: '1px solid #302F35',
 });
 
 export const CustomSelect = withStyles({
@@ -109,7 +109,6 @@ export const CustomInput = withStyles({
     root: {
         backgroundColor: '#57565a',
         borderRadius: '3px',
-        boxShadow: '0 5px 5px 0 rgba(0, 0, 0, 0.5)',
         fontFamily: 'Montserrat, sans-serif',
         fontSize: '1rem',
         textAlign: 'center',

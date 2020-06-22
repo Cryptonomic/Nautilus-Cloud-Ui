@@ -28,6 +28,7 @@ import {
     CreateApiButton,
     ToolsContainer,
     ToolsBoxes,
+    ToolsLinkBox,
     ToolsTitle,
     ToolsLink,
     FooterContainer,
@@ -73,7 +74,7 @@ import MediumIcon from '../../assets/img/sm_medium_icon.svg';
 
 import { User } from '../../types';
 import config from '../../config';
-const { terms, twitter, gitHub, riot, medium, conseil, conseiljs, userTools } = config;
+const { termsOfService, privacyPolicy, twitter, gitHub, riot, medium, conseil, conseiljs, userTools, arronax, galleon } = config;
 
 const REDIRECT_URI = `${window.location.origin}/github-callback`;
 const gitAuthUrl = `https://github.com/login/oauth/authorize?client_id=${config.clientId}&scope=user:email&redirect_uri=${REDIRECT_URI}`;
@@ -273,7 +274,7 @@ const App = () => {
                     </Typography>
                 </ToolsTitle>
                 <ToolsBoxes container spacing={10}>
-                    <Grid item xs={6}>
+                    <ToolsLinkBox item xs={6} onClick={() => openUrl(arronax)}>
                         <Grid container alignItems="center">
                             <CustomImg
                                 src={[
@@ -285,8 +286,8 @@ const App = () => {
                                 name="user-tool-arronax"
                             />
                         </Grid>
-                    </Grid>
-                    <Grid item xs={6}>
+                    </ToolsLinkBox>
+                    <ToolsLinkBox item xs={6} onClick={() => openUrl(galleon)}>
                         <CustomImg
                             src={[
                                 userToolGalleonPicture1,
@@ -296,7 +297,7 @@ const App = () => {
                             maxwidth="354px"
                             name="user-tool-galleon"
                         />
-                    </Grid>
+                    </ToolsLinkBox>
                     <Grid item xs={6}>
                         <Typography variant="h4" align="center">
                             Arronax
@@ -359,16 +360,15 @@ const App = () => {
                     </Grid>
                     <Grid item xs={7}>
                         <Typography variant="subtitle2" align="right">
-                            <FooterLink onClick={() => openUrl(terms)}>Terms of Service</FooterLink>
+                            <FooterLink onClick={() => openUrl(termsOfService)}>Terms of Service</FooterLink>
                         </Typography>
                     </Grid>
                     <Grid item xs={2}>
                         <Typography
                             variant="subtitle2"
                             align="right"
-                            onClick={() => openUrl(terms)}
                         >
-                            <FooterLink onClick={() => openUrl(terms)}>Privacy Policy</FooterLink>
+                            <FooterLink onClick={() => openUrl(privacyPolicy)}>Privacy Policy</FooterLink>
                         </Typography>
                     </Grid>
                 </FooterList>

@@ -36,9 +36,7 @@ import CopyButton from '../../components/CopyButton';
 import bookIcon from '../../assets/img/book-icon.svg';
 import programmingIcon from '../../assets/img/js-programming.svg';
 import scriptIcon from '../../assets/img/script-code-coding.svg';
-import copyIcon from '../../assets/img/copy-icon.svg';
 import refreshIcon from '../../assets/img/refresh.svg';
-import { copyTxt } from '../../utils/general';
 
 const {
     handbook,
@@ -129,7 +127,7 @@ const Keys = (props) => {
                 </Title>
                 {apiKeys.length > 0 && (
                     <Details item>
-                        <DetailsBg>
+                        <DetailsBg elevation={0}>
                             <Grid container direction="column" justify="center" spacing={3}>
                                 <Grid item>
                                     <Grid container alignItems="center">
@@ -254,9 +252,9 @@ const Keys = (props) => {
                     <ModalDivider />
                     <ModalContent>
                         <ModalAskText>Are you sure you want to create a new API key?</ModalAskText>
-                        <ModalInfoText>{`Proceeding will immediately revoke access for your current key in the <${getItemName(
+                        <ModalInfoText>{`Proceeding will immediately revoke access for your current key in the ${getItemName(
                             apiKeys[selectedKey].environment
-                        ).toUpperCase()}> environment. This cannot be undone.`}</ModalInfoText>
+                        ).toUpperCase()} environment. This cannot be undone.`}</ModalInfoText>
                     </ModalContent>
                     <ModalActionsWrapper>
                         <ModalButtonCancel onClick={onClose}>Cancel</ModalButtonCancel>

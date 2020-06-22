@@ -137,7 +137,11 @@ export const ToolsContainer = styled(Grid)({
 });
 
 export const ToolsBoxes = styled(Grid)({
-    margin: '80px 0'
+    margin: '80px 0',
+});
+
+export const ToolsLinkBox = styled(Grid)({
+    cursor: 'pointer',
 });
 
 export const ToolsTitle = styled(Grid)({
