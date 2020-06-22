@@ -6,7 +6,8 @@ import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
 import Paper from '@material-ui/core/Paper';
 import Grid from '@material-ui/core/Grid';
-import NativeSelect from '@material-ui/core/NativeSelect';
+import Select from '@material-ui/core/Select';
+import MenuItem from '@material-ui/core/MenuItem';
 import InputBase from '@material-ui/core/InputBase';
 import Dialog from '@material-ui/core/Dialog';
 import DialogTitle from '@material-ui/core/DialogTitle';
@@ -67,8 +68,10 @@ export const Main = styled(Grid)(({ theme }) => ({
 }));
 
 export const TitleText = styled(Typography)({
-    fontWeight: 600,
-    letterSpacing: '4.85px',
+    fontFamily: 'Roboto-Bold, sans-serif',
+    fontSize: '1.5rem',
+    fontWeight: 'bold',
+    letterSpacing: '2px',
 });
 
 export const Title = styled(Grid)({
@@ -85,48 +88,78 @@ export const Resources = styled(Grid)({
 
 export const DetailsBg = styled(Paper)({
     backgroundColor: 'rgba(35, 35, 37, 0.78)',
-    boxShadow: '0 5px 5px 0 rgba(0, 0, 0, 0.5)',
     borderRadius: '3px',
     padding: '34px 22px 49px',
     maxWidth: '740px',
+    border: '1px solid #302F35',
 });
 
 export const CustomSelect = withStyles({
     root: {
-        padding: '7px 18px 9px',
-    },
-    select: {
-        paddingRight: '65px !important',
+        padding: '0px 0px 0px 16px',
     },
     icon: {
+        fontSize: '24px',
         color: '#fff',
         top: 'auto',
-        marginRight: '12px',
+        marginRight: '8px',
     },
-})(NativeSelect);
+})(Select);
 
 export const CustomInput = withStyles({
     root: {
+        width: '125px',
         backgroundColor: '#57565a',
         borderRadius: '3px',
-        boxShadow: '0 5px 5px 0 rgba(0, 0, 0, 0.5)',
-        fontFamily: 'Montserrat, sans-serif',
+        fontFamily: 'Roboto-Medium, sans-serif',
+        fontWeight: 500,
+        letterSpacing: '0px',
         fontSize: '1rem',
-        textAlign: 'center',
+        lineHeight: '35px',
     },
 })(InputBase);
 
+export const CustomMenuProps = {
+    PaperProps: {
+        style: {
+            backgroundColor: '#57565a',
+            boxShadow: 'none',
+        },
+    },
+};
+
+export const CustomMenuItem = withStyles({
+    root: {
+        fontFamily: 'Roboto-Medium, sans-serif',
+        fontWeight: 500,
+        letterSpacing: '0px',
+        fontSize: '1rem',
+        '&:hover': {
+            backgroundColor: 'rgba(255, 255, 255, 0.35)',
+        },
+        "&$selected": {
+            backgroundColor: 'rgba(0, 0, 0, 0.2)',
+            '&:hover': {
+                backgroundColor: 'rgba(0, 0, 0, 0.2)',
+            }
+        }
+    },
+    selected: {},
+})(MenuItem);
+
 export const LinkText = styled(Typography)({
+    fontFamily: 'Roboto-Light, sans-serif',
     fontSize: '1rem',
     fontWeight: 300,
-    letterSpacing: '2px',
+    letterSpacing: '0px',
     color: '#c5d2de',
 });
 
 export const ApiKeyText = styled(Typography)({
+    fontFamily: 'Roboto-Light, sans-serif',
     fontSize: '1rem',
     fontWeight: 300,
-    letterSpacing: '2px',
+    letterSpacing: '0px',
     color: '#fff',
     maxWidth: '80%',
     overflow: 'hidden',
@@ -156,7 +189,7 @@ export const ResourcesLinks = styled(Typography)({
 
 export const ResourcesLinkItem = styled(Grid)({
     cursor: 'pointer',
-    padding: '25px',
+    margin: '25px',
 });
 
 export const Modal = withStyles({
@@ -171,10 +204,10 @@ export const ModalDivider = styled(Divider)({
 });
 
 export const ModalTitle = styled(DialogTitle)({
-    fontFamily: 'Montserrat, sans-serif',
+    fontFamily: 'Roboto-Bold, sans-serif',
     fontSize: '1.25rem',
     fontWeight: 600,
-    letterSpacing: '3.03px',
+    letterSpacing: '2px',
     padding: '23px 22px 5px',
 });
 
@@ -183,6 +216,9 @@ export const ModalContent = styled(DialogContent)({
 });
 
 export const ModalAskText = styled(Typography)({
+    fontFamily: 'Roboto-Bold, sans-serif',
+    fontSize: '1.125rem',
+    letterSpacing: '0px',
     fontWeight: 500,
     lineHeight: 1.33,
     color: '#7dc0de',

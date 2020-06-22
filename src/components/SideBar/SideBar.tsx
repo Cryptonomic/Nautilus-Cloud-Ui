@@ -29,7 +29,7 @@ import { ReactComponent as GearIcon } from '../../assets/img/gear-icon.svg';
 import { ReactComponent as StatIcon } from '../../assets/img/stat-icon.svg';
 
 import config from '../../config';
-const { handbook, conseil, conseiljs, twitter, gitHub, riot, medium, terms } = config;
+const { twitter, gitHub, riot, medium, termsOfService, privacyPolicy } = config;
 
 const SideBar = ({ drawer, pathname }) => {
     const classes = useSideBarStyles(drawer);
@@ -125,14 +125,14 @@ const SideBar = ({ drawer, pathname }) => {
                     <ListItemSmallText
                         primary="Terms of Service"
                         disableTypography
-                        onClick={() => onClick(terms)}
+                        onClick={() => onClick(termsOfService)}
                     />
                 </ListItemSmall>
                 <ListItemSmall button>
                     <ListItemSmallText
                         primary="Privacy Policy"
                         disableTypography
-                        onClick={() => onClick(terms)}
+                        onClick={() => onClick(privacyPolicy)}
                     />
                 </ListItemSmall>
             </List>

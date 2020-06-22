@@ -1,6 +1,6 @@
 export default {
-    fontFamily: 'Roboto, sans-serif',
+    fontFamily: 'Roboto-Medium, sans-serif',
     fontSize: '1.25rem',
     fontWeight: 500,
-    letterSpacing: '3.03.px',
+    letterSpacing: '2px',
 };

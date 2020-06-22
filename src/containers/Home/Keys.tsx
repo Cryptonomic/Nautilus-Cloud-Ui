@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import Typography from '@material-ui/core/Typography';
 import Grid from '@material-ui/core/Grid';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
+import MenuItem from '@material-ui/core/MenuItem';
 import axios from 'axios';
 import {
     Main,
@@ -12,6 +13,8 @@ import {
     DetailsBg,
     CustomSelect,
     CustomInput,
+    CustomMenuItem,
+    CustomMenuProps,
     LinkText,
     ApiKeyText,
     LinkBox,
@@ -36,9 +39,7 @@ import CopyButton from '../../components/CopyButton';
 import bookIcon from '../../assets/img/book-icon.svg';
 import programmingIcon from '../../assets/img/js-programming.svg';
 import scriptIcon from '../../assets/img/script-code-coding.svg';
-import copyIcon from '../../assets/img/copy-icon.svg';
 import refreshIcon from '../../assets/img/refresh.svg';
-import { copyTxt } from '../../utils/general';
 
 const {
     handbook,
@@ -125,11 +126,11 @@ const Keys = (props) => {
         <>
             <Main container justify="center" direction="column">
                 <Title item>
-                    <TitleText variant="h5">Tezos</TitleText>
+                    <TitleText>Tezos</TitleText>
                 </Title>
                 {apiKeys.length > 0 && (
                     <Details item>
-                        <DetailsBg>
+                        <DetailsBg elevation={0}>
                             <Grid container direction="column" justify="center" spacing={3}>
                                 <Grid item>
                                     <Grid container alignItems="center">
@@ -141,6 +142,7 @@ const Keys = (props) => {
                                                 value={selectedKey}
                                                 onChange={onChangeEndpoints}
                                                 name="endpoints"
+                                                MenuProps={CustomMenuProps}
                                                 input={
                                                     <CustomInput
                                                         inputProps={{ 'aria-label': 'naked' }}
@@ -150,9 +152,12 @@ const Keys = (props) => {
                                                 IconComponent={ExpandMoreIcon}
                                             >
                                                 {apiKeys.map((item, index) => (
-                                                    <option value={index} key={item.environment}>
+                                                    <CustomMenuItem
+                                                        value={index}
+                                                        key={item.environment}
+                                                    >
                                                         {getItemName(item.environment)}
-                                                    </option>
+                                                    </CustomMenuItem>
                                                 ))}
                                             </CustomSelect>
                                         </EndopointsSelectContainer>
@@ -219,15 +224,15 @@ const Keys = (props) => {
                     </Details>
                 )}
                 <Resources item>
-                    <Typography variant="h5">Resources to get Started</Typography>
+                    <TitleText>Resources to get Started</TitleText>
                     <ResourcesLinksContainer container alignItems="center">
-                        <ResourcesLinkItem item onClick={() => openUrl(conseil)}>
+                        <ResourcesLinkItem item onClick={() => openUrl(handbook)}>
                             <CustomImg src={bookIcon} size="4.5rem" name="book-icon" />
                             <ResourcesLinks variant="subtitle1">
                                 Tezos Developers' Handbook
                             </ResourcesLinks>
                         </ResourcesLinkItem>
-                        <ResourcesLinkItem item onClick={() => openUrl(handbook)}>
+                        <ResourcesLinkItem item onClick={() => openUrl(conseil)}>
                             <CustomImg src={scriptIcon} size="4.5rem" name="script-icon" />
                             <ResourcesLinks variant="subtitle1">
                                 Conseil Documentation
@@ -254,9 +259,9 @@ const Keys = (props) => {
                     <ModalDivider />
                     <ModalContent>
                         <ModalAskText>Are you sure you want to create a new API key?</ModalAskText>
-                        <ModalInfoText>{`Proceeding will immediately revoke access for your current key in the <${getItemName(
+                        <ModalInfoText>{`Proceeding will immediately revoke access for your current key in the ${getItemName(
                             apiKeys[selectedKey].environment
-                        ).toUpperCase()}> environment. This cannot be undone.`}</ModalInfoText>
+                        ).toUpperCase()} environment. This cannot be undone.`}</ModalInfoText>
                     </ModalContent>
                     <ModalActionsWrapper>
                         <ModalButtonCancel onClick={onClose}>Cancel</ModalButtonCancel>
