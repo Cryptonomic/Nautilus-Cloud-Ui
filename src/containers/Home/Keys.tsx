@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import Typography from '@material-ui/core/Typography';
 import Grid from '@material-ui/core/Grid';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
+import MenuItem from '@material-ui/core/MenuItem';
 import axios from 'axios';
 import {
     Main,
@@ -12,6 +13,8 @@ import {
     DetailsBg,
     CustomSelect,
     CustomInput,
+    CustomMenuItem,
+    CustomMenuProps,
     LinkText,
     ApiKeyText,
     LinkBox,
@@ -123,7 +126,7 @@ const Keys = (props) => {
         <>
             <Main container justify="center" direction="column">
                 <Title item>
-                    <TitleText variant="h5">Tezos</TitleText>
+                    <TitleText>Tezos</TitleText>
                 </Title>
                 {apiKeys.length > 0 && (
                     <Details item>
@@ -139,6 +142,7 @@ const Keys = (props) => {
                                                 value={selectedKey}
                                                 onChange={onChangeEndpoints}
                                                 name="endpoints"
+                                                MenuProps={CustomMenuProps}
                                                 input={
                                                     <CustomInput
                                                         inputProps={{ 'aria-label': 'naked' }}
@@ -148,9 +152,12 @@ const Keys = (props) => {
                                                 IconComponent={ExpandMoreIcon}
                                             >
                                                 {apiKeys.map((item, index) => (
-                                                    <option value={index} key={item.environment}>
+                                                    <CustomMenuItem
+                                                        value={index}
+                                                        key={item.environment}
+                                                    >
                                                         {getItemName(item.environment)}
-                                                    </option>
+                                                    </CustomMenuItem>
                                                 ))}
                                             </CustomSelect>
                                         </EndopointsSelectContainer>
@@ -217,7 +224,7 @@ const Keys = (props) => {
                     </Details>
                 )}
                 <Resources item>
-                    <Typography variant="h5">Resources to get Started</Typography>
+                    <TitleText>Resources to get Started</TitleText>
                     <ResourcesLinksContainer container alignItems="center">
                         <ResourcesLinkItem item onClick={() => openUrl(handbook)}>
                             <CustomImg src={bookIcon} size="4.5rem" name="book-icon" />

@@ -122,11 +122,11 @@ const CallBack: React.FC<RouteComponentProps> = (props) => {
                             <TermsContent>
                                 By registering for and using NautilusCloud services, <br />I agree
                                 to the{' '}
-                                <LinkTxt onClick={() => openUrl(config.terms)}>
+                                <LinkTxt onClick={() => openUrl(config.termsOfService)}>
                                     Terms of Service
                                 </LinkTxt>{' '}
                                 and{' '}
-                                <LinkTxt onClick={() => openUrl(config.terms)}>
+                                <LinkTxt onClick={() => openUrl(config.privacyPolicy)}>
                                     Privacy Policy
                                 </LinkTxt>
                             </TermsContent>
