@@ -36,6 +36,10 @@ import {
     FooterLine,
     FooterList,
     FooterLink,
+    FooterSocial,
+    FooterSocialLink,
+    FooterTerms,
+    FooterPolicy,
 } from './style';
 
 import TopBar from '../../components/TopBar';
@@ -74,7 +78,19 @@ import MediumIcon from '../../assets/img/sm_medium_icon.svg';
 
 import { User } from '../../types';
 import config from '../../config';
-const { termsOfService, privacyPolicy, twitter, gitHub, riot, medium, conseil, conseiljs, userTools, arronax, galleon } = config;
+const {
+    termsOfService,
+    privacyPolicy,
+    twitter,
+    gitHub,
+    riot,
+    medium,
+    conseil,
+    conseiljs,
+    userTools,
+    arronax,
+    galleon,
+} = config;
 
 const REDIRECT_URI = `${window.location.origin}/github-callback`;
 const gitAuthUrl = `https://github.com/login/oauth/authorize?client_id=${config.clientId}&scope=user:email&redirect_uri=${REDIRECT_URI}`;
@@ -338,39 +354,32 @@ const App = () => {
                     </Typography>
                 </FooterTitle>
                 <FooterLine />
-                <FooterList container direction="row" alignItems="center">
-                    <Grid item xs={2}>
-                        <Typography variant="subtitle2">© 2020 Cryptonomic Inc</Typography>
-                    </Grid>
-                    <Grid item xs={1}>
-                        <Grid container>
-                            <FooterLink onClick={() => openUrl(twitter)}>
-                                <CustomImg src={TwitterIcon} size="1rem" name="twitter-icon" />
-                            </FooterLink>
-                            <FooterLink onClick={() => openUrl(gitHub)}>
-                                <CustomImg src={GithubIcon} size="1rem" name="github-icon" />
-                            </FooterLink>
-                            <FooterLink onClick={() => openUrl(riot)}>
-                                <CustomImg src={RiotIcon} size="1rem" name="riot-icon" />
-                            </FooterLink>
-                            <FooterLink onClick={() => openUrl(medium)}>
-                                <CustomImg src={MediumIcon} size="1rem" name="medium-icon" />
-                            </FooterLink>
-                        </Grid>
-                    </Grid>
-                    <Grid item xs={7}>
-                        <Typography variant="subtitle2" align="right">
-                            <FooterLink onClick={() => openUrl(termsOfService)}>Terms of Service</FooterLink>
-                        </Typography>
-                    </Grid>
-                    <Grid item xs={2}>
-                        <Typography
-                            variant="subtitle2"
-                            align="right"
-                        >
-                            <FooterLink onClick={() => openUrl(privacyPolicy)}>Privacy Policy</FooterLink>
-                        </Typography>
-                    </Grid>
+                <FooterList container alignItems="center">
+                    <Typography variant="subtitle2">© 2020 Cryptonomic Inc</Typography>
+                    <FooterSocial container alignItems="center">
+                        <FooterSocialLink onClick={() => openUrl(twitter)}>
+                            <CustomImg src={TwitterIcon} size="1rem" name="twitter-icon" />
+                        </FooterSocialLink>
+                        <FooterSocialLink onClick={() => openUrl(gitHub)}>
+                            <CustomImg src={GithubIcon} size="1rem" name="github-icon" />
+                        </FooterSocialLink>
+                        <FooterSocialLink onClick={() => openUrl(riot)}>
+                            <CustomImg src={RiotIcon} size="1rem" name="riot-icon" />
+                        </FooterSocialLink>
+                        <FooterSocialLink onClick={() => openUrl(medium)}>
+                            <CustomImg src={MediumIcon} size="1rem" name="medium-icon" />
+                        </FooterSocialLink>
+                    </FooterSocial>
+                    <FooterTerms variant="subtitle2">
+                        <FooterLink onClick={() => openUrl(termsOfService)}>
+                            Terms of Service
+                        </FooterLink>
+                    </FooterTerms>
+                    <FooterPolicy variant="subtitle2">
+                        <FooterLink onClick={() => openUrl(privacyPolicy)}>
+                            Privacy Policy
+                        </FooterLink>
+                    </FooterPolicy>
                 </FooterList>
             </FooterContainer>
         </Container>

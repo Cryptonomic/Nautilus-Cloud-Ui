@@ -2,6 +2,7 @@ import { styled, withStyles } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
+import theme from 'src/theme';
 
 export const Container = styled('div')({
     width: '100%',
@@ -125,11 +126,6 @@ export const LinkItem = styled(Typography)({
     cursor: 'pointer',
 });
 
-export const FooterLink = styled('span')({
-    cursor: 'pointer',
-    margin: '0 2px',
-});
-
 export const ToolsContainer = styled(Grid)({
     marginTop: '45px',
     backgroundColor: '#2d2c31',
@@ -168,6 +164,48 @@ export const FooterLine = styled('div')({
     backgroundColor: '#979797',
 });
 
-export const FooterList = styled(Grid)({
-    margin: '25px 0 40px',
+export const FooterList = withStyles((theme) => ({
+    root: {
+        margin: '25px 0 40px',
+        flexDirection: 'column',
+        [theme.breakpoints.up('md')]: {
+            flexDirection: 'row',
+            flexWrap: 'wrap',
+            alignItems: 'center',
+        },
+    },
+}))(Grid);
+
+export const FooterSocial = withStyles((theme) => ({
+    root: {
+        justifyContent: 'center',
+        marginTop: 10,
+        width: '140px',
+        [theme.breakpoints.up('md')]: {
+            marginTop: 0,
+        },
+    },
+}))(Grid);
+
+export const FooterLink = styled('span')({
+    cursor: 'pointer',
+});
+
+export const FooterSocialLink = styled('span')({
+    cursor: 'pointer',
+    margin: '0 7px',
+});
+
+export const FooterTerms = styled(Typography)({
+    marginTop: '10px',
+    [theme.breakpoints.up('md')]: {
+        margin: '0px 50px 0px auto',
+    },
+});
+
+export const FooterPolicy = styled(Typography)({
+    marginTop: '10px',
+    [theme.breakpoints.up('md')]: {
+        marginTop: 0,
+    },
 });
