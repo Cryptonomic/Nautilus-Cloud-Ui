@@ -34,9 +34,7 @@ export const LoginButton = withStyles({
 
 export const ToolbarWrapper = withStyles((theme) => ({
     root: {
-        [theme.breakpoints.up('md')]: {
-            height: '85px',
-        },
+        height: '85px',
     },
 }))(Toolbar);
 

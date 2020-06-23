@@ -11,8 +11,11 @@ export const Container = styled('div')({
 
 export const WelcomeContainer = styled(Grid)({
     width: '100%',
-    height: 'calc(100vh - 85px)',
+    minHeight: 'calc(100vh - 85px)',
+    height: '100%',
     marginTop: '85px',
+    padding: '125px 0px 0px',
+    position: 'relative',
 });
 
 export const WelcomeBg = styled('div')({
@@ -21,18 +24,14 @@ export const WelcomeBg = styled('div')({
     left: 0,
     width: '100%',
     height: '100%',
-    marginTop: '85px',
     zIndex: 10,
 });
 
 export const WelcomeWrapper = styled(Grid)({
     zIndex: 20,
     width: 'inherit',
-    height: 'inherit',
-});
-
-export const WelcomeLogoItem = styled(Grid)({
-    marginTop: '125px',
+    minHeight: 'calc(100vh - 210px)',
+    height: '100%',
 });
 
 export const WelcomeTitleItem = styled(Grid)({
@@ -45,11 +44,12 @@ export const WelcomeDescriptonItem = styled(Grid)({
 });
 
 export const WelcomeLoginGithubButtonItem = styled(Grid)({
-    marginTop: '65px',
+    margin: '65px 0px',
 });
 
 export const WelcomeFooterItem = styled(Grid)({
-    margin: 'auto 0 45px',
+    marginTop: 'auto',
+    marginBottom: '45px',
 });
 
 export const WelcomeGithubButton = withStyles({

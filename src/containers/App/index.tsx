@@ -6,7 +6,6 @@ import { useHistory } from 'react-router-dom';
 import {
     Container,
     WelcomeContainer,
-    WelcomeLogoItem,
     WelcomeTitleItem,
     WelcomeDescriptonItem,
     WelcomeLoginGithubButtonItem,
@@ -121,9 +120,9 @@ const App = () => {
                     <CustomImg src={[BgPath1, BgPath2, BgPath3]} name="background-top" />
                 </WelcomeBg>
                 <WelcomeWrapper container direction="column" alignItems="center" wrap="nowrap">
-                    <WelcomeLogoItem item>
+                    <Grid item>
                         <CustomIcon Component={Logo} size="4rem" />
-                    </WelcomeLogoItem>
+                    </Grid>
                     <WelcomeTitleItem item>
                         <Typography variant="h1" align="center">
                             Nautilus Cloud Beta
