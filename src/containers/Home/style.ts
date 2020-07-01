@@ -1,189 +1,370 @@
+import { styled, withStyles } from '@material-ui/core/styles';
+import List from '@material-ui/core/List';
+import Typography from '@material-ui/core/Typography';
+import ListItem from '@material-ui/core/ListItem';
+import ListItemIcon from '@material-ui/core/ListItemIcon';
+import ListItemText from '@material-ui/core/ListItemText';
+import Paper from '@material-ui/core/Paper';
+import Grid from '@material-ui/core/Grid';
+import Select from '@material-ui/core/Select';
+import MenuItem from '@material-ui/core/MenuItem';
+import InputBase from '@material-ui/core/InputBase';
+import Dialog from '@material-ui/core/Dialog';
+import DialogTitle from '@material-ui/core/DialogTitle';
+import DialogContent from '@material-ui/core/DialogContent';
+import DialogActions from '@material-ui/core/DialogActions';
+import Divider from '@material-ui/core/Divider';
+import Button from '@material-ui/core/Button';
+import Tabs from '@material-ui/core/Tabs';
+import Tab from '@material-ui/core/Tab';
+import BottomNavigationAction from '@material-ui/core/BottomNavigationAction';
 
-import styled, { css } from 'styled-components';
+// Keys styles
+export const Container = styled('div')(({ theme }) => ({
+    width: '100%',
+    minHeight: '100vh',
+    display: 'flex',
+    flexDirection: 'column',
+    background: theme.palette.background.default,
+}));
 
-export const Container = styled.div`
-  width: 100%;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  background: #ecf0f8;
-`;
+export const ListItemLarge = styled(ListItem)({
+    flexDirection: 'column',
+    margin: '30px 0px 40px',
+});
 
-export const KeyContainer = styled.div`
-  width: 100%;
-  height: 363px;
-  background: radial-gradient(ellipse 100% 0% at 0% 0%, rgb(109, 118, 243) 0%, rgb(98, 108, 238) 100%);
-  position: relative;
-  overflow: hidden;
-`;
+export const ListItemLargeText = styled(ListItemText)(({ color }: { color?: string }) => ({
+    fontFamily: 'Montserrat, sans-serif',
+    fontSize: '1rem',
+    fontWeight: 500,
+    letterSpacing: 0.69,
+    marginTop: '14px',
+    color: color,
+}));
 
-const OvalCss = css`
-  background: rgb(90, 98, 225);
-  box-shadow: 0px 0px 44px 0px rgb(90, 98, 225);
-  border-radius: 50%;
-  position: absolute;
-`;
+export const ListItemSmallText = styled(ListItemText)({
+    fontFamily: 'Roboto, sans-serif',
+    fontSize: '0.875rem',
+    fontWeight: 400,
+});
 
-export const HeaderOval1 = styled.div`
-  ${OvalCss};
-  width: 398px;
-  height: 398px;
-  left: -59px;
-  top: -72px;
-`;
+export const ListItemSmall = styled(ListItem)({
+    flexDirection: 'column',
+    paddingLeft: 0,
+    paddingRight: 0,
+});
 
-export const HeaderOval2 = styled.div`
-  ${OvalCss};
-  width: 159px;
-  height: 159px;
-  left: 31%;
-  top: 241px;
-`;
+export const IconLarge = styled(ListItemIcon)({
+    fontSize: '1.875rem',
+    justifyContent: 'center',
+});
 
-export const HeaderOval3 = styled.div`
-  ${OvalCss};
-  width: 65px;
-  height: 65px;
-  left: 60%;
-  top: 49px;
-  box-shadow: none;
-`;
+export const SocialList = styled(List)({
+    marginTop: 'auto',
+});
 
-export const KeyMainContainer = styled.div`
-  position: relative;
-  z-index: 10;
-  width: 923px;
-  margin: 0 auto;
-  padding-top: 37px;
-`;
+export const Main = styled(Grid)(({ theme }) => ({
+    padding: '85px 0px 50px 120px',
+}));
 
-export const ApiTxt = styled.p`
-  color: rgb(255, 255, 255);
-  font-weight: 700;
-  font-size: 30px;
-  margin: 0;
-`;
+export const TitleText = styled(Typography)({
+    fontFamily: 'Roboto-Bold, sans-serif',
+    fontSize: '1.5rem',
+    fontWeight: 'bold',
+    letterSpacing: '2px',
+});
 
-export const EnvRowContainer = styled.div`
-  width: 100%;
-  display: flex;
-  justify-content: space-between;
-  margin-top: 16px;
-`;
+export const Title = styled(Grid)({
+    margin: '50px 0px 0px 230px',
+});
 
-export const MainContainer = styled.div`
-  width: 100%;
-  background: white;
-  padding: 36px 0 50px 0;
-  flex: 1;
-`;
+export const Details = styled(Grid)({
+    margin: '15px 0px 0px 230px',
+});
 
-export const MainContent = styled.div`
-  width: 923px;
-  margin: 0 auto;
-`;
+export const Resources = styled(Grid)({
+    margin: '80px 0px 0px 230px',
+});
 
-export const StartedTxt = styled.p`
-  color: rgb(18, 50, 98);
-  font-size: 24px;
-  font-weight: 300;
-  line-height: 28px;
-  margin: 0;
-`;
+export const DetailsBg = styled(Paper)({
+    backgroundColor: 'rgba(35, 35, 37, 0.78)',
+    borderRadius: '3px',
+    padding: '34px 22px 49px',
+    maxWidth: '740px',
+    border: '1px solid #302F35',
+});
 
+export const CustomSelect = withStyles({
+    root: {
+        padding: '0px 0px 0px 16px',
+    },
+    icon: {
+        fontSize: '24px',
+        color: '#fff',
+        top: 'auto',
+        marginRight: '8px',
+    },
+})(Select);
 
-export const TabContainer = styled.div`
-  margin-top: 16px;
-  display: flex;
-`;
+export const CustomInput = withStyles({
+    root: {
+        width: '125px',
+        backgroundColor: '#57565a',
+        borderRadius: '3px',
+        fontFamily: 'Roboto-Medium, sans-serif',
+        fontWeight: 500,
+        letterSpacing: '0px',
+        fontSize: '1rem',
+        lineHeight: '35px',
+    },
+})(InputBase);
 
-export const TabContent = styled.div`
-  margin-top: 19px;
-  width: 100%;
-  display: flex;
-`;
+export const CustomMenuProps = {
+    PaperProps: {
+        style: {
+            backgroundColor: '#57565a',
+            boxShadow: 'none',
+        },
+    },
+};
 
-export const TabLine = styled.div`
-  width: 114px;
-  height: 3px;
-  background: rgb(237, 240, 247);
-  margin-top: 52px;
-`;
+export const CustomMenuItem = withStyles({
+    root: {
+        fontFamily: 'Roboto-Medium, sans-serif',
+        fontWeight: 500,
+        letterSpacing: '0px',
+        fontSize: '1rem',
+        '&:hover': {
+            backgroundColor: 'rgba(255, 255, 255, 0.35)',
+        },
+        "&$selected": {
+            backgroundColor: 'rgba(0, 0, 0, 0.2)',
+            '&:hover': {
+                backgroundColor: 'rgba(0, 0, 0, 0.2)',
+            }
+        }
+    },
+    selected: {},
+})(MenuItem);
 
-export const FooterContainer = styled.div`
-  width: 100%;
-  height: 109px;
-  padding-top: 43px;
-  background: radial-gradient(ellipse 100% 0% at 0% 0%, rgb(109, 118, 243) 0%, rgb(98, 108, 238) 100%);
-`;
+export const LinkText = styled(Typography)({
+    fontFamily: 'Roboto-Light, sans-serif',
+    fontSize: '1rem',
+    fontWeight: 300,
+    letterSpacing: '0px',
+    color: '#c5d2de',
+});
 
-export const FooterMain = styled.div`
-  max-width: 1266px;
-  min-width: 923px;
-  margin: 0 auto;
-  padding: 0 15px;
-`;
+export const ApiKeyText = styled(Typography)({
+    fontFamily: 'Roboto-Light, sans-serif',
+    fontSize: '1rem',
+    fontWeight: 300,
+    letterSpacing: '0px',
+    color: '#fff',
+    maxWidth: '80%',
+    overflow: 'hidden',
+    textOverflow: 'ellipsis',
+    whiteSpace: 'nowrap',
+});
 
-export const ResTxt = styled.p`
-  color: rgb(3, 50, 102);
-  font-size: 24px;
-  font-weight: 300;
-  line-height: 28px;
-  margin: 36px 0 0 0;
-`;
+export const LinkBox = styled(Grid)({
+    backgroundColor: '#57565a',
+    padding: '8px 18px 8px 9px',
+    maxWidth: '448px',
+});
 
-export const ResContainer = styled.div`
-  margin-top: 18px;
-  display: flex;
-  justify-content: space-between;
-`;
+export const ResourcesLinksContainer = styled(Grid)({
+    marginTop: '50px',
+});
 
-export const ResColum = styled.div`
-  width: 452px;
-  border: 1px solid rgb(238, 238, 238);
-  padding: 29px 0 7px 0;
-  display: flex;
-`;
+export const ResourcesLinks = styled(Typography)({
+    fontWeight: 300,
+    letterSpacing: '3.03px',
+    lineHeight: 1.85,
+    maxWidth: '230px',
+    textDecoration: 'underline',
+    textAlign: 'center',
+    marginTop: '20px',
+});
 
-export const ResContent = styled.div`
-  margin-left: 40px;
-  padding: 0 50px 43px 0;
-  display: flex;
-  flex-direction: column;
-`;
+export const ResourcesLinkItem = styled(Grid)({
+    cursor: 'pointer',
+    margin: '25px',
+});
 
-export const ResTitle = styled.p`
-  color: rgb(0, 0, 0);
-  font-size: 20px;
-  font-weight: 500;
-  line-height: 24px;
-  margin: 0;
-`;
+export const Modal = withStyles({
+    paper: {
+        width: '540px',
+        backgroundColor: '#57565a',
+    },
+})(Dialog);
 
-export const ResDesTxt = styled.div`
-  color: rgb(0, 62, 70);
-  font-size: 16px;
-  font-weight: 300;
-  line-height: 19px;
-  flex: 1;
-  display: flex;
-  align-items: flex-end;
-`;
+export const ModalDivider = styled(Divider)({
+    backgroundColor: '#FFFFFF',
+});
 
-export const LearnMore = styled.div`
-  display: inline-flex;
-  align-items: center;
-  color: rgb(0, 192, 255);
-  font-size: 16px;
-  font-weight: 500;
-  line-height: 19px;
-  margin-top: 19px;
-  width: 97px;
-  cursor: pointer;
-`;
+export const ModalTitle = styled(DialogTitle)({
+    fontFamily: 'Roboto-Bold, sans-serif',
+    fontSize: '1.25rem',
+    fontWeight: 600,
+    letterSpacing: '2px',
+    padding: '23px 22px 5px',
+});
 
-export const ChevIcon = styled.img`
-  height: 12px;
-  width: 7px;
-  margin-left: 6px;
-`;
+export const ModalContent = styled(DialogContent)({
+    padding: '18px 22px 45px',
+});
+
+export const ModalAskText = styled(Typography)({
+    fontFamily: 'Roboto-Bold, sans-serif',
+    fontSize: '1.125rem',
+    letterSpacing: '0px',
+    fontWeight: 500,
+    lineHeight: 1.33,
+    color: '#7dc0de',
+});
+
+export const ModalInfoText = styled(Typography)({
+    lineHeight: 'normal',
+    letterSpacing: 'normal',
+    marginTop: '20px',
+});
+
+export const ModalActionsWrapper = styled(DialogActions)({
+    padding: '0px 22px 15px',
+});
+
+export const ModalButtonAccept = withStyles({
+    root: {
+        width: '116px',
+        height: '48px',
+    },
+    label: {
+        textTransform: 'none',
+        fontWeight: 500,
+        lineHeight: 1.5,
+    },
+})(Button);
+
+export const ModalButtonCancel = withStyles({
+    root: {
+        width: '116px',
+        height: '48px',
+        backgroundColor: 'transparent',
+        border: '1px solid #fff',
+        '&:hover': {
+            backgroundColor: '#4A494D',
+        },
+    },
+    label: {
+        textTransform: 'none',
+        fontWeight: 500,
+        lineHeight: 1.5,
+    },
+})(Button);
+
+// Stats styles
+export const StatsTabs = withStyles({
+    root: {
+        margin: '50px 0px 0px 135px',
+    },
+    indicator: {
+        backgroundColor: '#499ce9',
+    },
+})(Tabs);
+
+export const StatsTab = withStyles({
+    root: {
+        minWidth: '50px',
+        padding: 0,
+        margin: '0px 33px',
+    },
+    wrapper: {
+        fontFamily: 'Montserrat, sans-serif',
+        fontWeight: 600,
+        fontSize: '1.25rem',
+        textTransform: 'none',
+    },
+})(Tab);
+
+export const TimeContainer = styled('div')({
+    margin: '43px 175px 0px 168px',
+});
+
+export const RefreshButton = withStyles({
+    root: {
+        maxWidth: '220px',
+    },
+    wrapper: {
+        display: 'flex',
+        flexDirection: 'row',
+    },
+    label: {
+        marginLeft: '5px',
+        textTransform: 'uppercase',
+        color: '#499ce9',
+        fontFamily: 'Roboto, sans-serif',
+        fontSize: '1rem',
+        fontWeight: 400,
+    },
+})(BottomNavigationAction);
+
+export const TimeTextWrapper = styled(Grid)({
+    marginTop: '40px',
+});
+
+export const TimeText = styled(Typography)({
+    fontSize: '1rem',
+    marginLeft: '10px',
+    lineHeight: 'normal',
+    letterSpacing: 'normal',
+});
+
+export const ChartContainer = styled('div')({
+    margin: '50px 160px 0px 135px',
+});
+
+export const ChartBg = styled(Paper)({
+    backgroundColor: '#232325',
+    boxShadow: '0 5px 5px 0 rgba(0, 0, 0, 0.5)',
+    borderRadius: '5px',
+    padding: '25px 30px 15px',
+});
+
+export const ChartTitleContainer = styled(Grid)({
+    marginLeft: '30px',
+});
+
+export const ChartTitle = styled(Typography)({
+    letterSpacing: 'normal',
+});
+
+export const ChartSubtitle = styled(Typography)({
+    fontSize: '1rem',
+    letterSpacing: 'normal',
+});
+
+export const ChartLegendIcon = styled('div')(({ color }: { color: string }) => ({
+    width: '12px',
+    height: '12px',
+    backgroundColor: color,
+    display: 'inline-block',
+}));
+
+export const ChartLegendText = styled(Typography)({
+    fontWeight: 500,
+    marginLeft: '15px',
+    display: 'inline-block',
+});
+
+export const ChartLineWrapper = styled('div')({
+    marginTop: '18px',
+});
+
+export const BoxesContainer = styled('div')({
+    margin: '64px 160px 0px 135px',
+});
+
+export const EndopointsSelectContainer = styled(Grid)({
+    paddingLeft: '25px',
+});
