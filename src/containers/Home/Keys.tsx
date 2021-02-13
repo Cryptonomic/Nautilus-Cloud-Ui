@@ -52,16 +52,18 @@ const {
     prodTezos,
     devConseil,
     devTezos,
+    devEdoConseil,
+    devEdoTezos
 } = config;
 
 const mainUrls = {
     prod: {
-        conseil: prodConseil,
-        tezos: prodTezos,
+        conseil: [prodConseil],
+        tezos: [prodTezos],
     },
     dev: {
-        conseil: devConseil,
-        tezos: devTezos,
+        conseil: [devConseil, devEdoConseil],
+        tezos: [devTezos, devEdoTezos],
     },
 };
 
@@ -163,42 +165,57 @@ const Keys = (props) => {
                                         </EndopointsSelectContainer>
                                     </Grid>
                                 </Grid>
-                                {apiKeys[selectedKey].environment === 'dev' && (
+                                {/* {apiKeys[selectedKey].environment === 'dev' && (
                                     <Grid item>
                                         <Typography variant="subtitle2" color="textSecondary">
                                             {devInfo}
                                         </Typography>
                                     </Grid>
-                                )}
+                                )} */}
                                 <Grid item>
                                     <Typography variant="subtitle1" component="div">
                                         {`Tezos ${getItemName(
                                             apiKeys[selectedKey].environment
                                         )} Node`}
                                     </Typography>
-                                    <Grid container alignItems="center">
+                                    {mainUrls[apiKeys[selectedKey].environment].tezos.map( url =>
+                                    <Grid container alignItems="center">                                        
                                         <LinkText>
-                                            {mainUrls[apiKeys[selectedKey].environment].tezos}
+                                            {url}
                                         </LinkText>
                                         <CopyButton
-                                            txt={mainUrls[apiKeys[selectedKey].environment].tezos}
-                                        />
+                                            txt={url}
+                                        />                              
+                                        {apiKeys[selectedKey].environment === 'dev' && (
+                                            <Typography >
+                                               {url.includes('edo') ? '(Edonet)' : '(Delphinet)'}
+                                            </Typography>
+                                        )}                                                  
                                     </Grid>
+                                    )}
                                 </Grid>
+                                    
                                 <Grid item>
                                     <Typography variant="subtitle1" component="div">
                                         {`Conseil ${getItemName(
                                             apiKeys[selectedKey].environment
                                         )} Node`}
                                     </Typography>
+                                    {mainUrls[apiKeys[selectedKey].environment].conseil.map(url =>
                                     <Grid container alignItems="center">
                                         <LinkText>
-                                            {mainUrls[apiKeys[selectedKey].environment].conseil}
+                                            {url}
                                         </LinkText>
                                         <CopyButton
-                                            txt={mainUrls[apiKeys[selectedKey].environment].conseil}
+                                            txt={url}
                                         />
+                                        {apiKeys[selectedKey].environment === 'dev' && (
+                                            <Typography>
+                                               {url.includes('edo') ? '(Edonet)' : '(Delphinet)'}
+                                            </Typography>
+                                        )}
                                     </Grid>
+                                    )}
                                 </Grid>
                                 <Grid item>
                                     <Typography variant="subtitle1" component="div">
