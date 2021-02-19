@@ -188,7 +188,7 @@ const Keys = (props) => {
                                         />                              
                                         {apiKeys[selectedKey].environment === 'dev' && (
                                             <Typography >
-                                               {url.includes('edo') ? '(Edonet)' : '(Delphinet)'}
+                                               {url.includes('edo') ? '(Edo2net)' : '(Delphinet)'}
                                             </Typography>
                                         )}                                                  
                                     </Grid>
@@ -211,7 +211,7 @@ const Keys = (props) => {
                                         />
                                         {apiKeys[selectedKey].environment === 'dev' && (
                                             <Typography>
-                                               {url.includes('edo') ? '(Edonet)' : '(Delphinet)'}
+                                               {url.includes('edo') ? '(Edo2net)' : '(Delphinet)'}
                                             </Typography>
                                         )}
                                     </Grid>
