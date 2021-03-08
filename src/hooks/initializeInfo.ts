@@ -12,6 +12,7 @@ import {
 } from "../reducers/app/actions";
 
 export default () => {
+  
   const dispatch = useDispatch();
   const [token, setToken] = useState<Token>({
     accessToken: localStorage.accessToken,
