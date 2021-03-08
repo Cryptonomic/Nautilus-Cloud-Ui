@@ -4,6 +4,9 @@ import Grid from '@material-ui/core/Grid';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import MenuItem from '@material-ui/core/MenuItem';
 import axios from 'axios';
+import { useSelector } from 'react-redux'
+
+import { IAppState, IToken } from '../../models'
 import {
     Main,
     TitleText,
@@ -41,6 +44,7 @@ import programmingIcon from '../../assets/img/js-programming.svg';
 import scriptIcon from '../../assets/img/script-code-coding.svg';
 import refreshIcon from '../../assets/img/refresh.svg';
 
+import http, { rebuildHttp } from '../../utils/httpService'
 const {
     handbook,
     conseil,
@@ -72,10 +76,10 @@ const Keys = (props) => {
     const [apiKeys, setApiKeys] = useState([]);
     const [selectedKey, setSelectedKey] = useState(0);
     const [open, setOpen] = useState(false);
-
     async function getKeys() {
+        rebuildHttp();
         try {
-            const response = await axios.get(`${config.url}/users/me/apiKeys`, {
+            const response = await http.get(`${config.url}/users/me/apiKeys`, {
                 withCredentials: true,
             });
             if (!!response.data && response.data.length > 1) {
@@ -91,8 +95,9 @@ const Keys = (props) => {
 
     async function refreshKeys(env, index) {
         setOpen(false);
+        rebuildHttp();
         try {
-            const newKey = await axios.post(
+            const newKey = await http.post(
                 `${config.url}/users/me/apiKeys/${env}/refresh`,
                 {},
                 { withCredentials: true }
@@ -178,13 +183,14 @@ const Keys = (props) => {
                                             apiKeys[selectedKey].environment
                                         )} Node`}
                                     </Typography>
-                                    {mainUrls[apiKeys[selectedKey].environment].tezos.map( url =>
-                                    <Grid container alignItems="center">                                        
-                                        <LinkText>
+                                    {mainUrls[apiKeys[selectedKey].environment].tezos.map( (url, index) =>
+                                    <Grid container alignItems="center" key={`parent_${index}`}>                                        
+                                        <LinkText key={`first_child_${index}`}>
                                             {url}
                                         </LinkText>
                                         <CopyButton
                                             txt={url}
+                                            key={`second_child_${index}`}
                                         />                              
                                         {apiKeys[selectedKey].environment === 'dev' && (
                                             <Typography >
@@ -201,13 +207,14 @@ const Keys = (props) => {
                                             apiKeys[selectedKey].environment
                                         )} Node`}
                                     </Typography>
-                                    {mainUrls[apiKeys[selectedKey].environment].conseil.map(url =>
-                                    <Grid container alignItems="center">
-                                        <LinkText>
+                                    {mainUrls[apiKeys[selectedKey].environment].conseil.map((url, index) =>
+                                    <Grid container alignItems="center" key={`parent_${index}`}>
+                                        <LinkText key={`first_child_${index}`}>
                                             {url}
                                         </LinkText>
                                         <CopyButton
                                             txt={url}
+                                            key={`second_child_${index}`}
                                         />
                                         {apiKeys[selectedKey].environment === 'dev' && (
                                             <Typography>

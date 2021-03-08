@@ -1,10 +1,8 @@
 import { combineReducers } from 'redux';
-import { app } from './app/reducers';
-
-export interface RootState {
-  app: any;
-}
-
+import { token, userInfo } from './app/reducers';
+import { IAppState } from '../models'
+export type RootState = IAppState
 export const rootReducer = combineReducers({
-  app
+  token,
+  user: userInfo
 });

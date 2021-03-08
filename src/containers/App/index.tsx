@@ -2,6 +2,7 @@ import React from 'react';
 import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
 import { useHistory } from 'react-router-dom';
+import { useSelector } from 'react-redux'
 
 import {
     Container,
@@ -75,7 +76,7 @@ import RiotIcon from '../../assets/img/sm_riot_icon.svg';
 import TwitterIcon from '../../assets/img/sm_twitter_icon.svg';
 import MediumIcon from '../../assets/img/sm_medium_icon.svg';
 
-import { User } from '../../types';
+import { UserInfo, AppState } from '../../types';
 import config from '../../config';
 const {
     termsOfService,
@@ -96,21 +97,17 @@ const gitAuthUrl = `https://github.com/login/oauth/authorize?client_id=${config.
 
 const App = () => {
     const history = useHistory();
-    const userStringInfo = localStorage.getItem('userInfo');
-    let userInfo: User = { userEmail: '' };
-    if (userStringInfo) {
-        userInfo = JSON.parse(userStringInfo);
-    }
+    const userInfo: UserInfo = useSelector((state: AppState) => state.user.userInfo)
     const onGitLogin = () => window.open(gitAuthUrl, '_self');
     const openUrl = (url: string) => window.open(url, '_blank');
     const onLogout = () => {
-        localStorage.removeItem('userInfo');
+        localStorage.removeItem('accessToken');
         history.replace('/');
     };
 
     return (
         <Container>
-            <TopBar onLogin={onGitLogin} userEmail={userInfo.userEmail} onLogout={onLogout} />
+            <TopBar onLogin={onGitLogin} userEmail={userInfo?.email} onLogout={onLogout} />
             {/* Welcome section */}
             <WelcomeContainer container direction="column" alignItems="center" wrap="nowrap">
                 <WelcomeBg>

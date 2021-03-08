@@ -18,15 +18,7 @@ import 'typeface-pt-sans';
 const rootEl = document.getElementById('root');
 
 render(
-  <Provider store={store}>
-    <ThemeProvider theme={theme}>
-      <CssBaseline>
-        <BrowserRouter>
-          <RouterCheck/>
-        </BrowserRouter>
-      </CssBaseline>
-    </ThemeProvider>
-  </Provider>
+  <RouterCheck />
   ,
   rootEl
 );

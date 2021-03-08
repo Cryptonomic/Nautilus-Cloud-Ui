@@ -1,6 +1,6 @@
-export interface User {
-  userId?: number;
-  userRole?: string;
-  userEmail?: string;
-  accountSource?: string;
-}
+import { IAppState, IToken, IUserInfo, IUserState } from "../models";
+
+export type AppState = IAppState | null;
+export type Token = IToken | null;
+export type UserInfo = IUserInfo | null;
+export type UserState = IUserState | null;
