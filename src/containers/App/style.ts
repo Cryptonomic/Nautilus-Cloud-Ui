@@ -3,6 +3,7 @@ import Grid from '@material-ui/core/Grid';
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
 import theme from 'src/theme';
+import typography from 'src/theme/typography';
 
 export const Container = styled('div')({
     width: '100%',
@@ -13,8 +14,8 @@ export const WelcomeContainer = styled(Grid)({
     width: '100%',
     minHeight: 'calc(100vh - 85px)',
     height: '100%',
-    marginTop: '85px',
-    padding: '125px 0px 0px',
+    // marginTop: '85px',
+    padding: '220px 0px 0px',
     position: 'relative',
 });
 
@@ -54,13 +55,15 @@ export const WelcomeFooterItem = styled(Grid)({
 
 export const WelcomeGithubButton = withStyles({
     root: {
-        width: '295px',
-        height: '69px',
+        width: '240px',
+        height: '56px',
         lineHeight: 1.09,
         padding: '12px 8px',
+        background: "#61A9E9",
+        borderRadius: "8px"
     },
     label: {
-        fontSize: '1.375rem',
+        fontSize: '16px',
         textTransform: 'none',
     },
 })(Button);
@@ -104,7 +107,7 @@ export const DevelopmentApiMeteringDesctiprion = styled(Grid)({
 });
 
 export const CreateApiButtonContainter = styled(Grid)({
-    margin: '105px auto 55px',
+    margin: '105px auto 55px'
 });
 
 export const CreateApiButton = withStyles({
@@ -113,6 +116,15 @@ export const CreateApiButton = withStyles({
         height: '48px',
         lineHeight: 1.5,
         padding: '12px 8px',
+        border: "1px solid #528FF5",
+        backgroundColor: "transparent",
+        borderRadius: "8px",
+        color: "#528FF5",
+
+        "&:hover": {
+            color: "white",
+            backgroundColor: "#61A9E9"
+        }
     },
     label: {
         fontSize: '1rem',
@@ -149,7 +161,7 @@ export const ToolsLink = styled(Grid)({
 });
 
 export const FooterContainer = styled(Grid)({
-    marginTop: '45px',
+    marginTop: '0px',
     padding: '0 160px',
 });
 
@@ -161,12 +173,12 @@ export const FooterTitle = styled(Grid)({
 export const FooterLine = styled('div')({
     width: '100%',
     height: '1px',
-    backgroundColor: '#979797',
+    backgroundColor: '#4D4D4D',
 });
 
 export const FooterList = withStyles((theme) => ({
     root: {
-        margin: '25px 0 40px',
+        margin: '13px 0',
         flexDirection: 'column',
         [theme.breakpoints.up('md')]: {
             flexDirection: 'row',
@@ -209,3 +221,30 @@ export const FooterPolicy = styled(Typography)({
         marginTop: 0,
     },
 });
+
+export const PriceTable = styled('div')({
+    display: "flex",
+    flexDirection: "column",
+    width: "100%",
+    alignItems: "center",
+    justifyContent: "center",
+    backgroundColor: "#2D2C31",
+    padding: "70px 0 140px 0"
+})
+
+export const PriceTableWrapper = styled('div')({
+    display: "flex",
+    flexDirection: "row",
+    width: "100%",
+    alignItems: "center",
+    justifyContent: "center",
+})
+
+export const PriceTitle = styled(Typography)({
+    fontFamily: "Montserrat",
+    fontStyle: "normal",
+    fontWeight: "bold",
+    fontSize: "32px",
+    lineHeight: "59px",
+    paddingBottom: "70px"
+})

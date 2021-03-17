@@ -31,3 +31,16 @@ export interface IBaseState {
 export interface IUserState extends IBaseState{
   userInfo: IUserInfo | null
 }
+
+export interface IFAQItem{
+  title: string,
+  description: string
+}
+
+export interface IInvoiceTableItem{
+  date: string,
+  description: string,
+  period: string,
+  amount: string,
+  status: string
+}

@@ -61,7 +61,7 @@ const RouterCheck = () => {
       <ThemeProvider theme={theme}>
         <CssBaseline>
           <BrowserRouter>
-            <Suspense fallback={<div>Loading...</div>}>
+            <Suspense fallback={<div className="loader">Loading...</div>}>
               <Switch>
                 <RegularRoute exact path="/" component={App} />
                 <PrivateRoute path="/home" component={Home} />

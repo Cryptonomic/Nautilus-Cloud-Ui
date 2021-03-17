@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import jwt_decode from "jwt-decode";
 
-import { UserInfo, UserState, Token, AppState } from "../types";
+import { UserInfo, UserState, AppState } from "../types";
 import { ActionTypeStates } from "../models";
 import {
   setAccessToken,
@@ -14,18 +14,15 @@ import {
 export default () => {
   
   const dispatch = useDispatch();
-  const [token, setToken] = useState<Token>({
-    accessToken: localStorage.accessToken,
-  });
   const store = useSelector((state: AppState) => state);
   useEffect(() => {
-    if (token.accessToken) {
-      const userInfo: UserInfo = jwt_decode(token.accessToken);
+    if (localStorage.accessToken) {
+      const userInfo: UserInfo = jwt_decode(localStorage.accessToken);
       const userState: UserState = {
         status: ActionTypeStates.SUCCESS,
         userInfo: userInfo,
       };
-      dispatch(setAccessToken(token));
+      dispatch(setAccessToken({accessToken: localStorage.accessToken}));
       dispatch(setUserInfo(userState));
     } else {
       if (store.token.accessToken) dispatch(removeAccessToken());
