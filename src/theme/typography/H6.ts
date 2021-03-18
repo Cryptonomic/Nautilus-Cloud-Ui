@@ -1,6 +1,6 @@
 export default {
     fontFamily: 'Montserrat, sans-serif',
     fontSize: '2rem',
-    lineHeight: 0.75,
-    letterSpacing: '3.56px'
+    lineHeight: '2.4375rem',
+    letterSpacing: '1px'
 };

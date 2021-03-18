@@ -3,11 +3,14 @@ import { RouteComponentProps, withRouter } from 'react-router-dom';
 import axios from 'axios';
 import Checkbox from '@material-ui/core/Checkbox';
 import Typography from '@material-ui/core/Typography';
+import { useDispatch } from 'react-redux'
 
 import Loader from '../Loader';
 import CustomImg from '../CustomImg';
 import logo from '../../assets/img/logo.svg';
 import config from '../../config';
+import { IToken } from '../../models';
+import { setAccessToken, setUserInfo } from '../../reducers/app/actions';
 
 import {
     Container,
@@ -27,6 +30,7 @@ import {
 } from './style';
 
 const CallBack: React.FC<RouteComponentProps> = (props) => {
+    const dispatch = useDispatch();
     const { location, history } = props;
     const [isChecked, setIsChecked] = useState(false);
     const [isLoading, setIsLoading] = useState(true);
@@ -37,16 +41,24 @@ const CallBack: React.FC<RouteComponentProps> = (props) => {
         history.push('/');
     }
     useEffect(() => {
-        async function getUser() {
+        const getUser = async () =>  {
             try {
                 const response = await axios.post(
                     `${config.url}/users/github-init`,
                     { code },
                     { withCredentials: true }
                 );
+                let accessToken = null;
+                if(response.headers["set-authorization"]){
+                    //remove Bearer from the value
+                    accessToken =  response.headers["set-authorization"].substr(7);
+                }
+                const token: IToken = {
+                    accessToken
+                } 
+                dispatch(setAccessToken(token));
                 const { header, payload } = response.data;
                 if (header.payloadType === 'REGISTERED') {
-                    localStorage.setItem('userInfo', JSON.stringify(payload));
                     history.push('/home');
                 } else if (header.payloadType === 'REGISTRATION') {
                     setIsLoading(false);
@@ -68,6 +80,7 @@ const CallBack: React.FC<RouteComponentProps> = (props) => {
 
     function onDecline() {
         localStorage.removeItem('userInfo');
+        localStorage.removeItem('accessToken');
         history.push('/');
     }
 
