@@ -1,4 +1,47 @@
-import { Token, UserInfo, AppState, UserState } from "../../types";
+import { Token, UserState, Plan } from "../../types";
+
+// Payment types
+
+export enum PaymentActions {
+  SET_PAYMENT_PLANS = 'SET_PAYMENT_PLANS',
+  SET_ACTIVE_PLAN = 'SET_ACTIVE_PLAN',
+}
+
+export interface PaymentPlan {
+  id: number;
+  name: Plan;
+  price: number;
+  publicDescription: string;
+  type: string;
+  numberOfRequests: number | null;
+  lengthInDays: number;
+  isDefault: boolean;
+  startDate: string | null;
+  endDate: string | null;
+}
+
+export interface PaymentActivePlan {
+  planId: number;
+  usedRequests: number;
+  maxRequests: number | null;
+  started: string;
+  ends: string;
+}
+
+export interface PaymentState {
+  plans: PaymentPlan[];
+  activePlan: PaymentActivePlan | null;
+}
+
+export interface PaymentPlansAction {
+  type: typeof PaymentActions.SET_PAYMENT_PLANS;
+  plans: PaymentPlan[];
+}
+
+export interface PaymnetActivePlanAction {
+  type: typeof PaymentActions.SET_ACTIVE_PLAN;
+  activePlan: PaymentActivePlan;
+}
 
 /**
  * token
@@ -36,4 +79,6 @@ export type Actions =
   | ISetAccessTokenAction
   | IRemoveAccessTokenAction
   | ISetUserInfoAction
-  | IRemoveUserInfoAction;
+  | IRemoveUserInfoAction
+  | PaymentPlansAction
+  | PaymnetActivePlanAction;

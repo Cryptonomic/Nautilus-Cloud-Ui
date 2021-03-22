@@ -1,5 +1,6 @@
 import React, { useEffect } from "react";
 import Grid from "@material-ui/core/Grid";
+import { Link } from 'react-router-dom';
 
 import MenuButton from "../MenuButton";
 import CustomImg from "../CustomImg";
@@ -30,6 +31,7 @@ const TopBar = ({
   background = "transparent",
   onLogin,
   onLogout,
+  onPrices,
   style
 }: {
   drawer?: number | string;
@@ -39,6 +41,7 @@ const TopBar = ({
   background?: string;
   onLogin?: () => void;
   onLogout?: () => void;
+  onPrices?: () => void;
 }) => {
   const resourcesItems = [
     { name: "Tezos Developer Handbook", link: handbook },
@@ -91,7 +94,7 @@ const TopBar = ({
               justify={!isRootPage ? "flex-start" : "space-between"}
               alignItems="center"
             >
-              {isRootPage && <MenuButton label="Prices" />}
+              {isRootPage && <span onClick={onPrices}><MenuButton label="Prices" /></span>}
               <MenuButton
                 label={
                   <MenuGrid container alignItems="center" wrap="nowrap">

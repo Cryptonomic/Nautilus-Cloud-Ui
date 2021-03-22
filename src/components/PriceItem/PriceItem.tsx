@@ -80,7 +80,7 @@ const PriceItem: React.FC<PriceItemProps> = ({
           {buttonLabel}
         </ButtonWithCheckWrapper>
       )}
-      {!selected && <ButtonWrapper>{buttonLabel}</ButtonWrapper>}
+      {!selected && buttonLabel && <ButtonWrapper>{buttonLabel}</ButtonWrapper>}
     </PriceItemWrapper>
   );
 };

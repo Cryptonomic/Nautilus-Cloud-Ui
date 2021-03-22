@@ -1,3 +1,5 @@
+import { PaymentState } from '../reducers/app/types';
+
 export enum ActionTypeStates {
   INPROGRESS = "INPROGRESS",
   SUCCESS = "SUCCESS",
@@ -20,6 +22,7 @@ export interface IUserInfo {
 export interface IAppState {
   token: IToken;
   user: IUserState;
+  payment: PaymentState
 }
 
 export interface IBaseState {

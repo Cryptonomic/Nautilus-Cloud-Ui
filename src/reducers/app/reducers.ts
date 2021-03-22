@@ -1,5 +1,5 @@
-import { Token, UserInfo, AppState, UserState } from "../../types";
-import { Actions, AccessTokenTypeKeys, UserInfoTypeKeys } from "./types";
+import { Token, UserState } from "../../types";
+import { Actions, AccessTokenTypeKeys, UserInfoTypeKeys, PaymentState, PaymentActions } from "./types";
 import { ActionTypeStates } from '../../models'
 
 let initialTokenState: Token = {
@@ -51,4 +51,22 @@ export const userInfo = (
       break;
   }
   return state;
+}
+
+// Payment state
+
+const initialPaymentState: PaymentState = {
+  plans: [],
+  activePlan: null,
+}
+
+export const payment = (state: PaymentState = initialPaymentState, action: Actions) => {
+  switch (action.type) {
+    case PaymentActions.SET_PAYMENT_PLANS:
+      return { ...state, plans: action.plans };
+    case PaymentActions.SET_ACTIVE_PLAN:
+      return { ...state, activePlan: action.activePlan };
+    default:
+      return state;
+  }
 };
