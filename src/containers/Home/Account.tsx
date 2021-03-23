@@ -34,6 +34,10 @@ import { ReactComponent as CautionIcon } from '../../assets/img/caution.svg';
 
 import { displayTimestamp } from '../../utils/renders';
 import { PaymentActivePlan } from 'src/reducers/app/types';
+export interface AccountProps {
+    subscribed?: boolean;
+    plan?: Plan;
+}
 
 const faq = [
     {
@@ -52,11 +56,30 @@ const faq = [
             'Once you make a payment for the month, there is no way to downgrade your subscription. Your plan will automatically downgrade to the free tier at the end of the billing cycle if you don’t make another payment.',
     },
 ];
-export interface AccountProps {
-    subscribed?: boolean;
-    plan?: Plan;
-}
+
+// Hardcoded temporary
+const plansDetails = {
+    1: {
+        description: [
+            '3,000,000 Requests per Month',
+            'Tezos Mainnet and Testnet Nodes',
+            'Conseil Mainnet and Testnet Nodes',
+        ],
+        background: '#2F3035',
+    },
+    2: {
+        description: [
+            'Unlimited Requests per Month',
+            'Tezos Mainnet and Testnet Nodes',
+            'Conseil Mainnet and Testnet Nodes',
+        ],
+        background:
+            'linear-gradient(90deg, rgba(82, 143, 245, 0.4) 0%, rgba(127, 86, 244, 0.4) 155.82%);',
+    },
+};
+
 const Account = () => {
+    const plans = useSelector((state: AppState) => state.payment.plans);
     const activePlan = useSelector((state: AppState) => state.payment.activePlan);
     const invoices = useSelector((state: AppState) => state.payment.invoices);
     const subscriptionsMap = useSelector((state: AppState) => state.payment.subscriptionsMap);
@@ -64,7 +87,7 @@ const Account = () => {
     const [tabID, setTabID] = useState<number>(0);
     const [stripe, setStripe] = useState<any>(null);
 
-    const onTabIDChanged = (event, newValue) =>  setTabID(newValue);
+    const onTabIDChanged = (event, newValue) => setTabID(newValue);
 
     const onMakePayment = async () => {
         if (!stripe) {
@@ -159,37 +182,50 @@ const Account = () => {
                         <Grid container justify="center">
                             <Grid style={{ width: '37rem' }}>
                                 <PriceTable>
-                                    <PriceItem
-                                        plan={Plan.Basic}
-                                        label="Free"
-                                        items={[
-                                            '3,000,000 Requests per Month',
-                                            'Tezos Mainnet and Testnet Nodes',
-                                        ]}
-                                        buttonLabel="Your plan"
-                                        selected={true}
-                                        background="#2F3035"
-                                        style={{ marginTop: '2rem' }}
-                                        direction={Direction.Row}
-                                    ></PriceItem>
-                                    <PriceItem
-                                        plan={Plan.Pro}
-                                        opacity={0.4}
-                                        label={
-                                            <div>
-                                                $50<span className={'month'}>/month</span>
-                                            </div>
-                                        }
-                                        items={[
-                                            'Unlimited Requests per Month',
-                                            'Tezos Mainnet and Testnet Nodes',
-                                        ]}
-                                        buttonLabel="Upgrade"
-                                        selected={false}
-                                        direction={Direction.Row}
-                                        style={{ marginTop: '2rem' }}
-                                        background="linear-gradient(90deg, rgba(82, 143, 245, 0.4) 0%, rgba(127, 86, 244, 0.4) 155.82%);"
-                                    ></PriceItem>
+                                    {plans.map((plan, index) => (
+                                        <PriceItem
+                                            key={plan.id}
+                                            plan={plan.name}
+                                            label={
+                                                !plan.endDate ? (
+                                                    'Free'
+                                                ) : (
+                                                    <div>
+                                                        ${plan.price}
+                                                        <span className={'month'}>/month</span>
+                                                    </div>
+                                                )
+                                            }
+                                            items={plansDetails[plan.id].description}
+                                            buttonLabel={
+                                                activePlan
+                                                    ? activePlan.planId === plan.id
+                                                        ? 'Your plan'
+                                                        : plan.id === 2
+                                                        ? 'Upgrade'
+                                                        : ''
+                                                    : plan.id === 1
+                                                    ? 'Your plan'
+                                                    : 'Upgrade'
+                                            }
+                                            selected={
+                                                activePlan
+                                                    ? activePlan.planId === plan.id
+                                                    : plan.id === 1
+                                            }
+                                            background={plansDetails[plan.id].background}
+                                            style={{
+                                                marginTop: '2rem',
+                                                padding:
+                                                    activePlan &&
+                                                    activePlan.planId === 2 &&
+                                                    plan.id === 1
+                                                        ? '10px 40px'
+                                                        : '',
+                                            }}
+                                            direction={Direction.Row}
+                                        />
+                                    ))}
                                 </PriceTable>
                                 <FAQ items={faq} />
                             </Grid>
