@@ -16,6 +16,7 @@ import { store } from "./store";
 const App = lazy(() => import("./containers/App"));
 const Home = lazy(() => import("./containers/Home"));
 const CallBack = lazy(() => import("./components/CallBack"));
+const PaymentStatus = lazy(() => import("./containers/PaymentStatus"));
 
 const PrivateRoute = ({ redirectPath, component: Component, ...rest }: any) => {
   initializeInfo();
@@ -55,6 +56,24 @@ const RegularRoute = ({ component: Component, ...rest }: any) => {
   initializeInfo();
   return <Route {...rest} render={(props) => <Component {...props} />} />;
 };
+
+const PaymentStatusRoute = ({ redirectPath, component: Component, ...rest }: any) => {
+  initializeInfo();
+  return (
+    <Route
+      {...rest}
+      render={(props) => {
+        if (window.localStorage.accessToken) {
+          return <Component {...props} />;
+        } else {
+          props.history.push(redirectPath || "/");
+          return null;
+        }
+      }}
+    />
+  );
+};
+
 const RouterCheck = () => {
   return (
     <Provider store={store}>
@@ -65,6 +84,7 @@ const RouterCheck = () => {
               <Switch>
                 <RegularRoute exact path="/" component={App} />
                 <PrivateRoute path="/home" component={Home} />
+                <PaymentStatusRoute path={['/success', '/canceled']} component={PaymentStatus} />
                 <PublicRoute
                   redirectPath="/home"
                   path="/github-callback"
