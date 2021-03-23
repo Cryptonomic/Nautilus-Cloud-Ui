@@ -1,60 +1,73 @@
-import React, { useState } from "react";
-import Grid from "@material-ui/core/Grid";
-import Typography from "@material-ui/core/Typography";
-import { InvoiceTableItem } from "../../types";
-import { ReactComponent as PlusIcon } from "../../assets/img/accordion-plus.svg";
-import { ReactComponent as MinusIcon } from "../../assets/img/accordion-minus.svg";
+import * as React from 'react';
+import { PaymentInvoice, PaymentSubscription } from '../../reducers/app/types';
 
-import Table from "@material-ui/core/Table";
-import TableBody from "@material-ui/core/TableBody";
-import TableHead from "@material-ui/core/TableHead";
-import TableRow from "@material-ui/core/TableRow";
-import Paper from "@material-ui/core/Paper";
-
+import Table from '@material-ui/core/Table';
+import TableBody from '@material-ui/core/TableBody';
+import TableHead from '@material-ui/core/TableHead';
+import TableRow from '@material-ui/core/TableRow';
 export interface InvoiceTableProps {
-  items: InvoiceTableItem[];
-  style?: React.CSSProperties;
+    invoices: PaymentInvoice[];
+    subscriptions: any;
+    style?: React.CSSProperties;
 }
 
 import {
-  Wrapper,
-  Title,
-  TableCellWrapper as TableCell,
-  TableContainerWrapper as TableContainer,
-} from "./style";
+    Wrapper,
+    Title,
+    TableCellWrapper as TableCell,
+    TableContainerWrapper as TableContainer,
+} from './style';
 
-const InvoiceTable: React.FC<InvoiceTableProps> = ({ style, items = [] }) => {
-  return (
-    <Wrapper container>
-      <Title>Invoices</Title>
-      <TableContainer>
-        <Table aria-label="invoce table">
-          <TableHead>
-            <TableRow>
-              <TableCell>Date</TableCell>
-              <TableCell>Description</TableCell>
-              <TableCell>Subscription period</TableCell>
-              <TableCell>Amount</TableCell>
-              <TableCell>Status</TableCell>
-              <TableCell></TableCell>
-            </TableRow>
-          </TableHead>
-          <TableBody>
-            {items.map((item, index) => (
-              <TableRow key={index}>
-                <TableCell> {item.date}</TableCell>
-                <TableCell>{item.description}</TableCell>
-                <TableCell>{item.period}</TableCell>
-                <TableCell>{item.amount}</TableCell>
-                <TableCell>{item.status}</TableCell>
-                <TableCell className="action">View Invoice</TableCell>
-              </TableRow>
-            ))}
-          </TableBody>
-        </Table>
-      </TableContainer>
-    </Wrapper>
-  );
+import { displayTimestamp } from '../../utils/renders';
+
+enum PaymentStatus {
+    paid = 'Paid',
+}
+
+const InvoiceTable: React.FC<InvoiceTableProps> = ({
+    style,
+    invoices = [],
+    subscriptions = {},
+}) => {
+    const onClick = (url: string) => window.open(url, '_blank');
+
+    return (
+        <Wrapper container>
+            <Title>Invoices</Title>
+            <TableContainer>
+                <Table aria-label="invoce table">
+                    <TableHead>
+                        <TableRow>
+                            <TableCell>Date</TableCell>
+                            <TableCell>Description</TableCell>
+                            <TableCell>Subscription period</TableCell>
+                            <TableCell>Amount</TableCell>
+                            <TableCell>Status</TableCell>
+                            <TableCell></TableCell>
+                        </TableRow>
+                    </TableHead>
+                    <TableBody>
+                        {invoices.map((item, index) => (
+                            <TableRow key={index}>
+                                <TableCell> {displayTimestamp(item.timestamp)}</TableCell>
+                                <TableCell>Pro Monthly Plan</TableCell>
+                                <TableCell>{`${displayTimestamp(
+                                    subscriptions[item.subscriptionId].startDate
+                                )} - ${displayTimestamp(
+                                    subscriptions[item.subscriptionId].endDate
+                                )}`}</TableCell>
+                                <TableCell>{item.amount}</TableCell>
+                                <TableCell>{PaymentStatus[item.status]}</TableCell>
+                                <TableCell className="action" onClick={() => onClick(item.url)}>
+                                    View Invoice
+                                </TableCell>
+                            </TableRow>
+                        ))}
+                    </TableBody>
+                </Table>
+            </TableContainer>
+        </Wrapper>
+    );
 };
 
 export default InvoiceTable;

@@ -119,6 +119,7 @@ const App = () => {
     const history = useHistory();
     const dispatch = useDispatch();
     const pricesRef = useRef(null);
+    const accessToken = useSelector((state: AppState) => state.token.accessToken);
     const userInfo: UserInfo = useSelector((state: AppState) => state.user.userInfo);
     const plans = useSelector((state: AppState) => state.payment.plans);
     const activePlan = useSelector((state: AppState) => state.payment.activePlan);
@@ -141,8 +142,12 @@ const App = () => {
         const fetchData = async () => {
             try {
                 const plans = await getPlans();
-                const activePlan = await getActivePlan();
                 dispatch(setPaymentPlans(plans));
+
+                if (!accessToken) {
+                    return;
+                }
+                const activePlan = await getActivePlan();
                 dispatch(setActivePlan(activePlan));
             } catch (e) {}
         };

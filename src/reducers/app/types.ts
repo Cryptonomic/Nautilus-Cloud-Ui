@@ -5,6 +5,14 @@ import { Token, UserState, Plan } from "../../types";
 export enum PaymentActions {
   SET_PAYMENT_PLANS = 'SET_PAYMENT_PLANS',
   SET_ACTIVE_PLAN = 'SET_ACTIVE_PLAN',
+  SET_SUBSCRIPTIONS = 'SET_SUBSCRIPTIONS',
+  SET_INVOICES = 'SET_INVOICES',
+}
+
+export enum PaymentSubscriptionStatus {
+  ACTIVE = 'SubscriptionActive',
+  INACTIVE = 'SubscriptionDeactivated',
+  CREATED = 'SubscriptionCreated',
 }
 
 export interface PaymentPlan {
@@ -28,9 +36,41 @@ export interface PaymentActivePlan {
   ends: string;
 }
 
+export interface PaymentSubscription {
+  subscriptionId: number;
+  userId: number;
+  planId: number;
+  startDate: string;
+  endDate: string;
+  status: PaymentSubscriptionStatus;
+}
+
+export interface PaymentInvoice {
+  invoiceId: number;
+  userId: number;
+  planId: number;
+  subscriptionId: number;
+  externalInvoiceId: string;
+  method: string;
+  status: string;
+  timestamp: string;
+  amount: number;
+  currency: string;
+  name: null;
+  email: string;
+  taxId: null;
+  businessAddress: null;
+  addressFrom: null;
+  addressTo: null;
+  url: string;
+}
+
 export interface PaymentState {
   plans: PaymentPlan[];
   activePlan: PaymentActivePlan | null;
+  subscriptions: PaymentSubscription[];
+  subscriptionsMap: Record<string, PaymentSubscription>;
+  invoices: PaymentInvoice[];
 }
 
 export interface PaymentPlansAction {
@@ -41,6 +81,17 @@ export interface PaymentPlansAction {
 export interface PaymnetActivePlanAction {
   type: typeof PaymentActions.SET_ACTIVE_PLAN;
   activePlan: PaymentActivePlan;
+}
+
+export interface PaymentSubscriptionsAction {
+  type: typeof PaymentActions.SET_SUBSCRIPTIONS;
+  subscriptions: PaymentSubscription[];
+  subscriptionsMap: Record<string, PaymentSubscription>;
+}
+
+export interface PaymentInvoicesAction {
+  type: typeof PaymentActions.SET_INVOICES;
+  invoices: PaymentInvoice[];
 }
 
 /**
@@ -81,4 +132,6 @@ export type Actions =
   | ISetUserInfoAction
   | IRemoveUserInfoAction
   | PaymentPlansAction
-  | PaymnetActivePlanAction;
+  | PaymnetActivePlanAction
+  | PaymentSubscriptionsAction
+  | PaymentInvoicesAction;

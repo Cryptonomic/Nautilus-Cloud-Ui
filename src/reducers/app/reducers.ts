@@ -58,6 +58,9 @@ export const userInfo = (
 const initialPaymentState: PaymentState = {
   plans: [],
   activePlan: null,
+  subscriptions: [],
+  subscriptionsMap: {},
+  invoices: [],
 }
 
 export const payment = (state: PaymentState = initialPaymentState, action: Actions) => {
@@ -66,6 +69,10 @@ export const payment = (state: PaymentState = initialPaymentState, action: Actio
       return { ...state, plans: action.plans };
     case PaymentActions.SET_ACTIVE_PLAN:
       return { ...state, activePlan: action.activePlan };
+    case PaymentActions.SET_SUBSCRIPTIONS:
+      return { ...state, subscriptions: action.subscriptions, subscriptionsMap: action.subscriptionsMap };
+    case PaymentActions.SET_INVOICES:
+      return { ...state, invoices: action.invoices };
     default:
       return state;
   }

@@ -110,7 +110,7 @@ module.exports = {
             {
                 'base-uri': "'self'",
                 'object-src': "'none'",
-                'script-src': ["'unsafe-inline'", "'self'", "'unsafe-eval'", "*.cryptonomic-infra.tech"],
+                'script-src': ["'unsafe-inline'", "'self'", "'unsafe-eval'", "*.cryptonomic-infra.tech", "js.stripe.com"],
                 'style-src': ["'unsafe-inline'", "'self'", "'unsafe-eval'"],
             },
             {
