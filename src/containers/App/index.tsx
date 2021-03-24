@@ -1,5 +1,4 @@
 import * as React from 'react';
-import ReactDOM from 'react-dom';
 import { useEffect, useRef } from 'react';
 import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
@@ -7,7 +6,7 @@ import { useHistory } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 
 import { getPlans, getActivePlan } from '../../reducers/app/thunks';
-import { setPaymentPlans, setActivePlan } from '../../reducers/app/actions';
+import { setPaymentPlans, setActivePlan, resetPayment, removeAccessToken, removeUserInfo } from '../../reducers/app/actions';
 
 import { Footer, FooterLine } from '../../components/Footer';
 
@@ -125,17 +124,23 @@ const App = () => {
     const activePlan = useSelector((state: AppState) => state.payment.activePlan);
 
     const onGitLogin = () => window.open(gitAuthUrl, '_self');
+
     const onGoToDashboard = () => {
         history.push('/home/keys');
     };
     const openUrl = (url: string) => window.open(url, '_blank');
+
     const onLogout = () => {
         localStorage.removeItem('accessToken');
+        dispatch(resetPayment());
+        dispatch(removeAccessToken());
+        dispatch(removeUserInfo());
         history.replace('/');
     };
     const isRootPage = () => {
         return !location.pathname.includes('home');
     };
+
     const onPressPrices = () => pricesRef.current.scrollIntoView();
 
     useEffect(() => {

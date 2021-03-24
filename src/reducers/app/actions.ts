@@ -35,6 +35,10 @@ export const setInvoices = (invoices: PaymentInvoice[] = []) => ({
     invoices,
 });
 
+export const resetPayment = () => {
+    return { type: PaymentActions.RESET_PAYMENT };
+};
+
 export const setAccessToken = (payload: Token) => {
     localStorage.setItem('accessToken', payload.accessToken);
     return { type: AccessTokenTypeKeys.SET_ACCESS_TOKEN, payload };

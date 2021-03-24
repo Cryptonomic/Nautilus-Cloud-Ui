@@ -2,7 +2,7 @@ import { Token, UserState } from "../../types";
 import { Actions, AccessTokenTypeKeys, UserInfoTypeKeys, PaymentState, PaymentActions } from "./types";
 import { ActionTypeStates } from '../../models'
 
-let initialTokenState: Token = {
+const initialTokenState: Token = {
   accessToken: null,
 };
 /**
@@ -19,7 +19,7 @@ export const token = (
       state = { ...state, ...action.payload };
       break;
     case AccessTokenTypeKeys.REMOVE_ACCESS_TOKEN:
-      state = { ...state, ...initialTokenState };
+      state = { ...initialTokenState };
       break;
     default:
       break;
@@ -29,7 +29,7 @@ export const token = (
 /**
  * user
  */
-let initialUserInfoState: UserState = {
+const initialUserInfoState: UserState = {
   status: ActionTypeStates.INPROGRESS,
 	redirectTo: null,
 	error: null,
@@ -45,7 +45,7 @@ export const userInfo = (
       state = { ...state, ...action.payload };
       break;
     case UserInfoTypeKeys.REMOVE_USER_INFO:
-      state = { ...state, ...initialUserInfoState };
+      state = { ...initialUserInfoState };
       break;
     default:
       break;
@@ -73,6 +73,8 @@ export const payment = (state: PaymentState = initialPaymentState, action: Actio
       return { ...state, subscriptions: action.subscriptions, subscriptionsMap: action.subscriptionsMap };
     case PaymentActions.SET_INVOICES:
       return { ...state, invoices: action.invoices };
+    case PaymentActions.RESET_PAYMENT:
+      return { ...initialPaymentState };
     default:
       return state;
   }

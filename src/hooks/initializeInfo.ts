@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import jwt_decode from "jwt-decode";
 
@@ -12,7 +12,7 @@ import {
 } from "../reducers/app/actions";
 
 export default () => {
-  
+
   const dispatch = useDispatch();
   const store = useSelector((state: AppState) => state);
   useEffect(() => {

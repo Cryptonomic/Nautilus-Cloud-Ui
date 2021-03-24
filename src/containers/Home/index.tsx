@@ -14,6 +14,9 @@ import {
     setActivePlan,
     setSubscriptions,
     setInvoices,
+    resetPayment,
+    removeAccessToken,
+    removeUserInfo,
 } from '../../reducers/app/actions';
 
 import { Container, ContentWrapper, Wrapper } from './style';
@@ -30,11 +33,16 @@ const Home = () => {
     const accessToken = useSelector((state: AppState) => state.token.accessToken);
     const history = useHistory();
     const location = useLocation();
+    const drawerWidth = 184;
+
     const onLogout = () => {
         localStorage.removeItem('accessToken');
+        dispatch(resetPayment());
+        dispatch(removeAccessToken());
+        dispatch(removeUserInfo());
         history.push('/');
     };
-    const drawerWidth = 184;
+
     const isRootPage = () => {
         return location.pathname === '/';
     };

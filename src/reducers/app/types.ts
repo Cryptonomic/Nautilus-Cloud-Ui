@@ -7,6 +7,7 @@ export enum PaymentActions {
   SET_ACTIVE_PLAN = 'SET_ACTIVE_PLAN',
   SET_SUBSCRIPTIONS = 'SET_SUBSCRIPTIONS',
   SET_INVOICES = 'SET_INVOICES',
+  RESET_PAYMENT = 'RESET_PAYMENT',
 }
 
 export enum PaymentSubscriptionStatus {
@@ -94,6 +95,10 @@ export interface PaymentInvoicesAction {
   invoices: PaymentInvoice[];
 }
 
+export interface PaymentResetAction {
+  type: typeof PaymentActions.RESET_PAYMENT;
+}
+
 /**
  * token
  */
@@ -134,4 +139,5 @@ export type Actions =
   | PaymentPlansAction
   | PaymnetActivePlanAction
   | PaymentSubscriptionsAction
-  | PaymentInvoicesAction;
+  | PaymentInvoicesAction
+  | PaymentResetAction;

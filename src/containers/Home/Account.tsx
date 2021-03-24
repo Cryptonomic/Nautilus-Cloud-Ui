@@ -11,7 +11,7 @@ import {
     createSubscription,
 } from '../../reducers/app/thunks';
 
-import { Direction, Plan, InvoiceTableItem, AppState } from '../../types';
+import { Direction, Plan, AppState } from '../../types';
 import {
     Main,
     TitleText,
@@ -33,11 +33,6 @@ import InvoiceTable from '../../components/InvoiceTable';
 import { ReactComponent as CautionIcon } from '../../assets/img/caution.svg';
 
 import { displayTimestamp } from '../../utils/renders';
-import { PaymentActivePlan } from 'src/reducers/app/types';
-export interface AccountProps {
-    subscribed?: boolean;
-    plan?: Plan;
-}
 
 const faq = [
     {
@@ -95,8 +90,9 @@ const Account = () => {
         }
         const { subscriptionId } = await createSubscription();
 
-        const { sessionId } = await createInvoiceSession(subscriptionId);
+        const { sessionId } = await createInvoiceSession(13);
 
+        //TODO: Display error message
         const { error } = await stripe.redirectToCheckout({
             sessionId,
         });
