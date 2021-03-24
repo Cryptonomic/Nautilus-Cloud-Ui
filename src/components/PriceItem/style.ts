@@ -1,102 +1,105 @@
-import { styled, withStyles } from "@material-ui/core/styles";
-import Grid from "@material-ui/core/Grid";
-import Button from "@material-ui/core/Button";
-import theme from "src/theme";
-import Typography from "@material-ui/core/Typography";
-import { ReactComponent as CheckIcon } from "../../assets/img/check.svg";
-export const PriceItemWrapper = styled("div")({
-  width: ({ direction }: any) => {
-    return direction == "row" ? "592px" : "323px";
-  },
-  height: ({ direction }: any) => {
-    return direction == "row" ? "auto" : "319px";
-  },
-  background: ({ background }: any) => `${background}`,
-  display: "flex",
-  flexDirection: ({ direction }: any) => {
-    return direction == "row" ? "row" : "column";
-  },
-  alignItems: "center",
-  justifyContent: ({ direction }: any) => {
-    return direction == "row" ? "space-between" : "space-evenly";
-  },
-  border: "1px solid #4D4D4D",
-  borderRadius: "8px",
-  padding: "8px"
+import { styled, withStyles } from '@material-ui/core/styles';
+import Button from '@material-ui/core/Button';
+import Typography from '@material-ui/core/Typography';
+
+import { ReactComponent as CheckIcon } from '../../assets/img/check.svg';
+
+export const PriceItemWrapper = styled('div')({
+    width: ({ direction }: any) => {
+        return direction == 'row' ? '592px' : '323px';
+    },
+    height: ({ direction }: any) => {
+        return direction == 'row' ? 'auto' : '319px';
+    },
+    background: ({ background }: any) => `${background}`,
+    display: 'flex',
+    flexDirection: ({ direction }: any) => {
+        return direction == 'row' ? 'row' : 'column';
+    },
+    alignItems: 'center',
+    justifyContent: ({ direction }: any) => {
+        return direction == 'row' ? 'space-between' : 'space-evenly';
+    },
+    border: '1px solid #4D4D4D',
+    borderRadius: '8px',
+    padding: '8px',
 });
 
-export const PlanWrapper = styled("div")({
-  fontFamily: "Montserrat",
-  fontSize: "16px",
-  color: "white",
+export const PlanWrapper = styled('div')({
+    fontFamily: 'Montserrat',
+    fontSize: '16px',
+    color: 'white',
 });
 
-export const LabelWrapper = styled("div")({
-  fontFamily: "Montserrat",
-  fontSize: "32px",
-  color: "white",
-  // marginBottom: "40px",
-
-  "& .month": {
-    fontSize: "12px",
-    fontFamily: "Montserrat",
-    fontWeight: 500,
-    textTransform: "capitalize",
-  },
+export const LabelWrapper = styled('div')({
+    fontFamily: 'Montserrat',
+    fontSize: '32px',
+    color: 'white',
+    '& .month': {
+        fontSize: '12px',
+        fontFamily: 'Montserrat',
+        fontWeight: 500,
+        textTransform: 'capitalize',
+    },
 });
 
-export const ItemsWrapper = styled("div")({
-  // marginBottom: "10px",
+export const ItemsWrapper = styled('div')({});
+
+export const Item = styled('div')({
+    display: 'flex',
+    flexDirection: 'row',
+    alignItems: 'center',
+    padding: '8px 0',
 });
-export const Item = styled("div")({
-  display: "flex",
-  flexDirection: "row",
-  alignItems: "center",
-  padding: "8px 0",
-});
+
 export const ItemLabel = styled(Typography)({
-  fontSize: "12px",
-  fontWeight: 500,
-  lineHeight: "15px",
-  letterSpacing: "normal",
+    fontSize: '12px',
+    fontWeight: 500,
+    lineHeight: '15px',
+    letterSpacing: 'normal',
 });
+
 export const ItemImage = styled(CheckIcon)({
-  marginRight: "9px",
+    marginRight: '9px',
 });
 
 export const ButtonWithCheckWrapper = withStyles({
-  root: {
-    background:
-      "linear-gradient(90deg, rgba(82, 143, 245, 0.4) 0%, rgba(127, 86, 244, 0.4) 155.82%)",
-    padding: "8px 15px",
-    textTransform: "none",
-    color: "#528FF5",
-    borderRadius: "0px",
-  },
-  label: {
-    fontFamily: "Montserrat",
-    fontStyle: "normal",
-    fontWeight: 500,
-    fontSize: "16px",
-    lineHeight: "20px",
-  },
+    root: {
+        background:
+            'linear-gradient(90deg, rgba(82, 143, 245, 0.4) 0%, rgba(127, 86, 244, 0.4) 155.82%)',
+        padding: '8px 15px',
+        textTransform: 'none',
+        color: '#528FF5',
+        borderRadius: '0px',
+        cursor: 'default',
+        '&:hover': {
+            background: 'linear-gradient(90deg, rgba(82, 143, 245, 0.4) 0%, rgba(127, 86, 244, 0.4) 155.82%)',
+        },
+    },
+    label: {
+        fontFamily: 'Montserrat',
+        fontStyle: 'normal',
+        fontWeight: 500,
+        fontSize: '16px',
+        lineHeight: '20px',
+    },
 })(Button);
 
 export const ButtonWrapper = withStyles({
-  root: {
-    background: "#61A9E9",
-    border: "1px solid #61A9E9",
-    borderRadius: "8px",
-    padding: "8px 15px",
-  },
-  label: {
-    fontFamily: "Montserrat",
-    fontStyle: "normal",
-    fontWeight: 500,
-    fontSize: "16px",
-    lineHeight: "20px",
-    textAlign: "center",
-    letterSpacing: "1px",
-    textTransform: "none",
-  },
+    root: {
+        background: '#61A9E9',
+        border: '1px solid #61A9E9',
+        borderRadius: '8px',
+        padding: '8px 15px',
+    },
+    label: {
+        fontFamily: 'Montserrat',
+        fontStyle: 'normal',
+        fontWeight: 500,
+        fontSize: '16px',
+        lineHeight: '20px',
+        textAlign: 'center',
+        letterSpacing: '1px',
+        textTransform: 'none',
+    },
 })(Button);
