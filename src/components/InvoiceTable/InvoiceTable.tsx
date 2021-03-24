@@ -27,8 +27,6 @@ const InvoiceTable: React.FC<InvoiceTableProps> = ({
     style,
     invoices = [],
 }) => {
-    const onClick = (url: string) => window.open(url, '_blank');
-
     return (
         <Wrapper container>
             <Title>Invoices</Title>
@@ -41,7 +39,6 @@ const InvoiceTable: React.FC<InvoiceTableProps> = ({
                             <TableCell>Subscription period</TableCell>
                             <TableCell>Amount</TableCell>
                             <TableCell>Status</TableCell>
-                            <TableCell></TableCell>
                         </TableRow>
                     </TableHead>
                     <TableBody>
@@ -52,9 +49,6 @@ const InvoiceTable: React.FC<InvoiceTableProps> = ({
                                 <TableCell>{`${displayTimestamp(item.startDate)} - ${displayTimestamp(item.endDate)}`}</TableCell>
                                 <TableCell>{item.amount}</TableCell>
                                 <TableCell>{PaymentStatus[item.status]}</TableCell>
-                                <TableCell className="action" onClick={() => onClick(item.url)}>
-                                    View Invoice
-                                </TableCell>
                             </TableRow>
                         ))}
                     </TableBody>
