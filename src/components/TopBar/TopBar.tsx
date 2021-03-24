@@ -28,7 +28,7 @@ const TopBar = ({
   drawer = "",
   userEmail,
   isRootPage,
-  background = "transparent",
+  background = "",
   onLogin,
   onLogout,
   onPrices,
