@@ -11,6 +11,11 @@ import {
 
 // Payment Actions
 
+export const setAccountActiveTab = (accountActiveTab: number = 0) => ({
+    type: PaymentActions.SET_ACCOUNT_ACTIVE_TAB,
+    accountActiveTab,
+});
+
 export const setPaymentPlans = (plans: PaymentPlan[] = []) => ({
     type: PaymentActions.SET_PAYMENT_PLANS,
     plans,
@@ -23,11 +28,13 @@ export const setActivePlan = (activePlan: PaymentActivePlan = null) => ({
 
 export const setSubscriptions = (
     subscriptions: PaymentSubscription[] = [],
-    subscriptionsMap: Record<string, PaymentSubscription> = {}
+    subscriptionsMap: Record<string, PaymentSubscription> = {},
+    subscriptionPro: PaymentSubscription | null = null,
 ) => ({
     type: PaymentActions.SET_SUBSCRIPTIONS,
     subscriptions,
     subscriptionsMap,
+    subscriptionPro,
 });
 
 export const setInvoices = (invoices: PaymentInvoice[] = []) => ({

@@ -7,7 +7,6 @@ import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 export interface InvoiceTableProps {
     invoices: PaymentInvoice[];
-    subscriptions: any;
     style?: React.CSSProperties;
 }
 
@@ -27,7 +26,6 @@ enum PaymentStatus {
 const InvoiceTable: React.FC<InvoiceTableProps> = ({
     style,
     invoices = [],
-    subscriptions = {},
 }) => {
     const onClick = (url: string) => window.open(url, '_blank');
 
@@ -51,11 +49,7 @@ const InvoiceTable: React.FC<InvoiceTableProps> = ({
                             <TableRow key={index}>
                                 <TableCell> {displayTimestamp(item.timestamp)}</TableCell>
                                 <TableCell>Pro Monthly Plan</TableCell>
-                                <TableCell>{`${displayTimestamp(
-                                    subscriptions[item.subscriptionId].startDate
-                                )} - ${displayTimestamp(
-                                    subscriptions[item.subscriptionId].endDate
-                                )}`}</TableCell>
+                                <TableCell>{`${displayTimestamp(item.startDate)} - ${displayTimestamp(item.endDate)}`}</TableCell>
                                 <TableCell>{item.amount}</TableCell>
                                 <TableCell>{PaymentStatus[item.status]}</TableCell>
                                 <TableCell className="action" onClick={() => onClick(item.url)}>

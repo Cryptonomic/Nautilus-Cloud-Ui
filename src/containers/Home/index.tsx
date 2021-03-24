@@ -60,8 +60,8 @@ const Home = () => {
                 const activePlan = await getActivePlan();
                 dispatch(setActivePlan(activePlan));
 
-                const [subscriptions, subscriptionsMap] = await getAllSubscriptions();
-                dispatch(setSubscriptions(subscriptions, subscriptionsMap));
+                const [subscriptions, subscriptionsMap, subscriptionPro] = await getAllSubscriptions();
+                dispatch(setSubscriptions(subscriptions, subscriptionsMap, subscriptionPro));
 
                 const invoices = await getInvoices();
                 dispatch(setInvoices(invoices));

@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { useState, useEffect } from 'react';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import Grid from '@material-ui/core/Grid';
 import { Typography } from '@material-ui/core';
 import { loadStripe } from '@stripe/stripe-js';
@@ -9,9 +9,9 @@ import {
     getStripeConfig,
     createInvoiceSession,
     createSubscription,
+    getAllSubscriptions
 } from '../../reducers/app/thunks';
 
-import { Direction, Plan, AppState } from '../../types';
 import {
     Main,
     TitleText,
@@ -33,6 +33,11 @@ import InvoiceTable from '../../components/InvoiceTable';
 import { ReactComponent as CautionIcon } from '../../assets/img/caution.svg';
 
 import { displayTimestamp } from '../../utils/renders';
+
+import { setAccountActiveTab, setSubscriptions } from '../../reducers/app/actions';
+
+import { Direction, Plan, AppState } from '../../types';
+import { PaymentSubscriptionStatus } from '../../reducers/app/types';
 
 const faq = [
     {
@@ -74,28 +79,50 @@ const plansDetails = {
 };
 
 const Account = () => {
+    const dispatch = useDispatch();
     const plans = useSelector((state: AppState) => state.payment.plans);
     const activePlan = useSelector((state: AppState) => state.payment.activePlan);
     const invoices = useSelector((state: AppState) => state.payment.invoices);
     const subscriptionsMap = useSelector((state: AppState) => state.payment.subscriptionsMap);
+    const subscriptionPro = useSelector((state: AppState) => state.payment.subscriptionPro);
+    const accountActiveTab = useSelector((state: AppState) => state.payment.accountActiveTab)
     const userInfo = useSelector((state: AppState) => state.user.userInfo);
-    const [tabID, setTabID] = useState<number>(0);
     const [stripe, setStripe] = useState<any>(null);
+    const proPlanFee = plans.filter((p) => p.id === Plan.Pro)[0]?.price;
 
-    const onTabIDChanged = (event, newValue) => setTabID(newValue);
+    const onTabIDChanged = (event, newValue) => dispatch(setAccountActiveTab(newValue));
 
     const onMakePayment = async () => {
         if (!stripe) {
             return;
         }
-        const { subscriptionId } = await createSubscription();
 
-        const { sessionId } = await createInvoiceSession(13);
+        if (!subscriptionPro) {
+            return;
+        }
+
+        const { sessionId } = await createInvoiceSession(subscriptionPro.subscriptionId);
 
         //TODO: Display error message
         const { error } = await stripe.redirectToCheckout({
             sessionId,
         });
+    };
+
+    const onUpgrade = async () => {
+        if (subscriptionPro && subscriptionPro.status === PaymentSubscriptionStatus.ACTIVE) {
+            //TODO: add logic if needed
+            return;
+        };
+
+        if (subscriptionPro && subscriptionPro.status === PaymentSubscriptionStatus.CREATED) {
+            //TODO: add logic if needed
+            return;
+        };
+
+        await createSubscription();
+        const [subs, subsMap, subPro] = await getAllSubscriptions();
+        dispatch(setSubscriptions(subs, subsMap, subPro));
     };
 
     useEffect(() => {
@@ -116,7 +143,7 @@ const Account = () => {
                     </Title>
                     <TabContainer>
                         <TabsWrapper
-                            value={tabID}
+                            value={accountActiveTab}
                             onChange={onTabIDChanged}
                             aria-label="account tabs"
                         >
@@ -134,7 +161,7 @@ const Account = () => {
                     </TabContainer>
                     <TabContent
                         role="tabpanel"
-                        hidden={tabID !== 0}
+                        hidden={accountActiveTab !== 0}
                         id="account-tabpanel-0"
                         aria-labelledby="account-tab-0"
                     >
@@ -166,12 +193,12 @@ const Account = () => {
                                     <SmallText className="small">{userInfo.email}</SmallText>
                                 </Grid>
                             </Grid>
-                            <InvoiceTable invoices={invoices} subscriptions={subscriptionsMap} />
+                            <InvoiceTable invoices={invoices} />
                         </BillingInfoWrapper>
                     </TabContent>
                     <TabContent
                         role="tabpanel"
-                        hidden={tabID !== 1}
+                        hidden={accountActiveTab !== 1}
                         id="account-tabpanel-1"
                         aria-labelledby="account-tab-1"
                     >
@@ -220,13 +247,14 @@ const Account = () => {
                                                         : '',
                                             }}
                                             direction={Direction.Row}
+                                            onUpgrade={onUpgrade}
                                         />
                                     ))}
                                 </PriceTable>
                                 <FAQ items={faq} />
                             </Grid>
                             <Grid style={{ width: '27.5rem', marginLeft: '8.75rem' }}>
-                                <MembershipCard plan={Plan.Pro} fee={50} onClick={onMakePayment} />
+                                {proPlanFee && <MembershipCard plan={Plan.Pro} fee={proPlanFee} disabled={!subscriptionPro} onClick={onMakePayment} />}
                                 {
                                     <Grid>
                                         <Hint style={{ marginTop: '1rem' }}>

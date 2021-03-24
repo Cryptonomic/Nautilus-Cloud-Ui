@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
+import { useHistory } from 'react-router-dom';
 import Grid from '@material-ui/core/Grid';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import Typography from '@material-ui/core/Typography';
@@ -55,7 +56,12 @@ import bookIcon from '../../assets/img/book-icon.svg';
 import programmingIcon from '../../assets/img/js-programming.svg';
 import scriptIcon from '../../assets/img/script-code-coding.svg';
 import http, { rebuildHttp } from '../../utils/httpService';
+
+import { createSubscription } from '../../reducers/app/thunks';
+import { setAccountActiveTab } from '../../reducers/app/actions';
+
 import { AppState } from '../../types';
+import { PaymentSubscriptionStatus } from '../../reducers/app/types';
 
 import { displayTimestamp } from '../../utils/renders';
 
@@ -90,14 +96,15 @@ const mainUrls = {
 };
 
 const Keys = (props) => {
+    const history = useHistory();
     const dispatch = useDispatch();
     const activePlan = useSelector((state: AppState) => state.payment.activePlan);
+    const subscryptionPro = useSelector((state: AppState) => state.payment.subscriptionPro);
     const { onLogout, userInfo } = props;
     const [apiKeys, setApiKeys] = useState([]);
     const [selectedKey, setSelectedKey] = useState(0);
     const [open, setOpen] = useState(false);
     const [tabID, setTabID] = React.useState<number>(0);
-    // const [plan, setPlan] = useState<Plan>(Plan.Basic);
 
     const onTabIDChanged = (event, newValue) => {
         setTabID(newValue);
@@ -134,6 +141,23 @@ const Keys = (props) => {
             console.error('errr', error);
         }
     }
+
+    const onUpgrade = async () => {
+        if (subscryptionPro && subscryptionPro.status === PaymentSubscriptionStatus.CREATED) {
+            dispatch(setAccountActiveTab(1));
+            history.push('/home/account');
+            return;
+        }
+
+        await createSubscription();
+        dispatch(setAccountActiveTab(1));
+        history.push('/home/account');
+    };
+
+    const onRenew = () => {
+        dispatch(setAccountActiveTab(1));
+        history.push('/home/account');
+    };
 
     useEffect(() => {
         getKeys();
@@ -353,7 +377,7 @@ const Keys = (props) => {
                                         <SubTitle style={{ marginBottom: '12px' }}>
                                             Subscription
                                         </SubTitle>
-                                        <Subscription basic={activePlan.planId === 1} />
+                                        <Subscription basic={activePlan.planId === 1} onUpgrade={onUpgrade} onRenew={onRenew} />
                                     </Grid>
                                 </Grid>
                             )}

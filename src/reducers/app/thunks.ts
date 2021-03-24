@@ -2,6 +2,8 @@ import axios from 'axios';
 
 import http from '../../utils/httpService';
 import { createItemsMap } from '../../utils/general';
+import { Plan } from '../../types';
+import { PaymentSubscriptionStatus } from './types';
 
 export const getPlans = async () => {
     try {
@@ -18,7 +20,9 @@ export const getPlans = async () => {
 
 export const getActivePlan = async () => {
     try {
-        const response = await http.get('https://dev1-nc2-01.cryptonomic-infra.tech/v1/api/subscriptions/stats');
+        const response = await http.get(
+            'https://dev1-nc2-01.cryptonomic-infra.tech/v1/api/subscriptions/stats'
+        );
         if (!response.data) {
             return null;
         }
@@ -31,9 +35,12 @@ export const getActivePlan = async () => {
 
 export const createSubscription = async () => {
     try {
-        const response = await http.post('https://dev1-nc2-01.cryptonomic-infra.tech/v1/api/subscriptions', {
-            planId: 2
-        })
+        const response = await http.post(
+            'https://dev1-nc2-01.cryptonomic-infra.tech/v1/api/subscriptions',
+            {
+                planId: 2,
+            }
+        );
         if (!response.data) {
             return null;
         }
@@ -43,11 +50,13 @@ export const createSubscription = async () => {
         console.log('Set subscription error', e);
         throw Error('Set subscription error');
     }
-}
+};
 
 export const getSubscription = async (id: number) => {
     try {
-        const response = await http.get(`https://dev1-nc2-01.cryptonomic-infra.tech/v1/api/subscriptions/${id}`);
+        const response = await http.get(
+            `https://dev1-nc2-01.cryptonomic-infra.tech/v1/api/subscriptions/${id}`
+        );
         if (!response.data) {
             return null;
         }
@@ -56,26 +65,39 @@ export const getSubscription = async (id: number) => {
         console.log('Get subscription error', e);
         throw Error('Get subscription error');
     }
-}
+};
 
 export const getAllSubscriptions = async () => {
     try {
-        const response = await http.get('https://dev1-nc2-01.cryptonomic-infra.tech/v1/api/subscriptions');
+        const response = await http.get(
+            'https://dev1-nc2-01.cryptonomic-infra.tech/v1/api/subscriptions'
+        );
         if (!response.data) {
             return null;
         }
         const subscriptions = response.data;
         const subsctiptionsMap = createItemsMap(subscriptions, 'subscriptionId');
-        return [subscriptions, subsctiptionsMap];
+
+        const subscriptionPro =
+            subscriptions.filter(
+                (s) =>
+                    s.planId === Plan.Pro &&
+                    (s.status === PaymentSubscriptionStatus.ACTIVE ||
+                        s.status === PaymentSubscriptionStatus.CREATED)
+            )[0] || null;
+
+        return [subscriptions, subsctiptionsMap, subscriptionPro];
     } catch (e) {
         console.log('Get subscription error', e);
         throw Error('Get subscription error');
     }
-}
+};
 
 export const getStripeConfig = async () => {
     try {
-        const response = await http.get('https://dev1-nc2-02.cryptonomic-infra.tech/v1/api/stripe/config/2');
+        const response = await http.get(
+            'https://dev1-nc2-02.cryptonomic-infra.tech/v1/api/stripe/config/2'
+        );
         if (!response.data) {
             return null;
         }
@@ -88,11 +110,14 @@ export const getStripeConfig = async () => {
 
 export const createInvoiceSession = async (subscriptionId: number) => {
     try {
-        const response = await http.post('https://dev1-nc2-02.cryptonomic-infra.tech/v1/api/invoices', {
-            subscriptionId,
-            method: 'stripe',
-            currency: 'USD'
-        });
+        const response = await http.post(
+            'https://dev1-nc2-02.cryptonomic-infra.tech/v1/api/invoices',
+            {
+                subscriptionId,
+                method: 'stripe',
+                currency: 'USD',
+            }
+        );
 
         if (!response.data) {
             return null;
@@ -106,7 +131,9 @@ export const createInvoiceSession = async (subscriptionId: number) => {
 
 export const getInvoices = async () => {
     try {
-        const response = await http.get('https://dev1-nc2-02.cryptonomic-infra.tech/v1/api/invoices');
+        const response = await http.get(
+            'https://dev1-nc2-02.cryptonomic-infra.tech/v1/api/invoices'
+        );
         if (!response.data.length) {
             return [];
         }
@@ -114,5 +141,20 @@ export const getInvoices = async () => {
     } catch (e) {
         console.log('Get invoices error', e);
         throw Error('Get invoices error');
+    }
+};
+
+export const getSession = async (sessionId: string) => {
+    try {
+        const response = await http.get(
+            `https://dev1-nc2-02.cryptonomic-infra.tech/v1/api/stripe/checkout-session?sessionId=${sessionId}`
+        );
+        if (!response.data) {
+            return null;
+        }
+        return response.data;
+    } catch (e) {
+        console.log('Get session error', e);
+        throw Error('Get session error');
     }
 };

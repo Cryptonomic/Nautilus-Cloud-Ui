@@ -7,6 +7,7 @@ export enum PaymentActions {
   SET_ACTIVE_PLAN = 'SET_ACTIVE_PLAN',
   SET_SUBSCRIPTIONS = 'SET_SUBSCRIPTIONS',
   SET_INVOICES = 'SET_INVOICES',
+  SET_ACCOUNT_ACTIVE_TAB = 'SET_ACCOUNT_ACTIVE_TAB',
   RESET_PAYMENT = 'RESET_PAYMENT',
 }
 
@@ -55,6 +56,8 @@ export interface PaymentInvoice {
   method: string;
   status: string;
   timestamp: string;
+  startDate: string;
+  endDate: string;
   amount: number;
   currency: string;
   name: null;
@@ -71,7 +74,14 @@ export interface PaymentState {
   activePlan: PaymentActivePlan | null;
   subscriptions: PaymentSubscription[];
   subscriptionsMap: Record<string, PaymentSubscription>;
+  subscriptionPro: PaymentSubscription | null;
   invoices: PaymentInvoice[];
+  accountActiveTab: number;
+}
+
+export interface AccountActiveTabAction {
+  type: typeof PaymentActions.SET_ACCOUNT_ACTIVE_TAB;
+  accountActiveTab: number;
 }
 
 export interface PaymentPlansAction {
@@ -88,6 +98,7 @@ export interface PaymentSubscriptionsAction {
   type: typeof PaymentActions.SET_SUBSCRIPTIONS;
   subscriptions: PaymentSubscription[];
   subscriptionsMap: Record<string, PaymentSubscription>;
+  subscriptionPro: PaymentSubscription | null;
 }
 
 export interface PaymentInvoicesAction {
@@ -140,4 +151,5 @@ export type Actions =
   | PaymnetActivePlanAction
   | PaymentSubscriptionsAction
   | PaymentInvoicesAction
-  | PaymentResetAction;
+  | PaymentResetAction
+  | AccountActiveTabAction;

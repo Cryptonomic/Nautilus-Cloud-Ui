@@ -11,7 +11,7 @@ export interface PriceItemProps {
     opacity?: number;
     direction?: Direction;
     style?: React.CSSProperties;
-    upgrade?: () => void;
+    onUpgrade?: () => void;
 }
 
 import {
@@ -34,9 +34,9 @@ const PriceItem: React.FC<PriceItemProps> = ({
     background,
     style,
     selected = false,
-    upgrade,
     opacity = 1,
     direction = Direction.Column,
+    onUpgrade,
 }) => {
     return (
         <PriceItemWrapper
@@ -78,7 +78,7 @@ const PriceItem: React.FC<PriceItemProps> = ({
                     {buttonLabel}
                 </ButtonWithCheckWrapper>
             )}
-            {!selected && buttonLabel && <ButtonWrapper>{buttonLabel}</ButtonWrapper>}
+            {!selected && buttonLabel && <ButtonWrapper onClick={onUpgrade}>{buttonLabel}</ButtonWrapper>}
         </PriceItemWrapper>
     );
 };

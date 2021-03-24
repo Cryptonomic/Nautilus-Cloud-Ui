@@ -5,8 +5,16 @@ import Typography from '@material-ui/core/Typography';
 import { useHistory } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 
-import { getPlans, getActivePlan } from '../../reducers/app/thunks';
-import { setPaymentPlans, setActivePlan, resetPayment, removeAccessToken, removeUserInfo } from '../../reducers/app/actions';
+import { getPlans, getActivePlan, getAllSubscriptions, createSubscription } from '../../reducers/app/thunks';
+import {
+    setPaymentPlans,
+    setActivePlan,
+    resetPayment,
+    removeAccessToken,
+    removeUserInfo,
+    setSubscriptions,
+    setAccountActiveTab
+} from '../../reducers/app/actions';
 
 import { Footer, FooterLine } from '../../components/Footer';
 
@@ -76,6 +84,7 @@ import BgPath3 from '../../assets/img/path-3@3x.png';
 import GithubIcon from '../../assets/img/sm_github_icon.svg';
 import { UserInfo, AppState, Plan } from '../../types';
 import config from '../../config';
+import { PaymentSubscriptionStatus } from 'src/reducers/app/types';
 const {
     termsOfService,
     privacyPolicy,
@@ -122,6 +131,7 @@ const App = () => {
     const userInfo: UserInfo = useSelector((state: AppState) => state.user.userInfo);
     const plans = useSelector((state: AppState) => state.payment.plans);
     const activePlan = useSelector((state: AppState) => state.payment.activePlan);
+    const subscriptionPro = useSelector((state: AppState) => state.payment.subscriptionPro);
 
     const onGitLogin = () => window.open(gitAuthUrl, '_self');
 
@@ -137,11 +147,29 @@ const App = () => {
         dispatch(removeUserInfo());
         history.replace('/');
     };
+
     const isRootPage = () => {
         return !location.pathname.includes('home');
     };
 
     const onPressPrices = () => pricesRef.current.scrollIntoView();
+
+    const onUpgrade = async () => {
+        if (subscriptionPro && subscriptionPro.status === PaymentSubscriptionStatus.ACTIVE) {
+            //TODO: add logic if needed
+            return;
+        };
+
+        if (subscriptionPro && subscriptionPro.status === PaymentSubscriptionStatus.CREATED) {
+            dispatch(setAccountActiveTab(1));
+            history.push('/home/account');
+            return;
+        };
+
+        await createSubscription();
+        dispatch(setAccountActiveTab(1));
+        history.push('/home/account');
+    };
 
     useEffect(() => {
         const fetchData = async () => {
@@ -154,6 +182,13 @@ const App = () => {
                 }
                 const activePlan = await getActivePlan();
                 dispatch(setActivePlan(activePlan));
+
+                const [
+                    subscriptions,
+                    subscriptionsMap,
+                    subscriptionPro,
+                ] = await getAllSubscriptions();
+                dispatch(setSubscriptions(subscriptions, subscriptionsMap, subscriptionPro));
             } catch (e) {}
         };
         fetchData();
@@ -412,7 +447,7 @@ const App = () => {
             </ToolsContainer> */}
             <PriceTable>
                 <PriceTitle>Prices</PriceTitle>
-                <PriceTableWrapper ref={pricesRef} >
+                <PriceTableWrapper ref={pricesRef}>
                     {plans.map((plan, index) => (
                         <PriceItem
                             key={plan.id}
@@ -442,11 +477,12 @@ const App = () => {
                             selected={activePlan ? activePlan.planId === plan.id : plan.id === 1}
                             background={plansDetails[plan.id].background}
                             style={{ marginRight: index > 0 ? '0px' : '64px' }}
+                            onUpgrade={plan.id === 2 && onUpgrade}
                         />
                     ))}
                 </PriceTableWrapper>
             </PriceTable>
-            <FooterLine/>
+            <FooterLine />
             <DevelopmentContainer style={{ marginTop: '0px' }}>
                 <Footer />
             </DevelopmentContainer>

@@ -60,17 +60,21 @@ const initialPaymentState: PaymentState = {
   activePlan: null,
   subscriptions: [],
   subscriptionsMap: {},
+  subscriptionPro: null,
   invoices: [],
+  accountActiveTab: 0,
 }
 
 export const payment = (state: PaymentState = initialPaymentState, action: Actions) => {
   switch (action.type) {
+    case PaymentActions.SET_ACCOUNT_ACTIVE_TAB:
+      return { ...state, accountActiveTab: action.accountActiveTab };
     case PaymentActions.SET_PAYMENT_PLANS:
       return { ...state, plans: action.plans };
     case PaymentActions.SET_ACTIVE_PLAN:
       return { ...state, activePlan: action.activePlan };
     case PaymentActions.SET_SUBSCRIPTIONS:
-      return { ...state, subscriptions: action.subscriptions, subscriptionsMap: action.subscriptionsMap };
+      return { ...state, subscriptions: action.subscriptions, subscriptionsMap: action.subscriptionsMap, subscriptionPro: action.subscriptionPro };
     case PaymentActions.SET_INVOICES:
       return { ...state, invoices: action.invoices };
     case PaymentActions.RESET_PAYMENT:
