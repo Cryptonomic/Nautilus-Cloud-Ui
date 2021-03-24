@@ -157,7 +157,7 @@ const App = () => {
             } catch (e) {}
         };
         fetchData();
-    }, []);
+    }, [accessToken]);
 
     return (
         <Container>
