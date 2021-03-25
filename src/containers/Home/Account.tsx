@@ -210,7 +210,7 @@ const Account = () => {
                                             key={plan.id}
                                             plan={plan.name}
                                             label={
-                                                !plan.endDate ? (
+                                                !(plan.price > 0) ? (
                                                     'Free'
                                                 ) : (
                                                     <div>
