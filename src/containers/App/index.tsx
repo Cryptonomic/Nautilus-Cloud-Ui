@@ -102,25 +102,9 @@ const {
 const REDIRECT_URI = `${window.location.origin}/github-callback`;
 const gitAuthUrl = `https://github.com/login/oauth/authorize?client_id=${config.clientId}&scope=user:email&redirect_uri=${REDIRECT_URI}`;
 
-// Hardcoded temporary
-const plansDetails = {
-    1: {
-        description: [
-            '3,000,000 Requests per Month',
-            'Tezos Mainnet and Testnet Nodes',
-            'Conseil Mainnet and Testnet Nodes',
-        ],
-        background: '#2F3035',
-    },
-    2: {
-        description: [
-            'Unlimited Requests per Month',
-            'Tezos Mainnet and Testnet Nodes',
-            'Conseil Mainnet and Testnet Nodes',
-        ],
-        background:
-            'linear-gradient(90deg, rgba(82, 143, 245, 0.4) 0%, rgba(127, 86, 244, 0.4) 155.82%);',
-    },
+const plansBg = {
+    1: '#2F3035',
+    2: 'linear-gradient(90deg, rgba(82, 143, 245, 0.4) 0%, rgba(127, 86, 244, 0.4) 155.82%);'
 };
 
 const App = () => {
@@ -462,7 +446,7 @@ const App = () => {
                                     </div>
                                 )
                             }
-                            items={plansDetails[plan.id].description}
+                            items={plan.publicDescription.split('|')}
                             buttonLabel={
                                 activePlan
                                     ? activePlan.planId === plan.id
@@ -475,7 +459,7 @@ const App = () => {
                                     : 'Upgrade'
                             }
                             selected={activePlan ? activePlan.planId === plan.id : plan.id === 1}
-                            background={plansDetails[plan.id].background}
+                            background={plansBg[plan.id]}
                             style={{ marginRight: index > 0 ? '0px' : '64px' }}
                             onUpgrade={plan.id === 2 && onUpgrade}
                         />

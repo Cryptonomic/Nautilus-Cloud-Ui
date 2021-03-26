@@ -8,6 +8,7 @@ export interface MembershipCardProps {
     plan: Plan;
     fee: number;
     style?: React.CSSProperties;
+    label: string;
     disabled?: boolean;
     onClick?: () => void;
 }
@@ -19,7 +20,7 @@ const planNames = {
     2: 'Pro',
 };
 
-const MembershipCard: React.FC<MembershipCardProps> = ({ plan, fee, style, disabled, onClick }) => {
+const MembershipCard: React.FC<MembershipCardProps> = ({ plan, fee, style, disabled, label, onClick }) => {
     return (
         <Wrapper>
             <Grid
@@ -49,7 +50,7 @@ const MembershipCard: React.FC<MembershipCardProps> = ({ plan, fee, style, disab
             </Grid>
             <Line />
             <Grid container alignItems="center" justify="center" style={{ padding: '1.5rem 0 0' }}>
-                <PayButton disabled={disabled} onClick={onClick}>Make Payment</PayButton>
+                <PayButton disabled={disabled} onClick={onClick}>{label}</PayButton>
             </Grid>
         </Wrapper>
     );

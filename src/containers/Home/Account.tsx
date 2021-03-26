@@ -9,7 +9,7 @@ import {
     getStripeConfig,
     createInvoiceSession,
     createSubscription,
-    getAllSubscriptions
+    getAllSubscriptions,
 } from '../../reducers/app/thunks';
 
 import {
@@ -57,25 +57,9 @@ const faq = [
     },
 ];
 
-// Hardcoded temporary
-const plansDetails = {
-    1: {
-        description: [
-            '3,000,000 Requests per Month',
-            'Tezos Mainnet and Testnet Nodes',
-            'Conseil Mainnet and Testnet Nodes',
-        ],
-        background: '#2F3035',
-    },
-    2: {
-        description: [
-            'Unlimited Requests per Month',
-            'Tezos Mainnet and Testnet Nodes',
-            'Conseil Mainnet and Testnet Nodes',
-        ],
-        background:
-            'linear-gradient(90deg, rgba(82, 143, 245, 0.4) 0%, rgba(127, 86, 244, 0.4) 155.82%);',
-    },
+const plansBg = {
+    1: '#2F3035',
+    2: 'linear-gradient(90deg, rgba(82, 143, 245, 0.4) 0%, rgba(127, 86, 244, 0.4) 155.82%);'
 };
 
 const Account = () => {
@@ -85,7 +69,7 @@ const Account = () => {
     const invoices = useSelector((state: AppState) => state.payment.invoices);
     const subscriptionsMap = useSelector((state: AppState) => state.payment.subscriptionsMap);
     const subscriptionPro = useSelector((state: AppState) => state.payment.subscriptionPro);
-    const accountActiveTab = useSelector((state: AppState) => state.payment.accountActiveTab)
+    const accountActiveTab = useSelector((state: AppState) => state.payment.accountActiveTab);
     const userInfo = useSelector((state: AppState) => state.user.userInfo);
     const [stripe, setStripe] = useState<any>(null);
     const proPlanFee = plans.filter((p) => p.id === Plan.Pro)[0]?.price;
@@ -113,12 +97,12 @@ const Account = () => {
         if (subscriptionPro && subscriptionPro.status === PaymentSubscriptionStatus.ACTIVE) {
             //TODO: add logic if needed
             return;
-        };
+        }
 
         if (subscriptionPro && subscriptionPro.status === PaymentSubscriptionStatus.CREATED) {
             //TODO: add logic if needed
             return;
-        };
+        }
 
         await createSubscription();
         const [subs, subsMap, subPro] = await getAllSubscriptions();
@@ -219,7 +203,7 @@ const Account = () => {
                                                     </div>
                                                 )
                                             }
-                                            items={plansDetails[plan.id].description}
+                                            items={plan.publicDescription.split('|')}
                                             buttonLabel={
                                                 activePlan
                                                     ? activePlan.planId === plan.id
@@ -236,7 +220,7 @@ const Account = () => {
                                                     ? activePlan.planId === plan.id
                                                     : plan.id === 1
                                             }
-                                            background={plansDetails[plan.id].background}
+                                            background={plansBg[plan.id]}
                                             style={{
                                                 marginTop: '2rem',
                                                 padding:
@@ -254,7 +238,21 @@ const Account = () => {
                                 <FAQ items={faq} />
                             </Grid>
                             <Grid style={{ width: '27.5rem', marginLeft: '8.75rem' }}>
-                                {proPlanFee && <MembershipCard plan={Plan.Pro} fee={proPlanFee} disabled={!subscriptionPro} onClick={onMakePayment} />}
+                                {proPlanFee && (
+                                    <MembershipCard
+                                        plan={Plan.Pro}
+                                        fee={proPlanFee}
+                                        disabled={!subscriptionPro}
+                                        label={
+                                            !subscriptionPro ||
+                                            subscriptionPro.status ===
+                                                PaymentSubscriptionStatus.CREATED
+                                                ? 'Make Payment'
+                                                : 'Extend plan'
+                                        }
+                                        onClick={onMakePayment}
+                                    />
+                                )}
                                 {
                                     <Grid>
                                         <Hint style={{ marginTop: '1rem' }}>
@@ -263,31 +261,6 @@ const Account = () => {
                                             Make a payment before your subscription ends to avoid
                                             any disruption to your service.
                                         </Hint>
-                                    </Grid>
-                                }
-                                {
-                                    <Grid
-                                        item
-                                        container
-                                        alignItems="center"
-                                        direction="row"
-                                        style={{ flexWrap: 'nowrap', marginTop: '1rem' }}
-                                    >
-                                        <Grid
-                                            item
-                                            container
-                                            alignItems="center"
-                                            style={{ flex: '1 1 2rem', marginRight: '0.1rem' }}
-                                        >
-                                            <CautionIcon />
-                                        </Grid>
-                                        <Grid item>
-                                            <Hint className="caution">
-                                                Your payment was declined. To update your
-                                                subscription, please verify your payment details and
-                                                try again.
-                                            </Hint>
-                                        </Grid>
                                     </Grid>
                                 }
                             </Grid>

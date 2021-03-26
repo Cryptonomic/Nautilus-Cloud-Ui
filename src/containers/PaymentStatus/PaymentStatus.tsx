@@ -1,6 +1,9 @@
 import * as React from 'react';
 import { useEffect, useState } from 'react';
-import { RouteComponentProps, useHistory, useLocation, useParams } from 'react-router-dom';
+import { RouteComponentProps, useHistory, useLocation } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
+
+import { setAccountActiveTab } from '../../reducers/app/actions';
 
 import { getSession } from '../../reducers/app/thunks';
 
@@ -11,6 +14,7 @@ import Loader from '../../components/Loader';
 const PaymentStatus: React.FC<RouteComponentProps> = (props) => {
     const history = useHistory();
     const location = useLocation();
+    const dispatch = useDispatch();
     const [text, setText] = useState('');
     const params = new URLSearchParams(location.search);
     const sessionId = params.get('session_id');
@@ -20,7 +24,8 @@ const PaymentStatus: React.FC<RouteComponentProps> = (props) => {
             if (location.pathname === '/canceled') {
                 setText('Payment canceled');
                 setTimeout(() => {
-                    history.push('/home');
+                    dispatch(setAccountActiveTab(1));
+                    history.push('home/account');
                 }, 5000);
                 return;
             }
@@ -30,11 +35,13 @@ const PaymentStatus: React.FC<RouteComponentProps> = (props) => {
                 status === 'paid' && setText('Payment success');
                 status === 'unpaid' && setText('Payment failed');
                 setTimeout(() => {
-                    history.push('/home');
+                    dispatch(setAccountActiveTab(1));
+                    history.push('home/account');
                 }, 5000);
                 return
             }
-            history.push('/home');
+            dispatch(setAccountActiveTab(1));
+            history.push('home/account');
         };
         start();
         return () => setText('');
@@ -46,7 +53,7 @@ const PaymentStatus: React.FC<RouteComponentProps> = (props) => {
             {text && (
                 <>
                     <Title>{text}</Title>
-                    <div>Redirect...</div>
+                    <div>Redirecting...</div>
                 </>
             )}
         </Container>
