@@ -57,8 +57,8 @@ import programmingIcon from '../../assets/img/js-programming.svg';
 import scriptIcon from '../../assets/img/script-code-coding.svg';
 import http, { rebuildHttp } from '../../utils/httpService';
 
-import { createSubscription } from '../../reducers/app/thunks';
-import { setAccountActiveTab } from '../../reducers/app/actions';
+import { createSubscription, getAllSubscriptions } from '../../reducers/app/thunks';
+import { setAccountActiveTab, setSubscriptions } from '../../reducers/app/actions';
 
 import { AppState } from '../../types';
 import { PaymentSubscriptionStatus } from '../../reducers/app/types';
@@ -151,6 +151,8 @@ const Keys = (props) => {
 
         await createSubscription();
         dispatch(setAccountActiveTab(1));
+        const [subs, subsMap, subPro] = await getAllSubscriptions();
+        dispatch(setSubscriptions(subs, subsMap, subPro));
         history.push('/home/account');
     };
 
