@@ -1,16 +1,12 @@
-import React, { lazy, Suspense, useEffect, useState } from "react";
+import React, { lazy, Suspense } from "react";
 import { Route, Switch } from "react-router-dom";
-import { Provider, useDispatch, useSelector } from "react-redux";
+import { Provider } from "react-redux";
 import { BrowserRouter } from "react-router-dom";
 import { ThemeProvider } from "@material-ui/core/styles";
 import CssBaseline from "@material-ui/core/CssBaseline";
-import jwt_decode from "jwt-decode";
 
 import theme from "./theme";
 
-import { setAccessToken, setUserInfo } from "./reducers/app/actions";
-import { UserInfo, UserState, Token } from "./types";
-import { ActionTypeStates } from "./models";
 import initializeInfo from "./hooks/initializeInfo";
 import { store } from "./store";
 const App = lazy(() => import("./containers/App"));
