@@ -88,7 +88,7 @@ export const Details = styled(Grid)({
   marginTop: "32px",
   display: "flex",
   column: "row",
-  justifyContent: "center",
+  justifyContent: "flex-start",
 });
 
 export const Resources = styled(Grid)({
@@ -486,6 +486,7 @@ export const Hint = styled(Typography)({
   lineHeight: "1.0625rem",
   fontWeight: 500,
   letterSpacing: "normal",
+  marginTop: "10px",
 
   "&.caution": {
     color: "#D96378",

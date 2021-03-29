@@ -45,6 +45,7 @@ import {
     GenerateKeyButton,
     TabContent,
     TestnetInfo,
+    Hint,
 } from './style';
 import Request from '../../components/Request';
 import Subscription from '../../components/Subscription';
@@ -356,14 +357,19 @@ const Keys = (props) => {
                                             Requests
                                         </SubTitle>
                                         {activePlan.planId === 1 && (
+                                            <>
                                             <Request
                                                 description={`Current 30 Day Cycle: ${displayTimestamp(
                                                     activePlan.started
                                                 )} - ${displayTimestamp(activePlan.ends)}`}
-                                                requests={activePlan.usedRequests}
+                                                requests={activePlan.usedRequests >= activePlan.maxRequests ? activePlan.maxRequests : activePlan.usedRequests}
                                                 limit={activePlan.maxRequests}
                                                 basic
                                             />
+                                            {activePlan.usedRequests >= activePlan.maxRequests && <Hint className="caution">
+                                                You have reached monthly query limit. Please upgrade your subscription.
+                                            </Hint>}
+                                            </>
                                         )}
                                         {activePlan.planId === 2 && (
                                             <Request

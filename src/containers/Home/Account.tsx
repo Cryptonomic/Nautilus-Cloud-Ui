@@ -186,7 +186,7 @@ const Account = () => {
                         id="account-tabpanel-1"
                         aria-labelledby="account-tab-1"
                     >
-                        <Grid container justify="center">
+                        <Grid container justify="flex-start">
                             <Grid style={{ width: '37rem' }}>
                                 <PriceTable>
                                     {plans.map((plan, index) => (
@@ -223,12 +223,6 @@ const Account = () => {
                                             background={plansBg[plan.id]}
                                             style={{
                                                 marginTop: '2rem',
-                                                padding:
-                                                    activePlan &&
-                                                    activePlan.planId === 2 &&
-                                                    plan.id === 1
-                                                        ? '10px 40px'
-                                                        : '',
                                             }}
                                             direction={Direction.Row}
                                             onUpgrade={onUpgrade}
