@@ -135,3 +135,22 @@ export const useSideBarStyles = makeStyles((theme: Theme) =>
     },
   })
 );
+
+export const SupportWrapper = styled('div')({
+  alignSelf: 'center',
+  marginTop: 'auto',
+  marginBottom: '100px'
+});
+
+export const SupportLinkWrapper = styled('div')({
+  alignItems: 'center',
+});
+
+export const SupportLink = styled('a')({
+  fontFamily: "Roboto, sans-serif",
+  fontSize: "0.875rem",
+  fontWeight: 400,
+  marginLeft: '9px',
+  textDecoration: "underline",
+  color: 'white'
+});

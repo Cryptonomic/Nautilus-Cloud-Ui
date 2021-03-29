@@ -11,6 +11,9 @@ import {
   useSideBarStyles,
   IconWrapper,
   LogoButton,
+  SupportWrapper,
+  SupportLink,
+  SupportLinkWrapper,
 } from "./style";
 
 import CustomImg from "../../components/CustomImg";
@@ -24,6 +27,7 @@ import Tooltip from "@material-ui/core/Tooltip";
 
 import { ReactComponent as TezosIcon } from "../../assets/img/tezos.svg";
 import { ReactComponent as UserIcon } from "../../assets/img/user.svg";
+import { ReactComponent as EmailIcon } from "../../assets/img/email.svg";
 import { ReactComponent as GearIcon } from "../../assets/img/gear-icon.svg";
 import { ReactComponent as StatIcon } from "../../assets/img/stat-icon.svg";
 
@@ -98,6 +102,21 @@ const SideBar = ({ drawer, pathname }) => {
           </ListItemLarge>
         </Link>
       </MainList>
+      <SupportWrapper>
+        <ListItemLargeText
+          primary="Need Help?"
+          disableTypography
+          style={{ textAlign: "center" }}
+        />
+        <SupportLinkWrapper>
+          <CustomIcon
+            Component={EmailIcon}
+            size="14px"
+            color1={isActiveKeys}
+          />
+          <SupportLink href="mailto:support@cryptonomic.tech">Email Support</SupportLink>
+        </SupportLinkWrapper>
+      </SupportWrapper>
     </Drawer>
   );
 };
