@@ -45,6 +45,9 @@ export const ListItemLarge = styled(ListItem)({
     borderLeft: "3px solid #61A9E9",
     background: "rgba(75, 77, 83, 0.08)",
   },
+  '&:hover': {
+    opacity: 0.5
+  }
 });
 
 export const ListItemLargeText = styled(ListItemText)(

@@ -66,3 +66,9 @@ export const FooterPolicy = styled(Typography)({
         marginTop: 0,
     },
 });
+
+export const FooterText = styled('span')({
+    '&:hover': {
+        opacity: 0.5
+    }
+});

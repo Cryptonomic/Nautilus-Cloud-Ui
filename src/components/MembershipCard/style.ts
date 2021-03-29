@@ -4,14 +4,15 @@ import Button from '@material-ui/core/Button';
 import theme from 'src/theme';
 import Typography from '@material-ui/core/Typography';
 
-export const Wrapper = styled(Grid)({
+export const Wrapper = styled(Grid)(({ disabled }: { disabled?: boolean }) => ({
     marginTop: '2rem',
     background: '#2F3035',
     border: '1px solid #4D4D4D',
     borderRadius: '8px',
     padding: '2rem 0',
     width: '27.5rem',
-});
+    opacity: disabled ? 0.5 : 1,
+}));
 
 export const Label = styled(Typography)({
     fontSize: '1rem',

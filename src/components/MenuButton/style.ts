@@ -1,6 +1,7 @@
 import { styled, withStyles, makeStyles } from '@material-ui/core/styles';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import Link from '@material-ui/core/Link';
+import Typography from '@material-ui/core/Typography';
 import BottomNavigationAction from "@material-ui/core/BottomNavigationAction";
 
 export const MenuListItemIcon = withStyles({
@@ -22,6 +23,11 @@ export const LinkWrapper = styled(Link)({
 })
 
 export const BottomNavigationActionWrapper = styled(BottomNavigationAction)({
-    fontSize: "16px"
+    fontSize: "16px",
 })
-    
+
+export const MenuText = styled(Typography)({
+    '&:hover': {
+        opacity: 0.5
+    }
+})

@@ -18,7 +18,7 @@ export const PriceItemWrapper = styled('div')({
     },
     alignItems: 'center',
     justifyContent: ({ direction }: any) => {
-        return direction == 'row' ? 'space-between' : 'space-evenly';
+        return direction == 'row' ? 'flex-start' : 'space-evenly';
     },
     border: '1px solid #4D4D4D',
     borderRadius: '8px',
@@ -43,7 +43,9 @@ export const LabelWrapper = styled('div')({
     },
 });
 
-export const ItemsWrapper = styled('div')({});
+export const ItemsWrapper = styled('div')(({ isRow }: { isRow?: boolean }) => ({
+    marginLeft: isRow ? '30px' : '',
+}));
 
 export const Item = styled('div')({
     display: 'flex',
@@ -59,9 +61,10 @@ export const ItemLabel = styled(Typography)({
     letterSpacing: 'normal',
 });
 
-export const ItemImage = styled(CheckIcon)({
+export const ItemImage = styled(CheckIcon)(({ color = '#528FF5'}: { color?: string}) => ({
     marginRight: '9px',
-});
+    stroke: color,
+}));
 
 export const ButtonWithCheckWrapper = withStyles({
     root: {
@@ -69,12 +72,13 @@ export const ButtonWithCheckWrapper = withStyles({
             'linear-gradient(90deg, rgba(82, 143, 245, 0.4) 0%, rgba(127, 86, 244, 0.4) 155.82%)',
         padding: '8px 15px',
         textTransform: 'none',
-        color: '#528FF5',
+        color: 'white',
         borderRadius: '0px',
         cursor: 'default',
         '&:hover': {
             background: 'linear-gradient(90deg, rgba(82, 143, 245, 0.4) 0%, rgba(127, 86, 244, 0.4) 155.82%)',
         },
+        marginLeft: (props: any) => props.isRow ? 'auto' : '',
     },
     label: {
         fontFamily: 'Montserrat',
@@ -91,6 +95,7 @@ export const ButtonWrapper = withStyles({
         border: '1px solid #61A9E9',
         borderRadius: '8px',
         padding: '8px 15px',
+        marginLeft: (props: any) => props.isRow ? 'auto' : '',
     },
     label: {
         fontFamily: 'Montserrat',

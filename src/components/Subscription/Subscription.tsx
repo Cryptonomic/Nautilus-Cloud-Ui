@@ -31,7 +31,7 @@ const Subscription: React.FC<SubscriptionProps> = ({
         </Grid>
         <Grid>
           {basic && <ButtonWrapper onClick={onUpgrade}>Upgrade</ButtonWrapper>}
-          {!basic && <ButtonWrapper onClick={onRenew}>Renew</ButtonWrapper>}
+          {!basic && <ButtonWrapper onClick={onRenew}>Extend</ButtonWrapper>}
         </Grid>
       </Grid>
     </Wrapper>

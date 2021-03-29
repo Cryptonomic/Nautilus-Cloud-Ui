@@ -22,7 +22,7 @@ const planNames = {
 
 const MembershipCard: React.FC<MembershipCardProps> = ({ plan, fee, style, disabled, label, onClick }) => {
     return (
-        <Wrapper>
+        <Wrapper disabled={disabled}>
             <Grid
                 container
                 justify="space-between"

@@ -420,6 +420,9 @@ export const TabWrapper = withStyles({
     minWidth: "auto",
     padding: "6px 0px",
     margin: "0px 25px 0px 0px",
+    '&:hover': {
+      opacity: 0.5
+    }
   },
 })(Tab);
 

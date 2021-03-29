@@ -12,3 +12,14 @@ export const displayTimestamp = (
 
 	return withTime ? date : date.split(',')[0];
 };
+
+
+export const displayAmount = (
+	amount: number,
+	withZero: boolean = false,
+): string => {
+	if (!withZero && amount === 0) {
+		return '';
+	}
+	return amount.toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+};

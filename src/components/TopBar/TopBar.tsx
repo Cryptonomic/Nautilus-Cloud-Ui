@@ -16,6 +16,7 @@ import {
   RightPanel,
   ArrowDownIconWrapper,
   MenuGridWrapper as MenuGrid,
+  TopBarText,
 } from "./style";
 import logo from "../../assets/img/logo.svg";
 import { ReactComponent as GitHubIcon } from "../../assets/img/github.svg";
@@ -94,11 +95,11 @@ const TopBar = ({
               justify={!isRootPage ? "flex-start" : "space-between"}
               alignItems="center"
             >
-              {isRootPage && <span onClick={onPrices}><MenuButton label="Prices" /></span>}
+              {isRootPage && <span onClick={onPrices}><MenuButton label={<TopBarText>Prices</TopBarText>} /></span>}
               <MenuButton
                 label={
                   <MenuGrid container alignItems="center" wrap="nowrap">
-                    Resources
+                    <TopBarText>Resources</TopBarText>
                     <ArrowDownIconWrapper />
                   </MenuGrid>
                 }
@@ -110,7 +111,7 @@ const TopBar = ({
               <MenuButton
                 label={
                   <MenuGrid container alignItems="center" wrap="nowrap">
-                    Docs
+                    <TopBarText>Docs</TopBarText>
                     <ArrowDownIconWrapper />
                   </MenuGrid>
                 }
@@ -127,7 +128,7 @@ const TopBar = ({
             >
               {isRootPage && (
                 <MenuButton
-                  label="Join Our Element Chat"
+                  label={<TopBarText>Join Our Element Chat</TopBarText>}
                   style={{ marginRight: "4vw" }}
                 />
               )}

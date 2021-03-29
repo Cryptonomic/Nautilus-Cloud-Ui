@@ -70,7 +70,7 @@ const SideBar = ({ drawer, pathname }) => {
               </IconWrapper>
             </IconLarge>
             <ListItemLargeText
-              primary="API Key"
+              primary="API Keys"
               disableTypography
               color={isActiveKeys}
             />

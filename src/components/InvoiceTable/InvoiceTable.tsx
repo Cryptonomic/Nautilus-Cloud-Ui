@@ -17,7 +17,7 @@ import {
     TableContainerWrapper as TableContainer,
 } from './style';
 
-import { displayTimestamp } from '../../utils/renders';
+import { displayTimestamp, displayAmount } from '../../utils/renders';
 
 enum PaymentStatus {
     paid = 'Paid',
@@ -34,11 +34,11 @@ const InvoiceTable: React.FC<InvoiceTableProps> = ({
                 <Table aria-label="invoce table">
                     <TableHead>
                         <TableRow>
-                            <TableCell>Date</TableCell>
-                            <TableCell>Description</TableCell>
-                            <TableCell>Subscription period</TableCell>
-                            <TableCell>Amount</TableCell>
-                            <TableCell>Status</TableCell>
+                            <TableCell header>Date</TableCell>
+                            <TableCell header>Description</TableCell>
+                            <TableCell header>Subscription period</TableCell>
+                            <TableCell header>Amount</TableCell>
+                            <TableCell header>Status</TableCell>
                         </TableRow>
                     </TableHead>
                     <TableBody>
@@ -47,7 +47,7 @@ const InvoiceTable: React.FC<InvoiceTableProps> = ({
                                 <TableCell> {displayTimestamp(item.timestamp)}</TableCell>
                                 <TableCell>Pro Monthly Plan</TableCell>
                                 <TableCell>{`${displayTimestamp(item.startDate)} - ${displayTimestamp(item.endDate)}`}</TableCell>
-                                <TableCell>{item.amount}</TableCell>
+                                <TableCell>{`$${displayAmount(item.amount)}`}</TableCell>
                                 <TableCell>{PaymentStatus[item.status]}</TableCell>
                             </TableRow>
                         ))}

@@ -74,6 +74,9 @@ export const UserName = styled(Typography)({
   fontWeight: 500,
   letterSpacing: "1px",
   marginLeft: "5px",
+  '&:hover': {
+    opacity: 0.5,
+  }
 });
 
 export const LeftPanel = styled(Grid)({
@@ -97,3 +100,9 @@ export const MenuGridWrapper = styled(Grid)({
 });
 
 export const GithubIconWhiteWrapper = styled(GithubIconWhite)({});
+
+export const TopBarText = styled('span')({
+  '&:hover': {
+    opacity: 0.5,
+  }
+});

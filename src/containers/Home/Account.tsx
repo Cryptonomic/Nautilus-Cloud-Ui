@@ -152,7 +152,7 @@ const Account = () => {
                         <BillingInfoWrapper container direction="row">
                             <Grid container className="info">
                                 <Grid className="wrapper left">
-                                    <SubTitle>Current Billing Period Ends</SubTitle>
+                                    {activePlan.planId === Plan.Pro && <SubTitle>Current Billing Period Ends</SubTitle>}
                                     <Typography variant="h5">
                                         {activePlan.planId === Plan.Basic
                                             ? 'Not Currently Subscribed'
@@ -253,7 +253,7 @@ const Account = () => {
                                         onClick={onMakePayment}
                                     />
                                 )}
-                                {
+                                {activePlan.planId === Plan.Pro &&
                                     <Grid>
                                         <Hint style={{ marginTop: '1rem' }}>
                                             Your current billing subscription will{' '}

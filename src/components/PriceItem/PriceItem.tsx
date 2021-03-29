@@ -50,7 +50,7 @@ const PriceItem: React.FC<PriceItemProps> = ({
                 alignItems="center"
                 justify="center"
                 direction="column"
-                style={{ width: 'auto' }}
+                style={{ width: '120px' }}
             >
                 <PlanWrapper
                     style={
@@ -63,7 +63,7 @@ const PriceItem: React.FC<PriceItemProps> = ({
                 </PlanWrapper>
                 <LabelWrapper>{label}</LabelWrapper>
             </Grid>
-            <ItemsWrapper>
+            <ItemsWrapper isRow={direction === Direction.Row}>
                 {items.map((item, index) => {
                     return (
                         <Item key={index}>
@@ -74,11 +74,11 @@ const PriceItem: React.FC<PriceItemProps> = ({
                 })}
             </ItemsWrapper>
             {selected && (
-                <ButtonWithCheckWrapper startIcon={<ItemImage style={{ marginRight: '0px' }} />}>
+                <ButtonWithCheckWrapper isRow={direction === Direction.Row} startIcon={<ItemImage color="white" style={{ marginRight: '0px' }} />}>
                     {buttonLabel}
                 </ButtonWithCheckWrapper>
             )}
-            {!selected && buttonLabel && <ButtonWrapper onClick={onUpgrade}>{buttonLabel}</ButtonWrapper>}
+            {!selected && buttonLabel && <ButtonWrapper isRow={direction === Direction.Row} onClick={onUpgrade}>{buttonLabel}</ButtonWrapper>}
         </PriceItemWrapper>
     );
 };

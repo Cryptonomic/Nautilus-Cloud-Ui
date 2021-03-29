@@ -379,7 +379,11 @@ const Keys = (props) => {
                                         <SubTitle style={{ marginBottom: '12px' }}>
                                             Subscription
                                         </SubTitle>
-                                        <Subscription basic={activePlan.planId === 1} onUpgrade={onUpgrade} onRenew={onRenew} />
+                                        <Subscription
+                                            basic={activePlan.planId === 1}
+                                            onUpgrade={onUpgrade}
+                                            onRenew={onRenew}
+                                        />
                                     </Grid>
                                 </Grid>
                             )}
@@ -393,31 +397,7 @@ const Keys = (props) => {
                     aria-labelledby="tezos-tab-1"
                 >
                     <Resources>
-                        <TitleText>Resources to get Started</TitleText>
-                        <ResourcesLinksContainer container alignItems="center">
-                            <ResourcesLinkItem item onClick={() => openUrl(handbook)}>
-                                <CustomImg src={bookIcon} size="4.5rem" name="book-icon" />
-                                <ResourcesLinks variant="subtitle1">
-                                    Tezos Developers' Handbook
-                                </ResourcesLinks>
-                            </ResourcesLinkItem>
-                            <ResourcesLinkItem item onClick={() => openUrl(conseil)}>
-                                <CustomImg src={scriptIcon} size="4.5rem" name="script-icon" />
-                                <ResourcesLinks variant="subtitle1">
-                                    Conseil Documentation
-                                </ResourcesLinks>
-                            </ResourcesLinkItem>
-                            <ResourcesLinkItem item onClick={() => openUrl(conseiljs)}>
-                                <CustomImg
-                                    src={programmingIcon}
-                                    size="4.5rem"
-                                    name="programming-icon"
-                                />
-                                <ResourcesLinks variant="subtitle1">
-                                    Conseil.JS Documentation
-                                </ResourcesLinks>
-                            </ResourcesLinkItem>
-                        </ResourcesLinksContainer>
+                        <TitleText>Coming soon...</TitleText>
                     </Resources>
                 </TabContent>
             </Main>

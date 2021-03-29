@@ -24,12 +24,12 @@ export const TableContainerWrapper = styled(TableContainer)({
     paddingLeft: "0"
   },
 })
-export const TableCellWrapper = styled(TableCell)({
+export const TableCellWrapper = styled(TableCell)(({ header = false }: { header?: boolean }) => ({
   border: "none",
   fontSize: "1rem",
   lineHeight: "1rem",
   fontFamily: "Montserrat",
-  fontWeight: 300,
+  fontWeight: header ? 500 : 300,
   marginBottom: "1.5rem",
   backgroundColor: "transparent",
   color: "#fff",
@@ -39,4 +39,4 @@ export const TableCellWrapper = styled(TableCell)({
       cursor: "Pointer"
     }
   }
-});
+}));
