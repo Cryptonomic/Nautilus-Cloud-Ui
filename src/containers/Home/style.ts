@@ -528,3 +528,20 @@ export const BillingInfoWrapper = styled(Grid)({
 export const SmallText = styled(Typography)({
   fontSize: "0.75rem",
 });
+
+export const NoDataWrapper = styled('div')({
+  backgroundColor: 'transparent',
+  position: 'absolute',
+  alignSelf: 'center',
+  alignItems: 'center',
+  justifyContent: 'center',
+  display: 'flex'
+});
+
+export const NoData = styled('div')({
+  width: '300px',
+  height: '100px',
+  display: 'flex',
+  alignItems: 'center',
+  justifyContent: 'center'
+});

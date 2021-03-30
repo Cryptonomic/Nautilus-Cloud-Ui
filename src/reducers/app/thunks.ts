@@ -158,3 +158,32 @@ export const getSession = async (sessionId: string) => {
         throw Error('Get session error');
     }
 };
+
+export const getQueryRate = async (time?: string) => {
+    const timeNow = new Date().getTime();
+    let timestamp;
+
+    switch (time) {
+        case 'Last 30 Days':
+            timestamp = timeNow - (1000*60*60*24*30);
+            break;
+        case 'Last 7 Days':
+            timestamp = timeNow - (1000*60*60*24*7);
+            break;
+        default:
+            timestamp = timeNow - (1000*60*60*24);
+    }
+
+    try {
+        const response = await http.get(
+            `https://dev1-nc2-03.cryptonomic-infra.tech/users/me/stats/aggregated?from=${timestamp}`
+        );
+        if (!response.data.length) {
+            return null;
+        }
+        return response.data;
+    } catch (e) {
+        console.log('Get query rate error', e);
+        throw Error('Get query rate error');
+    }
+}

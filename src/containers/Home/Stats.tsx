@@ -1,4 +1,5 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
+import { useSelector } from 'react-redux';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import RefreshIcon from '@material-ui/icons/Refresh';
 import InfoOutlinedIcon from '@material-ui/icons/InfoOutlined';
@@ -27,15 +28,23 @@ import {
     ChartLegendText,
     ChartLineWrapper,
     BoxesContainer,
+    NoDataWrapper,
+    NoData,
 } from './style';
+
+import { getQueryRate } from '../../reducers/app/thunks';
+
+import { displayQueryRateTime } from '../../utils/renders';
+
+import { AppState } from '../../types';
 
 function transparentize(color, opacity?: number) {
     var alpha = opacity === undefined ? 0.5 : 1 - opacity;
     return Chart.helpers.color(color).alpha(alpha).rgbString();
 }
 
-const data = {
-    labels: ['12:12', '12:13', '12:14', '12:15', '12:16'],
+const data: any = {
+    labels: [],
     datasets: [
         {
             label: '',
@@ -56,7 +65,7 @@ const data = {
             pointHoverBorderWidth: 2,
             pointRadius: 1,
             pointHitRadius: 10,
-            data: [0, 0, 0, 0, 0],
+            data: [],
         },
         {
             label: '',
@@ -77,82 +86,95 @@ const data = {
             pointHoverBorderWidth: 2,
             pointRadius: 1,
             pointHitRadius: 10,
-            data: [530, 500, 510, 505, 500],
-        },
-        {
-            label: '',
-            fill: true,
-            lineTension: 0.1,
-            backgroundColor: transparentize('#ffa300', 0.9),
-            borderColor: '#ffa300',
-            borderCapStyle: 'butt',
-            borderDash: [],
-            borderDashOffset: 0.0,
-            borderJoinStyle: 'miter',
-            pointBorderColor: 'rgba(75,192,192,1)',
-            pointBackgroundColor: '#fff',
-            pointBorderWidth: 1,
-            pointHoverRadius: 5,
-            pointHoverBackgroundColor: 'rgba(75,192,192,1)',
-            pointHoverBorderColor: 'rgba(220,220,220,1)',
-            pointHoverBorderWidth: 2,
-            pointRadius: 1,
-            pointHitRadius: 10,
-            data: [1000, 1001, 1000, 1010, 1000],
+            data: [],
         },
     ],
 };
 
-const tableBody1 = [
-    { first: '2020-03-17', second: '89.86 K', third: '127.21.01' },
-    { first: '2020-03-17', second: '89.86 K', third: '127.21.01' },
-    { first: '2020-03-17', second: '89.86 K', third: '127.21.01' },
-    { first: '2020-03-17', second: '89.86 K', third: '127.21.01' },
-    { first: '2020-03-17', second: '89.86 K', third: '127.21.01' },
-    { first: '2020-03-17', second: '89.86 K', third: '127.21.01' },
-];
-
-const tableBody2 = [
-    { first: '12:10:17', second: '89.86 K', third: '/nginx_status/tail' },
-    { first: '12:10:17', second: '89.86 K', third: '/nginx_status/tail' },
-    { first: '12:10:17', second: '89.86 K', third: '/nginx_status' },
-    { first: '12:10:17', second: '89.86 K', third: '/nginx_status/tail' },
-    { first: '12:10:17', second: '89.86 K', third: '/nginx_status' },
-    { first: '12:10:17', second: '89.86 K', third: '/nginx_status/tail' },
-];
-
-const tableBody3 = [
-    { first: '12:10:17', second: '89.86 K', third: 'API Header Key Missing' },
-    { first: '12:10:17', second: '89.86 K', third: 'ApiKey Header Missing' },
-    { first: '12:10:17', second: '89.86 K', third: 'ApiKey Header Missing' },
-    { first: '12:10:17', second: '89.86 K', third: 'ApiKey Header Missing' },
-    { first: '12:10:17', second: '89.86 K', third: 'Upstream stage is closed' },
-    { first: '12:10:17', second: '89.86 K', third: 'Upstream stage is closed' },
-];
-
-const tableBody4 = [
-    { first: '12:10:17', second: 'Yes', third: '44.86 K' },
-    { first: '12:10:17', second: 'No', third: '44.86 K' },
-    { first: '12:10:17', second: 'No', third: '44.86 K' },
-    { first: '12:10:17', second: 'No', third: '44.86 K' },
-    { first: '12:10:17', second: '0.00', third: '44.86 K' },
-    { first: '12:10:17', second: '0.00', third: '44.86 K' },
-];
-
 const times = ['Last 24 hours', 'Last 7 Days', 'Last 30 Days'];
 
 const Stats = () => {
-    const [tab, setTab] = useState(0);
+    const chartRef = useRef(null)
+    const accessToken = useSelector((state: AppState) => state.token.accessToken);
     const [time, setTime] = useState(0);
-    const changeTab = (e, newValue) => setTab(newValue);
-    const changeTime = (e) => setTime(e.target.value);
+    const [queryData, setQueryData] = useState(null);
+    const [noDataBanner, setNoDataBnner] = useState({ w: '100px', h: '100px'});
+
+    const getQueryData = async (time?: string) => {
+        try {
+            if (!accessToken) {
+                return;
+            }
+
+            const queryRate = await getQueryRate(time);
+
+            if (!queryRate) {
+                return;
+            };
+
+            const queries = {};
+
+            for (let q of queryRate) {
+                const queryTime = displayQueryRateTime(q.periodEnd);
+                if (queries[queryTime]) {
+                    queries[queryTime] += q.hits;
+                    continue;
+                }
+                queries[queryTime] = q.hits;
+            }
+            const queryLabels = Object.keys(queries).reverse();
+            const queryValues = Object.values(queries).reverse();
+
+            const newData = {
+                labels: queryLabels,
+                datasets: [
+                    {
+                        label: '',
+                        fill: true,
+                        lineTension: 0.1,
+                        backgroundColor: transparentize('#90bcd0', 0.9),
+                        borderColor: '#90bcd0',
+                        borderCapStyle: 'butt',
+                        borderDash: [],
+                        borderDashOffset: 0.0,
+                        borderJoinStyle: 'miter',
+                        pointBorderColor: 'rgba(75,192,192,1)',
+                        pointBackgroundColor: '#fff',
+                        pointBorderWidth: 1,
+                        pointHoverRadius: 5,
+                        pointHoverBackgroundColor: 'rgba(75,192,192,1)',
+                        pointHoverBorderColor: 'rgba(220,220,220,1)',
+                        pointHoverBorderWidth: 2,
+                        pointRadius: 1,
+                        pointHitRadius: 10,
+                        data: queryValues,
+                    },
+                ],
+            };
+            setQueryData(newData);
+        } catch (e) {
+
+        }
+    }
+
+    const changeTime = async (e) => {
+        await getQueryData(e.target.value);
+        setTime(e.target.value)
+    };
+
+    useEffect(() => {
+        const fetchData = async () => {
+            await getQueryData();
+            setNoDataBnner({
+                w: chartRef.current.chartInstance.width,
+                h: chartRef.current.chartInstance.height
+            })
+        };
+        fetchData();
+    }, []);
 
     return (
-        <Main container justify="center" direction="column">
-            <StatsTabs value={tab} onChange={changeTab} aria-label="tabs">
-                <StatsTab label="Mainnet" />
-                <StatsTab label="Tesnet" />
-            </StatsTabs>
+        <Grid container justify="center" direction="column">
             <TimeContainer>
                 <Grid container alignItems="center">
                     <Grid item xs={6}>
@@ -163,29 +185,15 @@ const Stats = () => {
                             input={<CustomInput inputProps={{ 'aria-label': 'naked' }} />}
                             inputProps={{ 'aria-label': 'endpoints' }}
                             IconComponent={ExpandMoreIcon}
+                            style={{ width: '160px' }}
                         >
                             {times.map((name, index) => (
-                                <option value={index} key={name}>
+                                <option style={{ margin: '15px 10px', cursor: 'pointer' }} value={index} key={name}>
                                     {name}
                                 </option>
                             ))}
                         </CustomSelect>
                     </Grid>
-                    <Grid item xs={6}>
-                        <Grid container justify="flex-end">
-                            <RefreshButton
-                                showLabel
-                                label="Refresh"
-                                icon={<RefreshIcon color="primary" />}
-                            />
-                        </Grid>
-                    </Grid>
-                    <TimeTextWrapper item xs={12}>
-                        <Grid container alignItems="center">
-                            <InfoOutlinedIcon color="primary" />
-                            <TimeText>Stats are collected every 5 seconds.</TimeText>
-                        </Grid>
-                    </TimeTextWrapper>
                 </Grid>
             </TimeContainer>
             <ChartContainer>
@@ -193,59 +201,18 @@ const Stats = () => {
                     <Grid container alignItems="center" wrap="nowrap">
                         <ChartTitleContainer item xs={9}>
                             <ChartTitle variant="subtitle1">Query Rate</ChartTitle>
-                            <ChartSubtitle variant="subtitle1">10 Second Bucket </ChartSubtitle>
+                            <ChartSubtitle variant="subtitle1">5 Minute Bucket</ChartSubtitle>
                         </ChartTitleContainer>
-                        <Grid item xs={3}>
-                            <Grid container justify="space-between">
-                                <Grid item>
-                                    <ChartLegendIcon color="#90bcd0" />
-                                    <ChartLegendText variant="subtitle2">Permitted</ChartLegendText>
-                                </Grid>
-                                <Grid item>
-                                    <ChartLegendIcon color="#ffa300" />
-                                    <ChartLegendText variant="subtitle2">Denied</ChartLegendText>
-                                </Grid>
-                            </Grid>
-                        </Grid>
                     </Grid>
                     <ChartLineWrapper>
-                        <Line data={data} legend={{ display: false }} />
+                        {!queryData && <NoDataWrapper style={{ width: noDataBanner.w, height: noDataBanner.h }}>
+                            <NoData>No data</NoData>
+                        </NoDataWrapper>}
+                        <Line data={queryData || data} legend={{ display: false }} ref={chartRef} />
                     </ChartLineWrapper>
                 </ChartBg>
             </ChartContainer>
-            <BoxesContainer>
-                <Grid container spacing={6} justify="space-between">
-                    <Grid item xs={6}>
-                        <BoxTable
-                            title="Top 10 IP Hits"
-                            head={['Timestamp', 'Hits', 'IP']}
-                            body={tableBody1}
-                        />
-                    </Grid>
-                    <Grid item xs={6}>
-                        <BoxTable
-                            title="Top 10 Routes"
-                            head={['Timestamp', 'Hits', 'URI']}
-                            body={tableBody2}
-                        />
-                    </Grid>
-                    <Grid item xs={7}>
-                        <BoxTable
-                            title="Top 10 Access Outcomes"
-                            head={['Timestamp', 'Hits', 'Exception']}
-                            body={tableBody3}
-                        />
-                    </Grid>
-                    <Grid item xs={5}>
-                        <BoxTable
-                            title="PDP Count"
-                            head={['Timestamp', 'Decision', 'Sum']}
-                            body={tableBody4}
-                        />
-                    </Grid>
-                </Grid>
-            </BoxesContainer>
-        </Main>
+        </Grid>
     );
 };
 

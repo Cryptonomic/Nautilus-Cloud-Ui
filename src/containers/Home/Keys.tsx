@@ -66,6 +66,8 @@ import { PaymentSubscriptionStatus } from '../../reducers/app/types';
 
 import { displayTimestamp } from '../../utils/renders';
 
+import Stats from './Stats';
+
 const {
     handbook,
     conseil,
@@ -403,7 +405,7 @@ const Keys = (props) => {
                     aria-labelledby="tezos-tab-1"
                 >
                     <Resources>
-                        <TitleText>Coming soon...</TitleText>
+                        <Stats />
                     </Resources>
                 </TabContent>
             </Main>
