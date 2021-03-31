@@ -3,7 +3,7 @@ import axios from 'axios';
 import http from '../../utils/httpService';
 import { createItemsMap } from '../../utils/general';
 import { Plan } from '../../types';
-import { PaymentSubscriptionStatus } from './types';
+import { PaymentSubscriptionStatus, BucketFramesTime, BucketFramesName } from './types';
 
 export const getPlans = async () => {
     try {
@@ -159,18 +159,32 @@ export const getSession = async (sessionId: string) => {
     }
 };
 
+const getTimeFrame = (timeNow, frame, bucket) => {
+    const timeFrame = [timeNow];
+    let time = timeNow;
+    for(let i = frame; i > 1; i--) {
+        time = time - bucket;
+        timeFrame.push(time)
+    }
+    return timeFrame;
+}
+
 export const getQueryRate = async (time?: string) => {
     const timeNow = new Date().getTime();
     let timestamp;
+    let timeFrame;
 
     switch (time) {
-        case 'Last 30 Days':
+        case BucketFramesName.LAST30DAYS:
+            timeFrame = getTimeFrame(timeNow, 30, BucketFramesTime.LAST30DAYS);
             timestamp = timeNow - (1000*60*60*24*30);
             break;
-        case 'Last 7 Days':
+        case BucketFramesName.LAST7DAYS:
+            timeFrame = getTimeFrame(timeNow, 7, BucketFramesTime.LAST7DAYS);
             timestamp = timeNow - (1000*60*60*24*7);
             break;
         default:
+            timeFrame = getTimeFrame(timeNow, 24, BucketFramesTime.LAST24H);
             timestamp = timeNow - (1000*60*60*24);
     }
 
@@ -179,9 +193,9 @@ export const getQueryRate = async (time?: string) => {
             `https://dev1-nc2-03.cryptonomic-infra.tech/users/me/stats/aggregated?from=${timestamp}`
         );
         if (!response.data.length) {
-            return null;
+            return [];
         }
-        return response.data;
+        return [response.data, timeFrame];
     } catch (e) {
         console.log('Get query rate error', e);
         throw Error('Get query rate error');

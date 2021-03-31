@@ -92,7 +92,7 @@ export const Details = styled(Grid)({
 });
 
 export const Resources = styled(Grid)({
-  // margin: '80px 0px 0px 230px',
+  marginBottom: "50px"
 });
 
 export const DetailsBg = styled(Paper)({
@@ -379,6 +379,7 @@ export const ChartLegendText = styled(Typography)({
 
 export const ChartLineWrapper = styled("div")({
   marginTop: "18px",
+  position: "relative"
 });
 
 export const BoxesContainer = styled("div")({
@@ -531,6 +532,8 @@ export const SmallText = styled(Typography)({
 
 export const NoDataWrapper = styled('div')({
   backgroundColor: 'transparent',
+  width: "100%",
+  height: "100%",
   position: 'absolute',
   alignSelf: 'center',
   alignItems: 'center',

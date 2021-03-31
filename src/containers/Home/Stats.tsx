@@ -38,6 +38,8 @@ import { displayQueryRateTime } from '../../utils/renders';
 
 import { AppState } from '../../types';
 
+import { BucketFramesName, BucketFramesTime } from '../../reducers/app/types';
+
 function transparentize(color, opacity?: number) {
     var alpha = opacity === undefined ? 0.5 : 1 - opacity;
     return Chart.helpers.color(color).alpha(alpha).rgbString();
@@ -94,11 +96,9 @@ const data: any = {
 const times = ['Last 24 hours', 'Last 7 Days', 'Last 30 Days'];
 
 const Stats = () => {
-    const chartRef = useRef(null)
     const accessToken = useSelector((state: AppState) => state.token.accessToken);
     const [time, setTime] = useState(0);
     const [queryData, setQueryData] = useState(null);
-    const [noDataBanner, setNoDataBnner] = useState({ w: '100px', h: '100px'});
 
     const getQueryData = async (time?: string) => {
         try {
@@ -106,24 +106,44 @@ const Stats = () => {
                 return;
             }
 
-            const queryRate = await getQueryRate(time);
+            const [queryRate, timeFrame] = await getQueryRate(time);
 
-            if (!queryRate) {
+            if (!queryRate.length) {
                 return;
-            };
+            }
 
-            const queries = {};
+            const queries: any = {};
 
             for (let q of queryRate) {
-                const queryTime = displayQueryRateTime(q.periodEnd);
+                const queryTime = new Date(q.periodEnd).getTime();
                 if (queries[queryTime]) {
-                    queries[queryTime] += q.hits;
+                    queries[queryTime].hits += q.hits;
                     continue;
                 }
-                queries[queryTime] = q.hits;
+                queries[queryTime] = { ...q, timestamp: queryTime };
             }
-            const queryLabels = Object.keys(queries).reverse();
-            const queryValues = Object.values(queries).reverse();
+
+            const bucket =
+                time === BucketFramesName.LAST30DAYS || time === BucketFramesName.LAST7DAYS
+                    ? BucketFramesTime.LAST30DAYS
+                    : BucketFramesTime.LAST24H;
+
+            const queriesInTime = timeFrame.reverse().map((t: any) => {
+                const queriesInBucket = [];
+                for (let i of Object.values(queries) as any) {
+                    if (i.timestamp >= t && i.timestamp <= t + (bucket)) {
+                        queriesInBucket.push(i);
+                    }
+                }
+
+                if (queriesInBucket.length) {
+                    return queriesInBucket.reduce((prev, next) => (prev += next.hits), 0);
+                }
+                return 0;
+            });
+
+            const queryLabels = timeFrame.map((t, index) => displayQueryRateTime(t, true));
+            const queryValues = queriesInTime;
 
             const newData = {
                 labels: queryLabels,
@@ -152,23 +172,33 @@ const Stats = () => {
                 ],
             };
             setQueryData(newData);
-        } catch (e) {
-
-        }
-    }
+        } catch (e) {}
+    };
 
     const changeTime = async (e) => {
-        await getQueryData(e.target.value);
-        setTime(e.target.value)
+        await getQueryData(times[e.target.value]);
+        setTime(e.target.value);
+    };
+
+    const getChartOptions = () => {
+        return {
+            scales: {
+                yAxes: [
+                    {
+                        ticks: {
+                            callback: function (value) {
+                                return queryData && Number.isInteger(value) ? value : '';
+                            },
+                        },
+                    },
+                ],
+            },
+        };
     };
 
     useEffect(() => {
         const fetchData = async () => {
             await getQueryData();
-            setNoDataBnner({
-                w: chartRef.current.chartInstance.width,
-                h: chartRef.current.chartInstance.height
-            })
         };
         fetchData();
     }, []);
@@ -188,7 +218,11 @@ const Stats = () => {
                             style={{ width: '160px' }}
                         >
                             {times.map((name, index) => (
-                                <option style={{ margin: '15px 10px', cursor: 'pointer' }} value={index} key={name}>
+                                <option
+                                    style={{ margin: '15px 10px', cursor: 'pointer' }}
+                                    value={index}
+                                    key={name}
+                                >
                                     {name}
                                 </option>
                             ))}
@@ -205,10 +239,16 @@ const Stats = () => {
                         </ChartTitleContainer>
                     </Grid>
                     <ChartLineWrapper>
-                        {!queryData && <NoDataWrapper style={{ width: noDataBanner.w, height: noDataBanner.h }}>
-                            <NoData>No data</NoData>
-                        </NoDataWrapper>}
-                        <Line data={queryData || data} legend={{ display: false }} ref={chartRef} />
+                        {!queryData && (
+                            <NoDataWrapper>
+                                <NoData>No data</NoData>
+                            </NoDataWrapper>
+                        )}
+                        <Line
+                            data={queryData || data}
+                            legend={{ display: false }}
+                            options={getChartOptions()}
+                        />
                     </ChartLineWrapper>
                 </ChartBg>
             </ChartContainer>
