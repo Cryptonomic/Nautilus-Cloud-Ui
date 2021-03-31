@@ -96,6 +96,7 @@ const data: any = {
 const times = ['Last 24 hours', 'Last 7 Days', 'Last 30 Days'];
 
 const Stats = () => {
+    const chartRef = useRef(null);
     const accessToken = useSelector((state: AppState) => state.token.accessToken);
     const [time, setTime] = useState(0);
     const [queryData, setQueryData] = useState(null);
@@ -194,6 +195,13 @@ const Stats = () => {
                     },
                 ],
             },
+            animation: {
+                onComplete: function () {
+                    if (!queryData) {
+                        chartRef.current.chartInstance.clear();
+                    }
+                },
+            },
         };
     };
 
@@ -249,6 +257,7 @@ const Stats = () => {
                             data={queryData || data}
                             legend={{ display: false }}
                             options={getChartOptions()}
+                            ref={chartRef}
                         />
                     </ChartLineWrapper>
                 </ChartBg>
