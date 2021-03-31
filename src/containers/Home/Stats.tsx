@@ -109,6 +109,7 @@ const Stats = () => {
             const [queryRate, timeFrame] = await getQueryRate(time);
 
             if (!queryRate.length) {
+                setQueryData(null);
                 return;
             }
 
