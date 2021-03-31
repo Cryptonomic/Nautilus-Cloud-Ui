@@ -13,7 +13,7 @@ export const displayTimestamp = (
 	return withTime ? date : date.split(',')[0];
 };
 
-export const displayQueryRateTime = (timestamp: string, withDate: boolean = false) => {
+export const displayQueryRateTime = (timestamp: string, withoutTime: boolean = false) => {
 	const date = new Date(timestamp).toLocaleTimeString([], {
 		year: '2-digit',
 		month: '2-digit',
@@ -22,7 +22,7 @@ export const displayQueryRateTime = (timestamp: string, withDate: boolean = fals
 		minute: '2-digit',
 	});
 
-	return withDate ? date : date.split(', ')[1];
+	return withoutTime ? date.split(', ')[0] : date;
 }
 
 export const displayAmount = (
