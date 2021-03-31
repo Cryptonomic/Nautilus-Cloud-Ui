@@ -163,12 +163,12 @@ const Account = () => {
                                     <SubTitle>Plan Overview</SubTitle>
                                     {activePlan.planId !== Plan.Basic && (
                                         <SmallText className="small">
-                                            Pro Tier: Unlimited Requests <br></br>& Monthly Renewal
+                                            {`${plans[1].name}: Unlimited Requests`} <br></br>& Monthly Renewal
                                         </SmallText>
                                     )}
                                     {activePlan.planId == Plan.Basic && (
                                         <SmallText className="small">
-                                            Basic Tier: 3,000,000 Requests
+                                            {`${plans[0].name}: 3,000,000 Requests`}
                                         </SmallText>
                                     )}
                                 </Grid>

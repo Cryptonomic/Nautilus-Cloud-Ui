@@ -17,6 +17,7 @@ import {
   ArrowDownIconWrapper,
   MenuGridWrapper as MenuGrid,
   TopBarText,
+  ChatLink,
 } from "./style";
 import logo from "../../assets/img/logo.svg";
 import { ReactComponent as GitHubIcon } from "../../assets/img/github.svg";
@@ -99,7 +100,7 @@ const TopBar = ({
               <MenuButton
                 label={
                   <MenuGrid container alignItems="center" wrap="nowrap">
-                    <TopBarText>Resources</TopBarText>
+                    <span>Resources</span>
                     <ArrowDownIconWrapper />
                   </MenuGrid>
                 }
@@ -111,7 +112,7 @@ const TopBar = ({
               <MenuButton
                 label={
                   <MenuGrid container alignItems="center" wrap="nowrap">
-                    <TopBarText>Docs</TopBarText>
+                    <span>Docs</span>
                     <ArrowDownIconWrapper />
                   </MenuGrid>
                 }
@@ -128,7 +129,7 @@ const TopBar = ({
             >
               {isRootPage && (
                 <MenuButton
-                  label={<TopBarText>Join Our Element Chat</TopBarText>}
+                  label={<ChatLink href="https://matrix.to/#/!heGqMNcsOSHGPxrMJs:cryptonomic.tech" target="_blank">Join Our Element Chat</ChatLink>}
                   style={{ marginRight: "4vw" }}
                 />
               )}
@@ -147,7 +148,7 @@ const TopBar = ({
               {userEmail && (
                 <MenuButton
                   label={
-                    <Grid
+                    <MenuGrid
                       container
                       alignItems="center"
                       justify="space-between"
@@ -160,7 +161,7 @@ const TopBar = ({
                       />
                       <UserName>{userEmail.split("@")[0]}</UserName>
                       <ArrowDownIconWrapper />
-                    </Grid>
+                    </MenuGrid>
                   }
                   items={[
                     {

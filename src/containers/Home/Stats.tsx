@@ -6,6 +6,7 @@ import InfoOutlinedIcon from '@material-ui/icons/InfoOutlined';
 import Grid from '@material-ui/core/Grid';
 import { Line } from 'react-chartjs-2';
 import Chart from 'chart.js';
+import { format } from 'date-fns'
 
 import BoxTable from '../../components/BoxTable';
 
@@ -38,7 +39,7 @@ import { displayQueryRateTime } from '../../utils/renders';
 
 import { AppState } from '../../types';
 
-import { BucketFramesName, BucketFramesTime } from '../../reducers/app/types';
+import { BucketFramesName } from '../../reducers/app/types';
 
 function transparentize(color, opacity?: number) {
     var alpha = opacity === undefined ? 0.5 : 1 - opacity;
@@ -125,15 +126,10 @@ const Stats = () => {
                 queries[queryTime] = { ...q, timestamp: queryTime };
             }
 
-            const bucket =
-                time === BucketFramesName.LAST30DAYS || time === BucketFramesName.LAST7DAYS
-                    ? BucketFramesTime.LAST30DAYS
-                    : BucketFramesTime.LAST24H;
-
-            const queriesInTime = timeFrame.reverse().map((t: any) => {
+            const queriesInTime = timeFrame.map((t: any) => {
                 const queriesInBucket = [];
                 for (let i of Object.values(queries) as any) {
-                    if (i.timestamp >= t && i.timestamp <= t + (bucket)) {
+                    if (i.timestamp >= t.start.getTime() && i.timestamp <= t.end.getTime()) {
                         queriesInBucket.push(i);
                     }
                 }
@@ -144,7 +140,8 @@ const Stats = () => {
                 return 0;
             });
 
-            const queryLabels = timeFrame.map((t, index) => displayQueryRateTime(t, (time === BucketFramesName.LAST30DAYS || time === BucketFramesName.LAST7DAYS)));
+            const formatLabel = (BucketFramesName.LAST30DAYS === time || BucketFramesName.LAST7DAYS === time) ? "yyyy-MM-dd" : "yyyy-MM-dd HH:mm:ss";
+            const queryLabels = timeFrame.map((t) => format(new Date(t.start.getTime()), formatLabel));
             const queryValues = queriesInTime;
 
             const newData = {
@@ -191,9 +188,17 @@ const Stats = () => {
                             callback: function (value) {
                                 return queryData && Number.isInteger(value) ? value : '';
                             },
+                            fontColor: "rgba(255, 255, 255, 0.8)"
                         },
                     },
                 ],
+                xAxes: [
+                    {
+                        ticks: {
+                            fontColor: "rgba(255, 255, 255, 0.8)"
+                        }
+                    }
+                ]
             },
             animation: {
                 onComplete: function () {

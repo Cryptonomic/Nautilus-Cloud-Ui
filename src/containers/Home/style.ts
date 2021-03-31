@@ -344,7 +344,7 @@ export const ChartContainer = styled("div")({
 
 export const ChartBg = styled(Paper)({
   backgroundColor: "#232325",
-  boxShadow: "0 5px 5px 0 rgba(0, 0, 0, 0.5)",
+  boxShadow: "none",
   borderRadius: "5px",
   padding: "25px 30px 15px",
 });

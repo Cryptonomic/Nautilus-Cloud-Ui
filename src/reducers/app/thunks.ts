@@ -1,9 +1,10 @@
 import axios from 'axios';
+import { startOfHour, endOfHour, endOfDay, startOfDay, sub, eachDayOfInterval, eachHourOfInterval } from 'date-fns'
 
 import http from '../../utils/httpService';
 import { createItemsMap } from '../../utils/general';
 import { Plan } from '../../types';
-import { PaymentSubscriptionStatus, BucketFramesTime, BucketFramesName } from './types';
+import { PaymentSubscriptionStatus, BucketFramesName } from './types';
 
 export const getPlans = async () => {
     try {
@@ -159,16 +160,6 @@ export const getSession = async (sessionId: string) => {
     }
 };
 
-const getTimeFrame = (timeNow, frame, bucket) => {
-    const timeFrame = [timeNow];
-    let time = timeNow;
-    for(let i = frame; i > 1; i--) {
-        time = time - bucket;
-        timeFrame.push(time)
-    }
-    return timeFrame;
-}
-
 export const getQueryRate = async (time?: string) => {
     const timeNow = new Date().getTime();
     let timestamp;
@@ -176,16 +167,16 @@ export const getQueryRate = async (time?: string) => {
 
     switch (time) {
         case BucketFramesName.LAST30DAYS:
-            timeFrame = getTimeFrame(timeNow, 30, BucketFramesTime.LAST30DAYS);
-            timestamp = timeNow - (1000*60*60*24*30);
+            timeFrame = eachDayOfInterval({ start: sub(startOfDay(new Date(timeNow)), { days: 29 }), end: startOfDay(new Date(timeNow)) }).map((d) => ({ start: d, end: endOfDay(d)}));
+            timestamp = sub(startOfDay(new Date(timeNow)), { days: 29 });
             break;
         case BucketFramesName.LAST7DAYS:
-            timeFrame = getTimeFrame(timeNow, 7, BucketFramesTime.LAST7DAYS);
-            timestamp = timeNow - (1000*60*60*24*7);
+            timeFrame = eachDayOfInterval({ start: sub(startOfDay(new Date(timeNow)), { days: 6 }), end: startOfDay(new Date(timeNow)) }).map((d) => ({ start: d, end: endOfDay(d)}));
+            timestamp = sub(startOfDay(new Date(timeNow)), { days: 6 });
             break;
         default:
-            timeFrame = getTimeFrame(timeNow, 24, BucketFramesTime.LAST24H);
-            timestamp = timeNow - (1000*60*60*24);
+            timeFrame = eachHourOfInterval({ start: sub(startOfHour(new Date(timeNow)), { hours: 23 }), end: startOfHour(new Date(timeNow)) }).map((d) => ({ start: d, end: endOfHour(d)}));
+            timestamp = sub(startOfHour(new Date(timeNow)), { hours: 23 });
     }
 
     try {

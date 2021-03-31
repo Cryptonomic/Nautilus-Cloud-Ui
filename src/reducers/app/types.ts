@@ -17,12 +17,6 @@ export enum PaymentSubscriptionStatus {
   CREATED = 'SubscriptionCreated',
 }
 
-export enum BucketFramesTime {
-  LAST24H = 1000*60*60,
-  LAST7DAYS = 1000*60*60*24,
-  LAST30DAYS = 1000*60*60*24,
-}
-
 export enum BucketFramesName {
   LAST24H = 'Last 24 hours',
   LAST7DAYS = 'Last 7 Days',

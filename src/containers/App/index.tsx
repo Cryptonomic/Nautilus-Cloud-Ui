@@ -136,7 +136,9 @@ const App = () => {
         return !location.pathname.includes('home');
     };
 
-    const onPressPrices = () => pricesRef.current.scrollIntoView();
+    const onPressPrices = () => pricesRef.current.scrollIntoView({
+        behavior: 'smooth'
+    });
 
     const onUpgrade = async () => {
         if (subscriptionPro && subscriptionPro.status === PaymentSubscriptionStatus.ACTIVE) {
