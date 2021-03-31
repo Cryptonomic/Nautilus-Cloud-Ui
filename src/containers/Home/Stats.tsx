@@ -140,7 +140,7 @@ const Stats = () => {
                 return 0;
             });
 
-            const formatLabel = (BucketFramesName.LAST30DAYS === time || BucketFramesName.LAST7DAYS === time) ? "yyyy-MM-dd" : "yyyy-MM-dd HH:mm:ss";
+            const formatLabel = (BucketFramesName.LAST30DAYS === time || BucketFramesName.LAST7DAYS === time) ? "yyyy-MM-dd" : "yyyy-MM-dd HH";
             const queryLabels = timeFrame.map((t) => format(new Date(t.start.getTime()), formatLabel));
             const queryValues = queriesInTime;
 
