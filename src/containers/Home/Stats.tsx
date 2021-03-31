@@ -108,55 +108,8 @@ const Stats = () => {
 
             const [queryRate, timeFrame] = await getQueryRate(time);
 
-            if (!queryRate.length) {
-                const newData = {
-                    labels: [],
-                    datasets: [
-                        {
-                            label: '',
-                            fill: true,
-                            lineTension: 0.1,
-                            backgroundColor: 'tranparent',
-                            borderColor: 'transparent',
-                            borderCapStyle: 'butt',
-                            borderDash: [],
-                            borderDashOffset: 0.0,
-                            borderJoinStyle: 'miter',
-                            pointBorderColor: 'transparent',
-                            pointBackgroundColor: 'transparent',
-                            pointBorderWidth: 1,
-                            pointHoverRadius: 5,
-                            pointHoverBackgroundColor: 'transparent',
-                            pointHoverBorderColor: 'transparent',
-                            pointHoverBorderWidth: 2,
-                            pointRadius: 1,
-                            pointHitRadius: 10,
-                            data: [],
-                        },
-                        {
-                            label: '',
-                            fill: true,
-                            lineTension: 0.1,
-                            backgroundColor: transparentize('#90bcd0', 0.9),
-                            borderColor: '#90bcd0',
-                            borderCapStyle: 'butt',
-                            borderDash: [],
-                            borderDashOffset: 0.0,
-                            borderJoinStyle: 'miter',
-                            pointBorderColor: 'rgba(75,192,192,1)',
-                            pointBackgroundColor: '#fff',
-                            pointBorderWidth: 1,
-                            pointHoverRadius: 5,
-                            pointHoverBackgroundColor: 'rgba(75,192,192,1)',
-                            pointHoverBorderColor: 'rgba(220,220,220,1)',
-                            pointHoverBorderWidth: 2,
-                            pointRadius: 1,
-                            pointHitRadius: 10,
-                            data: [],
-                        },
-                    ],
-                };
-                setQueryData(newData);
+            if (!queryRate) {
+                setQueryData(null);
                 return;
             }
 
