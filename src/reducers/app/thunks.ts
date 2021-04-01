@@ -181,7 +181,7 @@ export const getQueryRate = async (time?: string) => {
 
     try {
         const response = await http.get(
-            `https://dev1-nc2-03.cryptonomic-infra.tech/users/me/stats/aggregated?from=${timestamp}`
+            `https://dev1-nc2-03.cryptonomic-infra.tech/users/me/stats/aggregated?from=${timestamp.getTime()}`
         );
         if (!response.data.length) {
             return [];
