@@ -50,8 +50,6 @@ const {
     devInfo,
     prodConseil,
     prodTezos,
-    devConseil,
-    devTezos,
     devEdoConseil,
     devEdoTezos
 } = config;
@@ -62,8 +60,8 @@ const mainUrls = {
         tezos: [prodTezos],
     },
     dev: {
-        conseil: [devConseil, devEdoConseil],
-        tezos: [devTezos, devEdoTezos],
+        conseil: [devEdoConseil],
+        tezos: [devEdoTezos],
     },
 };
 
@@ -186,11 +184,11 @@ const Keys = (props) => {
                                         <CopyButton
                                             txt={url}
                                         />                              
-                                        {apiKeys[selectedKey].environment === 'dev' && (
+                                        {/* {apiKeys[selectedKey].environment === 'dev' && (
                                             <Typography >
                                                {url.includes('edo') ? '(Edo2net)' : '(Delphinet)'}
                                             </Typography>
-                                        )}                                                  
+                                        )}                                                   */}
                                     </Grid>
                                     )}
                                 </Grid>
@@ -209,11 +207,11 @@ const Keys = (props) => {
                                         <CopyButton
                                             txt={url}
                                         />
-                                        {apiKeys[selectedKey].environment === 'dev' && (
+                                        {/* {apiKeys[selectedKey].environment === 'dev' && (
                                             <Typography>
                                                {url.includes('edo') ? '(Edo2net)' : '(Delphinet)'}
                                             </Typography>
-                                        )}
+                                        )} */}
                                     </Grid>
                                     )}
                                 </Grid>
