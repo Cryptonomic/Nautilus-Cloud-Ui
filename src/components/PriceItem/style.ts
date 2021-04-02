@@ -108,3 +108,13 @@ export const ButtonWrapper = withStyles({
         textTransform: 'none',
     },
 })(Button);
+
+export const AwaitingPaymentText = styled('div')({
+    fontFamily: 'Montserrat',
+    fontStyle: 'normal',
+    fontWeight: 500,
+    fontSize: '16px',
+    lineHeight: '20px',
+    marginLeft: 'auto',
+    width: '100px',
+})

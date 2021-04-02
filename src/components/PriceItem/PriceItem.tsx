@@ -9,6 +9,7 @@ export interface PriceItemProps {
     selected: boolean;
     background: string;
     opacity?: number;
+    subscriptionCreated?: boolean;
     direction?: Direction;
     style?: React.CSSProperties;
     onUpgrade?: () => void;
@@ -24,6 +25,7 @@ import {
     ItemImage,
     ButtonWithCheckWrapper,
     ButtonWrapper,
+    AwaitingPaymentText,
 } from './style';
 
 const PriceItem: React.FC<PriceItemProps> = ({
@@ -36,6 +38,7 @@ const PriceItem: React.FC<PriceItemProps> = ({
     selected = false,
     opacity = 1,
     direction = Direction.Column,
+    subscriptionCreated,
     onUpgrade,
 }) => {
     return (
@@ -78,7 +81,8 @@ const PriceItem: React.FC<PriceItemProps> = ({
                     {buttonLabel}
                 </ButtonWithCheckWrapper>
             )}
-            {!selected && buttonLabel && <ButtonWrapper isRow={direction === Direction.Row} onClick={onUpgrade}>{buttonLabel}</ButtonWrapper>}
+            {!selected && buttonLabel && !subscriptionCreated && <ButtonWrapper isRow={direction === Direction.Row} onClick={onUpgrade}>{buttonLabel}</ButtonWrapper>}
+            {!selected && buttonLabel && subscriptionCreated && <AwaitingPaymentText>{buttonLabel}</AwaitingPaymentText>}
         </PriceItemWrapper>
     );
 };

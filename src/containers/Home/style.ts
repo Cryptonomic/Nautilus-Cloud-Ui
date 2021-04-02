@@ -312,6 +312,9 @@ export const TimeContainer = styled("div")({
 export const RefreshButton = withStyles({
   root: {
     maxWidth: "220px",
+    '&:hover': {
+      opacity: 0.5,
+    }
   },
   wrapper: {
     display: "flex",

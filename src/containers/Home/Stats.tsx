@@ -6,7 +6,7 @@ import InfoOutlinedIcon from '@material-ui/icons/InfoOutlined';
 import Grid from '@material-ui/core/Grid';
 import { Line } from 'react-chartjs-2';
 import Chart from 'chart.js';
-import { format } from 'date-fns'
+import { format, isSameDay } from 'date-fns'
 
 import BoxTable from '../../components/BoxTable';
 
@@ -140,8 +140,7 @@ const Stats = () => {
                 return 0;
             });
 
-            const formatLabel = (BucketFramesName.LAST30DAYS === time || BucketFramesName.LAST7DAYS === time) ? "yyyy-MM-dd" : "yyyy-MM-dd HH";
-            const queryLabels = timeFrame.map((t) => format(new Date(t.start.getTime()), formatLabel));
+            const queryLabels = timeFrame.map((t, index) => format(new Date(t.start.getTime()), (BucketFramesName.LAST30DAYS === time || BucketFramesName.LAST7DAYS === time) ? "yyyy-MM-dd" : index > 0 && !isSameDay(t.start.getTime(), timeFrame[index-1].start.getTime()) ? 'yyyy-MM-dd HH:mm' : 'HH:mm'));
             const queryValues = queriesInTime;
 
             const newData = {
@@ -210,6 +209,10 @@ const Stats = () => {
         };
     };
 
+    const onRefresh = async () => {
+        await getQueryData(times[time]);
+    }
+
     useEffect(() => {
         const fetchData = async () => {
             await getQueryData();
@@ -241,6 +244,16 @@ const Stats = () => {
                                 </option>
                             ))}
                         </CustomSelect>
+                    </Grid>
+                    <Grid item xs={6}>
+                        <Grid container justify="flex-end">
+                            <RefreshButton
+                                showLabel
+                                label="Refresh"
+                                onClick={onRefresh}
+                                icon={<RefreshIcon color="primary" />}
+                            />
+                        </Grid>
                     </Grid>
                 </Grid>
             </TimeContainer>

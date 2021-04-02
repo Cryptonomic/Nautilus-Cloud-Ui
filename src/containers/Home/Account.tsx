@@ -209,12 +209,13 @@ const Account = () => {
                                                     ? activePlan.planId === plan.id
                                                         ? 'Your plan'
                                                         : plan.id === 2
-                                                        ? 'Upgrade'
+                                                        ? !!subscriptionPro ? 'Awaiting payment' : 'Upgrade'
                                                         : ''
                                                     : plan.id === 1
                                                     ? 'Your plan'
-                                                    : 'Upgrade'
+                                                    : !!subscriptionPro ? 'Awaiting payment' : 'Upgrade'
                                             }
+                                            subscriptionCreated={!!subscriptionPro}
                                             selected={
                                                 activePlan
                                                     ? activePlan.planId === plan.id

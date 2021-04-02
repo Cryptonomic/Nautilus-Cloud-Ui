@@ -144,6 +144,9 @@ export const SupportWrapper = styled('div')({
 
 export const SupportLinkWrapper = styled('div')({
   alignItems: 'center',
+  '&:hover': {
+    opacity: 0.5,
+  }
 });
 
 export const SupportLink = styled('a')({

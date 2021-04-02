@@ -46,7 +46,7 @@ export const ButtonWrapper = withStyles({
     lineHeight: "20px",
     textAlign: "center",
     letterSpacing: "1px",
-    textTransform: "capitalize",
+    textTransform: "initial",
     padding: "8px 15px"
   }
 })(Button);

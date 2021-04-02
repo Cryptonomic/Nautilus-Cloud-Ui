@@ -389,6 +389,7 @@ const Keys = (props) => {
                                         </SubTitle>
                                         <Subscription
                                             basic={activePlan.planId === 1}
+                                            subscriptionCreated={!!subscryptionPro}
                                             onUpgrade={onUpgrade}
                                             onRenew={onRenew}
                                         />
