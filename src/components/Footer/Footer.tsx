@@ -11,6 +11,7 @@ import {
   FooterSocialLink,
   FooterTerms,
   FooterPolicy,
+  FooterText,
 } from "./style";
 
 import CustomImg from "../../components/CustomImg";
@@ -56,27 +57,27 @@ const Footer = () => {
           <Typography variant="subtitle2">© 2021 Cryptonomic Inc</Typography>
           <FooterSocial container alignItems="center">
             <FooterSocialLink onClick={() => openUrl(medium)}>
-              <CustomImg src={MediumIcon} size="1rem" name="medium-icon" />
+              <CustomImg hover src={MediumIcon} size="1rem" name="medium-icon" />
             </FooterSocialLink>
             <FooterSocialLink onClick={() => openUrl(gitHub)}>
-              <CustomImg src={GithubIcon} size="1rem" name="github-icon" />
+              <CustomImg hover src={GithubIcon} size="1rem" name="github-icon" />
             </FooterSocialLink>
             <FooterSocialLink onClick={() => openUrl(twitter)}>
-              <CustomImg src={TwitterIcon} size="1rem" name="twitter-icon" />
+              <CustomImg hover src={TwitterIcon} size="1rem" name="twitter-icon" />
             </FooterSocialLink>
             <FooterSocialLink onClick={() => openUrl(riot)}>
-              <CustomImg src={RiotIcon} size="1rem" name="riot-icon" />
+              <CustomImg hover src={RiotIcon} size="1rem" name="riot-icon" />
             </FooterSocialLink>
 
           </FooterSocial>
           <FooterTerms variant="subtitle2">
             <FooterLink onClick={() => openUrl(termsOfService)}>
-              Terms of Service
+              <FooterText>Terms of Service</FooterText>
             </FooterLink>
           </FooterTerms>
           <FooterPolicy variant="subtitle2">
             <FooterLink onClick={() => openUrl(privacyPolicy)}>
-              Privacy Policy
+              <FooterText>Privacy Policy</FooterText>
             </FooterLink>
           </FooterPolicy>
         </FooterList>

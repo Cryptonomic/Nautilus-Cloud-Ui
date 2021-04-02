@@ -9,6 +9,7 @@ import {
   MenuListItemIcon,
   LinkWrapper as Link,
   BottomNavigationActionWrapper as BottomNavigationAction,
+  MenuText,
 } from "./style";
 export interface MenuButtonProps {
   label: string | ReactElement;
@@ -61,7 +62,7 @@ const MenuButton: React.FC<MenuButtonProps> = ({
                 key={name}
                 onClick={action || (() => onClickItem(link))}
               >
-                <Typography variant="inherit">{name}</Typography>
+                <MenuText variant="inherit">{name}</MenuText>
                 {!offIcon && (
                   <MenuListItemIcon>
                     <OpenInNewIcon fontSize="small" />

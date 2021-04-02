@@ -4,10 +4,10 @@ const http = axios.create()
 
 export const rebuildHttp = () => {
 	let headers = {}
-	if (localStorage.accessToken) {
+	if (localStorage.getItem('accessToken')) {
 		headers = {...headers, Authorization: 'Bearer ' + localStorage.accessToken}
 	}
-	
+
 	http.defaults.headers.common = headers
 }
 

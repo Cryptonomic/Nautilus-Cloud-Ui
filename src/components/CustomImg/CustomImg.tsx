@@ -11,6 +11,7 @@ const CustomIcon = React.forwardRef(
             maxwidth,
             margin,
             style,
+            hover = false,
             onClick,
         }: {
             src: string[] | string;
@@ -18,6 +19,7 @@ const CustomIcon = React.forwardRef(
             size?: string;
             maxwidth?: string;
             style?: React.CSSProperties,
+            hover?: boolean;
             margin?: string;
             onClick?: () => void;
         },
@@ -30,7 +32,7 @@ const CustomIcon = React.forwardRef(
         }
 
         return (
-            <Wrapper size={size} maxwidth={maxwidth} margin={margin} ref={ref} onClick={onClick} style={style}>
+            <Wrapper hover={hover} size={size} maxwidth={maxwidth} margin={margin} ref={ref} onClick={onClick} style={style}>
                 <Img srcSet={srcSet || src} alt={name} />
             </Wrapper>
         );

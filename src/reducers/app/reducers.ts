@@ -1,8 +1,8 @@
-import { Token, UserInfo, AppState, UserState } from "../../types";
-import { Actions, AccessTokenTypeKeys, UserInfoTypeKeys } from "./types";
+import { Token, UserState } from "../../types";
+import { Actions, AccessTokenTypeKeys, UserInfoTypeKeys, PaymentState, PaymentActions } from "./types";
 import { ActionTypeStates } from '../../models'
 
-let initialTokenState: Token = {
+const initialTokenState: Token = {
   accessToken: null,
 };
 /**
@@ -19,7 +19,7 @@ export const token = (
       state = { ...state, ...action.payload };
       break;
     case AccessTokenTypeKeys.REMOVE_ACCESS_TOKEN:
-      state = { ...state, ...initialTokenState };
+      state = { ...initialTokenState };
       break;
     default:
       break;
@@ -29,7 +29,7 @@ export const token = (
 /**
  * user
  */
-let initialUserInfoState: UserState = {
+const initialUserInfoState: UserState = {
   status: ActionTypeStates.INPROGRESS,
 	redirectTo: null,
 	error: null,
@@ -45,10 +45,41 @@ export const userInfo = (
       state = { ...state, ...action.payload };
       break;
     case UserInfoTypeKeys.REMOVE_USER_INFO:
-      state = { ...state, ...initialUserInfoState };
+      state = { ...initialUserInfoState };
       break;
     default:
       break;
   }
   return state;
+}
+
+// Payment state
+
+const initialPaymentState: PaymentState = {
+  plans: [],
+  activePlan: null,
+  subscriptions: [],
+  subscriptionsMap: {},
+  subscriptionPro: null,
+  invoices: [],
+  accountActiveTab: 0,
+}
+
+export const payment = (state: PaymentState = initialPaymentState, action: Actions) => {
+  switch (action.type) {
+    case PaymentActions.SET_ACCOUNT_ACTIVE_TAB:
+      return { ...state, accountActiveTab: action.accountActiveTab };
+    case PaymentActions.SET_PAYMENT_PLANS:
+      return { ...state, plans: action.plans };
+    case PaymentActions.SET_ACTIVE_PLAN:
+      return { ...state, activePlan: action.activePlan };
+    case PaymentActions.SET_SUBSCRIPTIONS:
+      return { ...state, subscriptions: action.subscriptions, subscriptionsMap: action.subscriptionsMap, subscriptionPro: action.subscriptionPro };
+    case PaymentActions.SET_INVOICES:
+      return { ...state, invoices: action.invoices };
+    case PaymentActions.RESET_PAYMENT:
+      return { ...initialPaymentState };
+    default:
+      return state;
+  }
 };

@@ -74,6 +74,9 @@ export const UserName = styled(Typography)({
   fontWeight: 500,
   letterSpacing: "1px",
   marginLeft: "5px",
+  '&:hover': {
+    opacity: 0.5,
+  }
 });
 
 export const LeftPanel = styled(Grid)({
@@ -94,6 +97,23 @@ export const ArrowDownIconWrapper = styled(ArrowDownIcon)({
 
 export const MenuGridWrapper = styled(Grid)({
   fontSize: "16px",
+  '&:hover': {
+    opacity: 0.5,
+  }
 });
 
 export const GithubIconWhiteWrapper = styled(GithubIconWhite)({});
+
+export const TopBarText = styled('span')({
+  '&:hover': {
+    opacity: 0.5,
+  }
+});
+
+export const ChatLink = styled('a')({
+  textDecoration: 'none',
+  color: 'white',
+  '&:hover': {
+    opacity: 0.5,
+  }
+});

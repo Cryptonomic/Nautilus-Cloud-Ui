@@ -3,13 +3,13 @@ import Grid from "@material-ui/core/Grid";
 
 export interface SubscriptionProps {
   basic: boolean;
-  renew?: () => void;
-  upgrade?: () => void;
+  onRenew?: () => void;
+  onUpgrade?: () => void;
 }
 import { Wrapper, Description, ButtonWrapper } from "./style";
 const Subscription: React.FC<SubscriptionProps> = ({
-  renew,
-  upgrade,
+  onRenew,
+  onUpgrade,
   basic = true,
 }) => {
   return (
@@ -30,8 +30,8 @@ const Subscription: React.FC<SubscriptionProps> = ({
           </Description>
         </Grid>
         <Grid>
-          {basic && <ButtonWrapper onClick={upgrade}>Upgrade</ButtonWrapper>}
-          {!basic && <ButtonWrapper onClick={renew}>Renew</ButtonWrapper>}
+          {basic && <ButtonWrapper onClick={onUpgrade}>Upgrade</ButtonWrapper>}
+          {!basic && <ButtonWrapper onClick={onRenew}>Extend</ButtonWrapper>}
         </Grid>
       </Grid>
     </Wrapper>

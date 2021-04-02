@@ -1,5 +1,6 @@
 import React, { useEffect } from "react";
 import Grid from "@material-ui/core/Grid";
+import { Link } from 'react-router-dom';
 
 import MenuButton from "../MenuButton";
 import CustomImg from "../CustomImg";
@@ -15,6 +16,8 @@ import {
   RightPanel,
   ArrowDownIconWrapper,
   MenuGridWrapper as MenuGrid,
+  TopBarText,
+  ChatLink,
 } from "./style";
 import logo from "../../assets/img/logo.svg";
 import { ReactComponent as GitHubIcon } from "../../assets/img/github.svg";
@@ -27,9 +30,10 @@ const TopBar = ({
   drawer = "",
   userEmail,
   isRootPage,
-  background = "transparent",
+  background = "",
   onLogin,
   onLogout,
+  onPrices,
   style
 }: {
   drawer?: number | string;
@@ -39,6 +43,7 @@ const TopBar = ({
   background?: string;
   onLogin?: () => void;
   onLogout?: () => void;
+  onPrices?: () => void;
 }) => {
   const resourcesItems = [
     { name: "Tezos Developer Handbook", link: handbook },
@@ -91,11 +96,11 @@ const TopBar = ({
               justify={!isRootPage ? "flex-start" : "space-between"}
               alignItems="center"
             >
-              {isRootPage && <MenuButton label="Prices" />}
+              {isRootPage && <span onClick={onPrices}><MenuButton label={<TopBarText>Prices</TopBarText>} /></span>}
               <MenuButton
                 label={
                   <MenuGrid container alignItems="center" wrap="nowrap">
-                    Resources
+                    <span>Resources</span>
                     <ArrowDownIconWrapper />
                   </MenuGrid>
                 }
@@ -107,7 +112,7 @@ const TopBar = ({
               <MenuButton
                 label={
                   <MenuGrid container alignItems="center" wrap="nowrap">
-                    Docs
+                    <span>Docs</span>
                     <ArrowDownIconWrapper />
                   </MenuGrid>
                 }
@@ -124,7 +129,7 @@ const TopBar = ({
             >
               {isRootPage && (
                 <MenuButton
-                  label="Join Our Element Chat"
+                  label={<ChatLink href="https://matrix.to/#/!heGqMNcsOSHGPxrMJs:cryptonomic.tech" target="_blank">Join Our Element Chat</ChatLink>}
                   style={{ marginRight: "4vw" }}
                 />
               )}
@@ -143,7 +148,7 @@ const TopBar = ({
               {userEmail && (
                 <MenuButton
                   label={
-                    <Grid
+                    <MenuGrid
                       container
                       alignItems="center"
                       justify="space-between"
@@ -156,7 +161,7 @@ const TopBar = ({
                       />
                       <UserName>{userEmail.split("@")[0]}</UserName>
                       <ArrowDownIconWrapper />
-                    </Grid>
+                    </MenuGrid>
                   }
                   items={[
                     {

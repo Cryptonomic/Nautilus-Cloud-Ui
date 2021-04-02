@@ -15,8 +15,8 @@ export type FAQItem = IFAQItem;
 export type InvoiceTableItem = IInvoiceTableItem;
 
 export enum Plan {
-  Basic = "Basic",
-  Pro = "Pro",
+  Basic = 1,
+  Pro = 2,
 }
 
 export enum Direction {

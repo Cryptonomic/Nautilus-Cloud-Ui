@@ -1,4 +1,119 @@
-import { Token, UserInfo, AppState, UserState } from "../../types";
+import { Token, UserState, Plan } from "../../types";
+
+// Payment types
+
+export enum PaymentActions {
+  SET_PAYMENT_PLANS = 'SET_PAYMENT_PLANS',
+  SET_ACTIVE_PLAN = 'SET_ACTIVE_PLAN',
+  SET_SUBSCRIPTIONS = 'SET_SUBSCRIPTIONS',
+  SET_INVOICES = 'SET_INVOICES',
+  SET_ACCOUNT_ACTIVE_TAB = 'SET_ACCOUNT_ACTIVE_TAB',
+  RESET_PAYMENT = 'RESET_PAYMENT',
+}
+
+export enum PaymentSubscriptionStatus {
+  ACTIVE = 'SubscriptionActive',
+  INACTIVE = 'SubscriptionDeactivated',
+  CREATED = 'SubscriptionCreated',
+}
+
+export enum BucketFramesName {
+  LAST24H = 'Last 24 hours',
+  LAST7DAYS = 'Last 7 Days',
+  LAST30DAYS = 'Last 30 Days',
+}
+export interface PaymentPlan {
+  id: number;
+  name: Plan;
+  price: number;
+  publicDescription: string;
+  type: string;
+  numberOfRequests: number | null;
+  lengthInDays: number;
+  isDefault: boolean;
+  startDate: string | null;
+  endDate: string | null;
+}
+
+export interface PaymentActivePlan {
+  planId: number;
+  usedRequests: number;
+  maxRequests: number | null;
+  started: string;
+  ends: string;
+}
+
+export interface PaymentSubscription {
+  subscriptionId: number;
+  userId: number;
+  planId: number;
+  startDate: string;
+  endDate: string;
+  status: PaymentSubscriptionStatus;
+}
+
+export interface PaymentInvoice {
+  invoiceId: number;
+  userId: number;
+  planId: number;
+  subscriptionId: number;
+  externalInvoiceId: string;
+  method: string;
+  status: string;
+  timestamp: string;
+  startDate: string;
+  endDate: string;
+  amount: number;
+  currency: string;
+  name: null;
+  email: string;
+  taxId: null;
+  businessAddress: null;
+  addressFrom: null;
+  addressTo: null;
+  url: string;
+}
+
+export interface PaymentState {
+  plans: PaymentPlan[];
+  activePlan: PaymentActivePlan | null;
+  subscriptions: PaymentSubscription[];
+  subscriptionsMap: Record<string, PaymentSubscription>;
+  subscriptionPro: PaymentSubscription | null;
+  invoices: PaymentInvoice[];
+  accountActiveTab: number;
+}
+
+export interface AccountActiveTabAction {
+  type: typeof PaymentActions.SET_ACCOUNT_ACTIVE_TAB;
+  accountActiveTab: number;
+}
+
+export interface PaymentPlansAction {
+  type: typeof PaymentActions.SET_PAYMENT_PLANS;
+  plans: PaymentPlan[];
+}
+
+export interface PaymnetActivePlanAction {
+  type: typeof PaymentActions.SET_ACTIVE_PLAN;
+  activePlan: PaymentActivePlan;
+}
+
+export interface PaymentSubscriptionsAction {
+  type: typeof PaymentActions.SET_SUBSCRIPTIONS;
+  subscriptions: PaymentSubscription[];
+  subscriptionsMap: Record<string, PaymentSubscription>;
+  subscriptionPro: PaymentSubscription | null;
+}
+
+export interface PaymentInvoicesAction {
+  type: typeof PaymentActions.SET_INVOICES;
+  invoices: PaymentInvoice[];
+}
+
+export interface PaymentResetAction {
+  type: typeof PaymentActions.RESET_PAYMENT;
+}
 
 /**
  * token
@@ -36,4 +151,10 @@ export type Actions =
   | ISetAccessTokenAction
   | IRemoveAccessTokenAction
   | ISetUserInfoAction
-  | IRemoveUserInfoAction;
+  | IRemoveUserInfoAction
+  | PaymentPlansAction
+  | PaymnetActivePlanAction
+  | PaymentSubscriptionsAction
+  | PaymentInvoicesAction
+  | PaymentResetAction
+  | AccountActiveTabAction;

@@ -5,11 +5,13 @@ export const Wrapper = styled('span')(
         size,
         maxwidth,
         margin,
+        hover,
         onClick,
     }: {
         size?: string;
         maxwidth?: string;
         margin?: string;
+        hover?: boolean;
         onClick?: () => void;
     }) => ({
         fontSize: size || 'inherit',
@@ -24,6 +26,9 @@ export const Wrapper = styled('span')(
         overflow: 'hidden',
         userSelect: 'none',
         cursor: onClick ? 'pointer' : '',
+        '&:hover': {
+            opacity: hover ? 0.5 : 1
+        }
     })
 );
 

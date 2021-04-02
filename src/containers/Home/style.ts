@@ -88,11 +88,11 @@ export const Details = styled(Grid)({
   marginTop: "32px",
   display: "flex",
   column: "row",
-  justifyContent: "center",
+  justifyContent: "flex-start",
 });
 
 export const Resources = styled(Grid)({
-  // margin: '80px 0px 0px 230px',
+  marginBottom: "50px"
 });
 
 export const DetailsBg = styled(Paper)({
@@ -312,6 +312,9 @@ export const TimeContainer = styled("div")({
 export const RefreshButton = withStyles({
   root: {
     maxWidth: "220px",
+    '&:hover': {
+      opacity: 0.5,
+    }
   },
   wrapper: {
     display: "flex",
@@ -344,7 +347,7 @@ export const ChartContainer = styled("div")({
 
 export const ChartBg = styled(Paper)({
   backgroundColor: "#232325",
-  boxShadow: "0 5px 5px 0 rgba(0, 0, 0, 0.5)",
+  boxShadow: "none",
   borderRadius: "5px",
   padding: "25px 30px 15px",
 });
@@ -379,6 +382,7 @@ export const ChartLegendText = styled(Typography)({
 
 export const ChartLineWrapper = styled("div")({
   marginTop: "18px",
+  position: "relative"
 });
 
 export const BoxesContainer = styled("div")({
@@ -420,6 +424,9 @@ export const TabWrapper = withStyles({
     minWidth: "auto",
     padding: "6px 0px",
     margin: "0px 25px 0px 0px",
+    '&:hover': {
+      opacity: 0.5
+    }
   },
 })(Tab);
 
@@ -483,6 +490,7 @@ export const Hint = styled(Typography)({
   lineHeight: "1.0625rem",
   fontWeight: 500,
   letterSpacing: "normal",
+  marginTop: "10px",
 
   "&.caution": {
     color: "#D96378",
@@ -523,4 +531,23 @@ export const BillingInfoWrapper = styled(Grid)({
 
 export const SmallText = styled(Typography)({
   fontSize: "0.75rem",
+});
+
+export const NoDataWrapper = styled('div')({
+  backgroundColor: 'transparent',
+  width: "100%",
+  height: "100%",
+  position: 'absolute',
+  alignSelf: 'center',
+  alignItems: 'center',
+  justifyContent: 'center',
+  display: 'flex'
+});
+
+export const NoData = styled('div')({
+  width: '300px',
+  height: '100px',
+  display: 'flex',
+  alignItems: 'center',
+  justifyContent: 'center'
 });

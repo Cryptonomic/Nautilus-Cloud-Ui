@@ -55,7 +55,7 @@ const CallBack: React.FC<RouteComponentProps> = (props) => {
                 }
                 const token: IToken = {
                     accessToken
-                } 
+                }
                 dispatch(setAccessToken(token));
                 const { header, payload } = response.data;
                 if (header.payloadType === 'REGISTERED') {
@@ -94,6 +94,15 @@ const CallBack: React.FC<RouteComponentProps> = (props) => {
             const response = await axios.post(`${config.url}/users/register`, body, {
                 withCredentials: true,
             });
+            let accessToken = null;
+                if(response.headers["set-authorization"]){
+                    //remove Bearer from the value
+                    accessToken =  response.headers["set-authorization"].substr(7);
+                }
+                const token: IToken = {
+                    accessToken
+                }
+            dispatch(setAccessToken(token));
             const { header, payload } = response.data;
             if (header.payloadType === 'REGISTERED') {
                 localStorage.setItem('userInfo', JSON.stringify(payload));
