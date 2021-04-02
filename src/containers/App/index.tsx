@@ -454,11 +454,11 @@ const App = () => {
                                     ? activePlan.planId === plan.id
                                         ? 'Your plan'
                                         : plan.id === 2
-                                        ? !!subscriptionPro ? 'Awaiting payment' : 'Upgrade'
+                                        ? 'Upgrade'
                                         : ''
                                     : plan.id === 1
                                     ? 'Your plan'
-                                    : !!subscriptionPro ? 'Awaiting payment' : 'Upgrade'
+                                    : 'Upgrade'
                             }
                             selected={activePlan ? activePlan.planId === plan.id : plan.id === 1}
                             background={plansBg[plan.id]}
