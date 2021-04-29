@@ -50,8 +50,8 @@ const {
     devInfo,
     prodConseil,
     prodTezos,
-    devEdoConseil,
-    devEdoTezos
+    devConseil,
+    devTezos
 } = config;
 
 const mainUrls = {
@@ -60,8 +60,8 @@ const mainUrls = {
         tezos: [prodTezos],
     },
     dev: {
-        conseil: [devEdoConseil],
-        tezos: [devEdoTezos],
+        conseil: [devConseil],
+        tezos: [devTezos],
     },
 };
 
