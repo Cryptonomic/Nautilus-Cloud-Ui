@@ -343,7 +343,7 @@ const App = () => {
             <FooterContainer container justify="center">
                 <FooterTitle item>
                     <Typography variant="h3" align="center" component="div">
-                        A Note on Decenteralization
+                        A Note on Decentralization
                     </Typography>
                     <Typography variant="body1" align="center" component="p">
                         Cryptonomic is committed to decentralization and disintermediation. With our
