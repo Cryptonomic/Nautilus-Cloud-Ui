@@ -60,11 +60,11 @@ const mainUrls = {
     prod: {
         conseil: [prodConseil],
         tezos: [prodTezos],
-      },
-      dev: {
+    },
+    dev: {
         conseil: [devConseil, devGranadaConseil],
         tezos: [devTezos, devGranadaTezos],
-      },
+    },
 };
 
 const Keys = (props) => {
