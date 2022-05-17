@@ -52,8 +52,8 @@ const {
     prodTezos,
     devConseil,
     devTezos,
-    devHangzhouConseil,
-    devHangzhouTezos
+//     devHangzhouConseil,
+//     devHangzhouTezos
 } = config;
 
 const mainUrls = {
@@ -62,8 +62,8 @@ const mainUrls = {
         tezos: [prodTezos],
     },
     dev: {
-        conseil: [devConseil, devHangzhouConseil],
-        tezos: [devTezos, devHangzhouTezos],
+        conseil: [devConseil],
+        tezos: [devTezos],
     },
 };
 
@@ -165,13 +165,13 @@ const Keys = (props) => {
                                         </EndopointsSelectContainer>
                                     </Grid>
                                 </Grid>
-                                 {apiKeys[selectedKey].environment === "dev" && (
+<!--                                  {apiKeys[selectedKey].environment === "dev" && (
 				  <Grid item>
 				    <Typography variant="subtitle2" color="textSecondary">
 				      {devInfo}
 				    </Typography>
 				  </Grid>
-				)} 
+				)}  -->
                                 <Grid item>
                                     <Typography variant="subtitle1" component="div">
                                         {`Tezos ${getItemName(
@@ -186,13 +186,13 @@ const Keys = (props) => {
                                         <CopyButton
                                             txt={url}
                                         />                              
-					      {apiKeys[selectedKey].environment === "dev" && (
+<!-- 					      {apiKeys[selectedKey].environment === "dev" && (
 						<Typography>
 						  {url.includes("hangzhou")
 						    ? "(hangzhounet)"
 						    : "(granadanet)"}
 						</Typography>
-					      )}
+					      )} -->
                                     </Grid>
                                     )}
                                 </Grid>
@@ -211,13 +211,13 @@ const Keys = (props) => {
                                         <CopyButton
                                             txt={url}
                                         />
-						{apiKeys[selectedKey].environment === "dev" && (
-						  <Typography>
-						    {url.includes("hangzhou")
-						      ? "(hangzhounet)"
-						      : "(granadanet)"}
-						  </Typography>
-						)}
+// 						{apiKeys[selectedKey].environment === "dev" && (
+// 						  <Typography>
+// 						    {url.includes("hangzhou")
+// 						      ? "(hangzhounet)"
+// 						      : "(granadanet)"}
+// 						  </Typography>
+// 						)}
                                     </Grid>
                                     )}
                                 </Grid>
