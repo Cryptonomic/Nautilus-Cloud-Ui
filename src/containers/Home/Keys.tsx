@@ -52,8 +52,8 @@ const {
     prodTezos,
     devConseil,
     devTezos,
-    devHangzhouConseil,
-    devHangzhouTezos
+    devJakartaConseil,
+    devJakartaTezos
 } = config;
 
 const mainUrls = {
@@ -62,8 +62,8 @@ const mainUrls = {
         tezos: [prodTezos],
     },
     dev: {
-        conseil: [devConseil, devHangzhouConseil],
-        tezos: [devTezos, devHangzhouTezos],
+        conseil: [devConseil, devJakartaConseil],
+        tezos: [devTezos, devJakartaTezos],
     },
 };
 
@@ -171,7 +171,7 @@ const Keys = (props) => {
 				      {devInfo}
 				    </Typography>
 				  </Grid>
-				)} 
+				)}  
                                 <Grid item>
                                     <Typography variant="subtitle1" component="div">
                                         {`Tezos ${getItemName(
@@ -188,9 +188,9 @@ const Keys = (props) => {
                                         />                              
 					      {apiKeys[selectedKey].environment === "dev" && (
 						<Typography>
-						  {url.includes("hangzhou")
-						    ? "(hangzhounet)"
-						    : "(granadanet)"}
+						  {url.includes("jakarta")
+						    ? "(jakartanet)"
+						    : "(ithacanet)"}
 						</Typography>
 					      )}
                                     </Grid>
@@ -211,11 +211,11 @@ const Keys = (props) => {
                                         <CopyButton
                                             txt={url}
                                         />
-						{apiKeys[selectedKey].environment === "dev" && (
+ 						{apiKeys[selectedKey].environment === "dev" && (
 						  <Typography>
-						    {url.includes("hangzhou")
-						      ? "(hangzhounet)"
-						      : "(granadanet)"}
+						    {url.includes("jakarta")
+						      ? "(jakartanet)"
+						      : "(ithacanet)"}
 						  </Typography>
 						)}
                                     </Grid>
