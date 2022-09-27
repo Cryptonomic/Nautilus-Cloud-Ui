@@ -53,7 +53,12 @@ const {
     devConseil,
     devTezos,
     devJakartaConseil,
-    devJakartaTezos
+    devJakartaTezos,
+    devKathmanduConseil,
+    devKathmanduTezos
+
+
+    
 } = config;
 
 const mainUrls = {
@@ -62,8 +67,8 @@ const mainUrls = {
         tezos: [prodTezos],
     },
     dev: {
-        conseil: [devConseil, devJakartaConseil],
-        tezos: [devTezos, devJakartaTezos],
+        conseil: [devConseil,devKathmanduConseil],
+        tezos: [devTezos,devKathmanduTezos],
     },
 };
 
@@ -166,12 +171,12 @@ const Keys = (props) => {
                                     </Grid>
                                 </Grid>
                                  {apiKeys[selectedKey].environment === "dev" && (
-				  <Grid item>
-				    <Typography variant="subtitle2" color="textSecondary">
-				      {devInfo}
-				    </Typography>
-				  </Grid>
-				)}  
+                  <Grid item>
+                    <Typography variant="subtitle2" color="textSecondary">
+                      {devInfo}
+                    </Typography>
+                  </Grid>
+                )}  
                                 <Grid item>
                                     <Typography variant="subtitle1" component="div">
                                         {`Tezos ${getItemName(
@@ -186,18 +191,21 @@ const Keys = (props) => {
                                         <CopyButton
                                             txt={url}
                                         />                              
-					      {apiKeys[selectedKey].environment === "dev" && (
-						<Typography>
-						  {url.includes("jakarta")
-						    ? "(jakartanet)"
-						    : "(ithacanet)"}
-						</Typography>
-					      )}
+                          {apiKeys[selectedKey].environment === "dev" && (
+                        <Typography>
+
+                            {url.includes("kathmandu")
+                            ? "(kathmandunet)"
+                            : "(jakartanet)"}
+                           
+                        </Typography>
+                          )}
                                     </Grid>
                                     )}
                                 </Grid>
                                     
                                 <Grid item>
+
                                     <Typography variant="subtitle1" component="div">
                                         {`Conseil ${getItemName(
                                             apiKeys[selectedKey].environment
@@ -211,13 +219,16 @@ const Keys = (props) => {
                                         <CopyButton
                                             txt={url}
                                         />
- 						{apiKeys[selectedKey].environment === "dev" && (
-						  <Typography>
-						    {url.includes("jakarta")
-						      ? "(jakartanet)"
-						      : "(ithacanet)"}
-						  </Typography>
-						)}
+                        {apiKeys[selectedKey].environment === "dev" && (
+                          <Typography>
+                            
+                             {url.includes("kathmandu")
+                            ? "(kathmandunet)"
+                            : "(jakartanet)"}
+
+
+                          </Typography>
+                        )}
                                     </Grid>
                                     )}
                                 </Grid>
