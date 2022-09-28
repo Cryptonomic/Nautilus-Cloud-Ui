@@ -52,8 +52,6 @@ const {
     prodTezos,
     devConseil,
     devTezos,
-    devJakartaConseil,
-    devJakartaTezos
 } = config;
 
 const mainUrls = {
@@ -62,8 +60,8 @@ const mainUrls = {
         tezos: [prodTezos],
     },
     dev: {
-        conseil: [devConseil, devJakartaConseil],
-        tezos: [devTezos, devJakartaTezos],
+        conseil: [devConseil],
+        tezos: [devTezos],
     },
 };
 
@@ -186,13 +184,13 @@ const Keys = (props) => {
                                         <CopyButton
                                             txt={url}
                                         />                              
-					      {apiKeys[selectedKey].environment === "dev" && (
+					      {/* {apiKeys[selectedKey].environment === "dev" && (
 						<Typography>
 						  {url.includes("jakarta")
 						    ? "(jakartanet)"
 						    : "(ithacanet)"}
 						</Typography>
-					      )}
+					      )} */}
                                     </Grid>
                                     )}
                                 </Grid>
@@ -211,13 +209,13 @@ const Keys = (props) => {
                                         <CopyButton
                                             txt={url}
                                         />
- 						{apiKeys[selectedKey].environment === "dev" && (
+ 						{/* {apiKeys[selectedKey].environment === "dev" && (
 						  <Typography>
 						    {url.includes("jakarta")
 						      ? "(jakartanet)"
 						      : "(ithacanet)"}
 						  </Typography>
-						)}
+						)} */}
                                     </Grid>
                                     )}
                                 </Grid>
